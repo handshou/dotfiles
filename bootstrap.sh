@@ -347,21 +347,26 @@ fi
 # run_dotfile_scripts scripts/symlink.sh
 ##logk
 
-log "Cloning $STRAP_DOTFILES_URL bare"
-git clone $Q --bare "$STRAP_DOTFILES_URL" $HOME/.cfg
-function config {
-  /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
-}
-mkdir -p .config-backup
-config checkout
-if [ $? = 0 ]; then
-  log "Checked out config.";
-  else
-    log "Backing up pre-existing dot files.";
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
-fi;
-config checkout
-config config status.showUntrackedFiles no
+if [ ! -d "$HOME/.cfg" ]; then
+  if [ -z "$STRAP_DOTFILES_URL" ] || [ -z "$STRAP_DOTFILES_BRANCH" ]; then
+    abort "Please set STRAP_DOTFILES_URL and STRAP_DOTFILES_BRANCH."
+  fi
+  log "Cloning $STRAP_DOTFILES_URL bare to ~/.cfg."
+  git clone $Q --bare "$STRAP_DOTFILES_URL" $HOME/.cfg
+  function config {
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+  }
+  mkdir -p .config-backup
+  config checkout
+  if [ $? = 0 ]; then
+    log "Checked out config.";
+    else
+      log "Backing up pre-existing dot files.";
+      config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
+  fi;
+  config checkout
+  config config status.showUntrackedFiles no
+fi
 
 configure_git
 
