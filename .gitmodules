@@ -1,6 +1,7 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = git@github.com:handshou/init.lua.git
+    update = merge # to save origin after running `config submodule update...`
 [submodule ".local/share/nvim/site/pack/packer/start/packer.nvim"]
 	path = .local/share/nvim/site/pack/packer/start/packer.nvim
 	url = https://github.com/wbthomason/packer.nvim
