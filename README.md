@@ -6,7 +6,7 @@
 
 # Submodules
 |Name|Repo|Location|
-|:===|:===|:=======|
+|:---|:---|:-------|
 |Packer|packer.nvim|.local/share/nvim/site/pack/packer/start/packer.nvim|
 |Nvim Config|init.lua|.config/nvim|
 ```
