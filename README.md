@@ -1,7 +1,9 @@
 # Install
 ```bash
-   STRAP_GIT_EMAIL="handshou@users.noreply.github.com" STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
-  /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/handshou/dotfiles/HEAD/bootstrap.sh)"
+STRAP_GIT_EMAIL="handshou@users.noreply.github.com" \
+STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
+/usr/bin/env bash -c \
+"$(curl -fsSL https://raw.githubusercontent.com/handshou/dotfiles/HEAD/bootstrap.sh)"
 ```
 
 # Submodules
@@ -10,3 +12,13 @@
 |Packer|packer.nvim|.local/share/nvim/site/pack/packer/start/packer.nvim|
 |Nvim Config|init.lua|.config/nvim|
 
+## Update Submodules
+```bash
+config update --init --recursive
+config submodule update --remote --merge
+```
+
+## Add Submodule
+```bash
+config submodule add <clone address> <directory>
+```
