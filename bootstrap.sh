@@ -344,8 +344,8 @@ fi
 ##  git checkout "$strap_dotfiles_branch_name"
 ##  git pull $Q --rebase --autostash
 ##)
-# run_dotfile_scripts scripts/symlink.sh
-##logk
+run_dotfile_scripts scripts/brendan.macos.sh
+logk
 
 if [ ! -d "$HOME/.cfg" ]; then
   if [ -z "$STRAP_DOTFILES_URL" ] || [ -z "$STRAP_DOTFILES_BRANCH" ]; then
