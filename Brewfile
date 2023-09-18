@@ -25,6 +25,8 @@ brew "tree"
 brew "cockroachdb/tap/cockroach"
 brew "cockroachdb/tap/cockroach-sql"
 brew "gh"
+brew "yabai"
+brew "skhd"
 
 cask "iterm2"
 cask "hazel"
