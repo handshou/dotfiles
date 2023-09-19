@@ -46,6 +46,8 @@ config submodule add <clone address> <directory>
 |cockroachdb    |
 |cockroachdb-sql|
 |gh             |
+|yabai          |
+|skhd           |
 
 |GUI Apps       |
 |:--------------|
