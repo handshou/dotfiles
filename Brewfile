@@ -25,8 +25,10 @@ brew "tree"
 brew "cockroachdb/tap/cockroach"
 brew "cockroachdb/tap/cockroach-sql"
 brew "gh"
-brew "koekeishiya/formulae/yabai"
-brew "koekeishiya/formulae/skhd"
+
+tap "koekeishiya/formulae"
+brew "yabai"
+brew "skhd"
 
 cask "iterm2"
 cask "hazel"
