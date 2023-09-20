@@ -32,3 +32,9 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^QuickTime Player$" manage=off
+yabai -m rule --add app="^Battle.net$" manage=off
+yabai -m rule --add app="^Discord$" manage=off
+yabai -m rule --add app="^Music$" manage=off
+yabai -m rule --add app="^Effortless$" manage=off
+yabai -m rule --add app="^Magnet$" manage=off
+yabai -m rule --add app="^Hazel$" manage=off
