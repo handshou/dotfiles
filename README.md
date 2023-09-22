@@ -6,6 +6,16 @@ STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
 "$(curl -fsSL https://raw.githubusercontent.com/handshou/dotfiles/HEAD/bootstrap.sh)"
 ```
 
+## Hide untracked files for `config status`
+```bash
+config config --local status.showUntrackedFiles no
+```
+
+## Connect config with remote by ssh
+```bash
+config remote set-url origin git@github.com:handshou/dotfiles.git
+```
+
 # Submodules
 |Name|Repo|Location|
 |:---|:---|:-------|
@@ -21,6 +31,7 @@ config submodule update --remote --merge
 ## Add Submodule
 ```bash
 config submodule add <clone address> <directory>
+
 ```
 # Brewfile
 
