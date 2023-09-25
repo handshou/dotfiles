@@ -41,3 +41,4 @@ yabai -m rule --add app="^Hazel$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Podcasts$" manage=off
 yabai -m rule --add app="^HSTracker$" manage=off
+yabai -m rule --add app="^TV$" manage=off
