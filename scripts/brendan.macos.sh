@@ -28,7 +28,7 @@ defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Set menu bar clock format
-defaults write com.apple.menuextra.clock IsAnalog -bool false
+defaults write com.apple.menuextra.clock IsAnalog -bool true
 defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d h:mm a"
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
@@ -320,3 +320,44 @@ defaults write org.m0k.transmission SUEnableAutomaticChecks -bool false
 defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool false
 defaults write org.m0k.transmission WarningDonate -bool false
 defaults write org.m0k.transmission WarningLegal -bool false
+
+###############################################################################
+# Desktop icons                                                               #
+###############################################################################
+
+# Hide all desktop icons. Optionally relaunch Finder with `killall Finder`.
+defaults write com.apple.finder CreateDesktop false
+
+###############################################################################
+# Magnet hotkeys                                                              #
+###############################################################################
+
+# Removes default hotkey. Replace with no hotkey.
+defaults write com.crowdcafe.windowmagnet expandWindowCenterThirdComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowEastComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowLeftThirdComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowLeftTwoThirdsComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowNorthComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowNorthEastComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowNorthWestComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowRightThirdComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowRightTwoThirdsComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowSouthComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowSouthEastComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowSouthWestComboKey {}
+defaults write com.crowdcafe.windowmagnet expandWindowWestComboKey {}
+defaults write com.crowdcafe.windowmagnet moveWindowToNextDisplay {}
+defaults write com.crowdcafe.windowmagnet moveWindowToPreviousDisplay {}
+
+# Use default hotkey for the following.
+defaults delete com.crowdcafe.windowmagnet centerWindowComboKey
+defaults delete com.crowdcafe.windowmagnet restoreWindowComboKey
+defaults delete com.crowdcafe.windowmagnet maximizeWindowComboKey
+
+###############################################################################
+# iTerm2 colortheme                                                           #
+###############################################################################
+
+# Import tokyonight-storm colortheme from plist
+defaults import com.googlecode.iterm2 iterm2.plist
+
