@@ -34,6 +34,9 @@ defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d h:mm a"
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
 # sudo systemsetup -settimezone "America/New_York" >/dev/null
 
+# Set window dialog pop up speed to instant
+defaults write -g NSWindowResizeTime -float 0.001
+
 ###############################################################################
 # Peripherals                                                                 #
 ###############################################################################
@@ -360,4 +363,3 @@ defaults delete com.crowdcafe.windowmagnet maximizeWindowComboKey
 
 # Import tokyonight-storm colortheme from plist
 defaults import com.googlecode.iterm2 iterm2.plist
-
