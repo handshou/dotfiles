@@ -501,5 +501,10 @@ run_brew_installs || abort "Homebrew installs were not successful."
 
 # run_dotfile_scripts scripts/strap-after-setup.sh
 
+# Install nvm: https://github.com/nvm-sh/nvm
+log "Installing node version manager (nvm)"
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
 STRAP_SUCCESS=1
 log "Your system is now bootstrapped!"
