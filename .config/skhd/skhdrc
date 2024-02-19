@@ -6,7 +6,7 @@ alt - k : yabai -m window --focus north
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
 
-#change focus between external displays (left and right)
+# change focus between external displays (left and right)
 alt - s: yabai -m display --focus west
 alt - g: yabai -m display --focus east
 
@@ -24,8 +24,11 @@ shift + alt - x : yabai -m space --mirror x-axis
 # toggle window float
 shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
-
 # -- Modifying Window Size --
+
+# push and expand left pane by 285
+cmd + shift + alt - h : 
+  yabai -m window --focus east -m window --resize left:-285:0
 
 # maximize a window
 shift + alt - m : yabai -m window --toggle zoom-fullscreen
@@ -51,7 +54,6 @@ ctrl + alt - l : yabai -m window --warp east
 shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
 shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
 
-
 # move window to prev and next space
 shift + alt - p : yabai -m window --space prev;
 shift + alt - n : yabai -m window --space next;
@@ -70,7 +72,7 @@ shift + alt - 9 : yabai -m window --space 9;
 # -- Starting/Stopping/Restarting Yabai --
 
 # stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
+ctrl + alt - q : yabai --stop-service
+ctrl + alt - s : yabai --start-service 
+ctrl + alt - r : yabai --restart-service
 
