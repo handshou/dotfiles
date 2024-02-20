@@ -52,6 +52,7 @@ cask "postman"
 cask "notion"
 cask "protonvpn"
 cask "transmission"
+cask "alacritty"
 
 vscode "alexandernanberg.horizon-theme-vscode"
 vscode "astro-build.astro-vscode"

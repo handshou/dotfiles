@@ -344,6 +344,9 @@ fi
 ##  git checkout "$strap_dotfiles_branch_name"
 ##  git pull $Q --rebase --autostash
 ##)
+
+open -b com.apple.FontBook $HOME/JetBrainsMonoNerdFont-Regular.ttf
+
 run_dotfile_scripts scripts/brendan.macos.sh
 logk
 
