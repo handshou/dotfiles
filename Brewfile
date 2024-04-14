@@ -53,6 +53,7 @@ cask "notion"
 cask "protonvpn"
 cask "transmission"
 cask "alacritty"
+cask "obsidian"
 
 vscode "alexandernanberg.horizon-theme-vscode"
 vscode "astro-build.astro-vscode"
