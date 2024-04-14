@@ -43,14 +43,12 @@ yabai -m rule --add app="^HSTracker$" manage=off
 
 # move apps to specific spaces
 # adding ^ before spaces will auto focus on start
-yabai -m rule --add app="^iTerm$" space=^1
-yabai -m rule --add app="^Safari$" space=^2
-yabai -m rule --add app="^Cider$" space=^3
-yabai -m rule --add app="^Notes$" space=^4
-yabai -m rule --add app="^Mail$" space=^5
-yabai -m rule --add app="^Podcasts$" space=^6
-yabai -m rule --add app="^Battle.net$" space=7
-yabai -m rule --add app="^Discord$" space=8
-yabai -m rule --add app="^Photo Mechanic 6$" space=^4
-yabai -m rule --add app="^RawTherapee$" space=^5
-yabai -m rule --add app="^Final Cut Pro$" space=^6
+yabai -m rule --add app="^Alacritty$" space=1
+yabai -m rule --add app="^Safari$" space=2
+yabai -m rule --add app="^Cider$" space=3
+yabai -m rule --add app="^Notes$" space=4
+yabai -m rule --add app="^Mail$" space=5
+yabai -m rule --add app="^Figma$" space=6
+yabai -m rule --add app="^Photo Mechanic 6$" space=4
+yabai -m rule --add app="^RawTherapee$" space=5
+yabai -m rule --add app="^Final Cut Pro$" space=6
