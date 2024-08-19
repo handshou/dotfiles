@@ -7,7 +7,7 @@ size = 14
 family = "JetBrainsMono Nerd Font"
 
 [window]
-decorations = "none"
+decorations = "Buttonless"
 
 [window.padding]
 x = 7
