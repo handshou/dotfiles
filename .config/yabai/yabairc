@@ -43,6 +43,7 @@ yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Alacritty$" manage=off
 yabai -m rule --add app="^Transmission$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
+yabai -m rule --add app="^TV$" manage=off
 
 # move apps to specific spaces
 # adding ^ before spaces will auto focus on start
