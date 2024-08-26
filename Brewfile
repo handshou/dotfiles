@@ -12,8 +12,9 @@ brew "pgcli"
 brew "ripgrep"
 brew "tree"
 
-tap "koekeishiya/yabai"
-tap "koekeishiya/skhd"
+tap "koekeishiya/formulae"
+brew "yabai"
+brew "skhd"
 
 cask "stats"
 cask "firefox"
