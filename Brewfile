@@ -1,9 +1,7 @@
 cask_args appdir: "/Applications", require_sha: true
 
 tap "1password/tap"
-tap "cockroachdb/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 
 brew "docker"
 brew "docker-compose"
@@ -13,15 +11,12 @@ brew "python@3.11"
 brew "pgcli"
 brew "ripgrep"
 brew "tree"
-brew "stats"
 
+tap "koekeishiya/formulae/yabai"
+tap "koekeishiya/formulae/skhd"
+
+cask "stats"
 cask "firefox"
-brew "firefox"
-
-tap "koekeishiya/formulae"
-brew "yabai"
-brew "skhd"
-
 cask "iterm2"
 cask "hazel"
 cask "1password-cli"

@@ -11,7 +11,7 @@ STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
 config config --local status.showUntrackedFiles no
 ```
 
-## Connect config with remote by ssh
+Connect config with remote by ssh
 ```bash
 config remote set-url origin git@github.com:handshou/dotfiles.git
 ```
@@ -93,3 +93,7 @@ config submodule add <clone address> <directory>
 |Baking Soda    |1601151613     |
 |Omnivore       |1564031042     |
 |Wireless@SG    |1449928544     | 
+
+# Manuals
+Yabai - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+Skhd - https://github.com/koekeishiya/skhd
