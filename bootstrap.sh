@@ -345,7 +345,15 @@ fi
 ##  git pull $Q --rebase --autostash
 ##)
 
-open -b com.apple.FontBook $HOME/JetBrainsMonoNerdFont-Regular.ttf
+# Check if the font is installed in the specified directory
+FONT_NAME="JetBrainsMonoNerdFont-Regular"
+FONT_DIR="$HOME/Library/Fonts"
+if ls "$FONT_DIR" | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
+    log "Font '$FONT_NAME' is installed in $FONT_DIR.";
+else
+    log "Font '$FONT_NAME' is NOT installed in $FONT_DIR.";
+    open -b com.apple.FontBook $HOME/JetBrainsMonoNerdFont-Regular.ttf
+fi
 
 run_dotfile_scripts scripts/brendan.macos.sh
 logk
