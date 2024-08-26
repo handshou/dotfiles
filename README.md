@@ -96,4 +96,5 @@ config submodule add <clone address> <directory>
 
 # Manuals
 Yabai - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+
 Skhd - https://github.com/koekeishiya/skhd
