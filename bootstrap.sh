@@ -371,6 +371,7 @@ if [ ! -d "$HOME/.cfg" ]; then
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
   }
   mkdir -p .config-backup
+  config reset
   config checkout
   if [ $? = 0 ]; then
     log "Checked out config.";
@@ -379,7 +380,6 @@ if [ ! -d "$HOME/.cfg" ]; then
       config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
   fi;
   config checkout
-  config reset
   config config --local status.showUntrackedFiles no
 fi
 
