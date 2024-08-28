@@ -36,26 +36,14 @@ config submodule add <clone address> <directory>
 
 |CLI Apps       |
 |:--------------|
-|giflib         |
-|little-cms     |
-|jpeg-xl        |
-|cairo          |
 |docker         |
 |docker-compose |
-|ghostscript    |
-|jpeg           |
-|pango          |
-|librsvg        |
 |neovim         |
 |node           |
 |python@3.11    |
 |pgcli          |
-|pkg-config     |
 |ripgrep        |
 |tree           |
-|cockroachdb    |
-|cockroachdb-sql|
-|gh             |
 |yabai          |
 |skhd           |
 
@@ -66,7 +54,6 @@ config submodule add <clone address> <directory>
 |1password-cli  |
 |1password      |
 |karabiner-elements|
-|font-back-nerd-font|
 |alfred         |
 |discord        |
 |slack          |
@@ -77,9 +64,11 @@ config submodule add <clone address> <directory>
 |microsoft-excel|
 |visual studio code|
 |figma          |
-|notion         |
+|postman        |
 |protonvpn      |
 |transmission   |
+|alacritty      |
+|obsidian       |
 
 |Appstore       |ID             |
 |:--------------|:--------------|
@@ -92,6 +81,7 @@ config submodule add <clone address> <directory>
 |Baking Soda    |1601151613     |
 |Omnivore       |1564031042     |
 |Wireless@SG    |1449928544     | 
+|Refined Github |1519867270     |
 
 # Manuals
 Yabai - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
