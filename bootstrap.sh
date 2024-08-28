@@ -333,8 +333,9 @@ if [ ! -d "$HOME/.bashrc" ]; then
   fi
   log "Cloning $STRAP_DOTFILES_URL to ~/tmp."
   git clone $Q "$STRAP_DOTFILES_URL" ~/tmp
-  mv ~/tmp ~
+  mv ~/tmp/* ~/tmp/.* ~
   rm -rf ~/tmp
+  rm -rf ~/.git
 fi
 ## strap_dotfiles_branch_name="${STRAP_DOTFILES_BRANCH##*/}"
 ## log "Checking out $strap_dotfiles_branch_name in ~/.dotfiles."
