@@ -372,14 +372,14 @@ if [ ! -d "$HOME/.cfg" ]; then
   }
   mkdir -p .config-backup
   config reset
-  config checkout
+  # config checkout
   if [ $? = 0 ]; then
     log "Checked out config.";
     else
       log "Backing up pre-existing dot files.";
       config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
   fi;
-  config checkout
+  # config checkout
   config config --local status.showUntrackedFiles no
 fi
 
