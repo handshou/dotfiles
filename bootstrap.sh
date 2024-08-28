@@ -327,13 +327,13 @@ fi
 
 # Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
 # shellcheck disable=SC2086
-##if [ ! -d "$HOME/.dotfiles" ]; then
-##  if [ -z "$STRAP_DOTFILES_URL" ] || [ -z "$STRAP_DOTFILES_BRANCH" ]; then
-##    abort "Please set STRAP_DOTFILES_URL and STRAP_DOTFILES_BRANCH."
-##  fi
-##  log "Cloning $STRAP_DOTFILES_URL to ~/.dotfiles."
-##  git clone $Q "$STRAP_DOTFILES_URL" ~/.dotfiles
-##fi
+if [ ! -d "$HOME/.bashrc" ]; then
+  if [ -z "$STRAP_DOTFILES_URL" ]; then #|| [ -z "$STRAP_DOTFILES_BRANCH" ]; then
+    abort "Please set STRAP_DOTFILES_URL." # and STRAP_DOTFILES_BRANCH."
+  fi
+  log "Cloning $STRAP_DOTFILES_URL to ~."
+  git clone $Q "$STRAP_DOTFILES_URL" ~
+fi
 ## strap_dotfiles_branch_name="${STRAP_DOTFILES_BRANCH##*/}"
 ## log "Checking out $strap_dotfiles_branch_name in ~/.dotfiles."
 # shellcheck disable=SC2086
