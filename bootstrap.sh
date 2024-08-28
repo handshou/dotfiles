@@ -333,7 +333,7 @@ if [ ! -d "$HOME/.bashrc" ]; then
   fi
   log "Cloning $STRAP_DOTFILES_URL to ~/tmp."
   git clone $Q "$STRAP_DOTFILES_URL" ~/tmp
-  cp -a tmp/. ~/
+  cp -a ~/tmp/. ~/
   rm -rf ~/tmp
   rm -rf ~/.git
 fi
