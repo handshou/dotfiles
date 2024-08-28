@@ -515,7 +515,7 @@ run_brew_installs || abort "Homebrew installs were not successful."
 # Install nvm: https://github.com/nvm-sh/nvm
 log "Installing node version manager (nvm)"
 
-curl -o- https://github.com/nvm-sh/nvm | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/HEAD/install.sh | bash
 
 STRAP_SUCCESS=1
 log "Your system is now bootstrapped!"
