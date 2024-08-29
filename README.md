@@ -1,4 +1,12 @@
-# Install
+# dotfiles
+
+A repository to bootstrap a fresh macOS environment (todo: Linux). 
+We want to include essential apps, set coding configurations, iteratively.
+
+## Start Here
+
+Use your git credentials, then download and run `bootstrap.sh`.
+
 ```bash
 STRAP_GIT_EMAIL="handshou@users.noreply.github.com" \
 STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
@@ -6,17 +14,39 @@ STRAP_GIT_NAME="hansel" STRAP_GITHUB_USER="handshou" \
 "$(curl -fsSL https://raw.githubusercontent.com/handshou/dotfiles/HEAD/bootstrap.sh)"
 ```
 
-## Hide untracked files for `config status`
+## Understanding the script
+
+1. Update macOS to latest patch
+1. Download macOS scripts
+1. Install font
+1. Install essential code tools
+1. Install essentials from App Store
+1. Install macOS scripts
+
+The following commands are included in the script.
+
+### Hide untracked files for `config status`
+
 ```bash
 config config --local status.showUntrackedFiles no
 ```
 
-Connect config with remote by ssh
+### Connect config with remote by ssh
+
 ```bash
 config remote set-url origin git@github.com:handshou/dotfiles.git
 ```
 
+### Todo: granting permissions, missing apps (Cider) in macOS settings
+
+### Todo: manual app configurations
+
+### Todo: instruct installation of submodule
+
+### Todo: instruct adding new or updating apps, configurations, to bootstrap 
+
 # Submodules
+
 |Name|Repo|Location|
 |:---|:---|:-------|
 |Nvim Config|init.lua|.config/nvim|
