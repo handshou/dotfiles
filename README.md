@@ -66,56 +66,52 @@ config submodule add <clone address> <directory>
 ```
 # Brewfile
 
-|CLI Apps       |
-|:--------------|
-|docker         |
-|docker-compose |
-|neovim         |
-|node           |
-|python@3.11    |
-|pgcli          |
-|ripgrep        |
-|tree           |
-|yabai          |
-|skhd           |
+|CLI Apps       |Links        |
+|:--------------|:------------|
+|docker         |https://formulae.brew.sh/formula/docker |
+|docker-compose |https://formulae.brew.sh/formula/docker-compose |
+|neovim         |https://formulae.brew.sh/formula/neovim |
+|node           |https://formulae.brew.sh/formula/node |
+|python@3.11    |https://formulae.brew.sh/formula/python@3.11 |
+|pgcli          |https://formulae.brew.sh/formula/pgcli |
+|ripgrep        |https://formulae.brew.sh/formula/ripgrep |
+|tree           |https://formulae.brew.sh/formula/tree |
+|yabai          |https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release) |
+|skhd           |https://github.com/koekeishiya/skhd |
 
-|GUI Apps       |
-|:--------------|
-|iterm2         |
-|hazel          |
-|1password-cli  |
-|1password      |
-|karabiner-elements|
-|alfred         |
-|discord        |
-|slack          |
-|gimp           |
-|telegram       |
-|microsoft-word |
-|microsoft-powerpoint|
-|microsoft-excel|
-|visual studio code|
-|figma          |
-|postman        |
-|protonvpn      |
-|transmission   |
-|alacritty      |
-|obsidian       |
+|GUI Apps       |Links        |
+|:--------------|:------------|
+|iterm2         |https://formulae.brew.sh/cask/iterm2 |
+|hazel          |https://formulae.brew.sh/cask/hazel |
+|1password-cli  |https://formulae.brew.sh/cask/1password-cli |
+|1password      |https://formulae.brew.sh/cask/1password |
+|karabiner-elements| https://formulae.brew.sh/cask/karabiner-elements |
+|alfred         |https://formulae.brew.sh/cask/alfred |
+|discord        |https://formulae.brew.sh/cask/discord |
+|slack          |https://formulae.brew.sh/cask/slack |
+|gimp           |https://formulae.brew.sh/cask/gimp |
+|telegram       |https://formulae.brew.sh/cask/telegram |
+|microsoft-word |https://formulae.brew.sh/cask/microsoft-word |
+|microsoft-powerpoint|https://formulae.brew.sh/cask/microsoft-powerpoint |
+|microsoft-excel|https://formulae.brew.sh/cask/microsoft-excel |
+|visual studio code|https://formulae.brew.sh/cask/visual-studio-code |
+|figma          |https://formulae.brew.sh/cask/figma |
+|postman        |https://formulae.brew.sh/cask/postman |
+|protonvpn      |https://formulae.brew.sh/cask/protonvpn |
+|transmission   |https://formulae.brew.sh/cask/transmission |
+|alacritty      |https://formulae.brew.sh/cask/alacritty |
+|obsidian       |https://formulae.brew.sh/cask/obsidian |
 
-|Appstore       |ID             |
-|:--------------|:--------------|
-|Things 3       |904280696      |
-|Magnet         |441258766      |
-|1password      |1569813296     | 
-|Effortless     |1368722917     |
-|Keys for Safari|1494642810     |
-|Vinegar        |1591303229     |
-|Baking Soda    |1601151613     |
-|Omnivore       |1564031042     |
-|Wireless@SG    |1449928544     | 
-|Refined Github |1519867270     |
+|Appstore       |ID             |Links          |
+|:--------------|:--------------|:--------------|
+|Things 3       |904280696      |https://apps.apple.com/us/app/things-3/id904237743 |
+|Magnet         |441258766      |https://apps.apple.com/us/app/magnet/id441258766?mt=12 |
+|1password      |1569813296     |https://apps.apple.com/us/app/1password-password-manager/id1511601750 |
+|Effortless     |1368722917     |https://apps.apple.com/us/app/effortless/id1368722917?mt=12 |
+|Keys for Safari|1494642810     |https://apps.apple.com/us/app/keys-for-safari/id1494642810 |
+|Vinegar        |1591303229     |https://apps.apple.com/sg/app/vinegar-tube-cleaner/id1591303229 |
+|Baking Soda    |1601151613     |https://apps.apple.com/us/app/baking-soda-tube-cleaner/id1601151613 |
+|Omnivore       |1564031042     |https://apps.apple.com/us/app/omnivore-read-it-later/id1564031042 |
+|Wireless@SG    |1449928544     |https://apps.apple.com/us/app/wireless-sgx/id1449928538 |
+|Refined Github |1519867270     |https://apps.apple.com/us/app/refined-github/id1519867270 |
 
-# Manuals
-Yabai - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
-
-Skhd - https://github.com/koekeishiya/skhd
