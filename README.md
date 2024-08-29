@@ -41,6 +41,8 @@ config remote set-url origin git@github.com:handshou/dotfiles.git
 
 ### Todo: manual app configurations
 
+### Todo: setup ssh
+
 ### Todo: instruct installation of submodule
 
 ### Todo: instruct adding new or updating apps, configurations, to bootstrap 
@@ -53,7 +55,7 @@ config remote set-url origin git@github.com:handshou/dotfiles.git
 
 ## Update Submodules
 ```bash
-config update --init --recursive
+config submodule update --init --recursive
 config submodule update --remote --merge
 ```
 
