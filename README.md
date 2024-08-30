@@ -114,4 +114,5 @@ config submodule add <clone address> <directory>
 |Omnivore       |1564031042     |https://apps.apple.com/us/app/omnivore-read-it-later/id1564031042 |
 |Wireless@SG    |1449928544     |https://apps.apple.com/us/app/wireless-sgx/id1449928538 |
 |Refined Github |1519867270     |https://apps.apple.com/us/app/refined-github/id1519867270 |
+|DeArrow        |6451469297     |https://apps.apple.com/us/app/dearrow-for-youtube/id6451469297 |
 

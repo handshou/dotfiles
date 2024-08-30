@@ -386,7 +386,7 @@ fi
 # generate ssh key 
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
  
-if [ ! -d "$HOME/.ssh/config" ]; then
+if [ ! -f "$HOME/.ssh/config" ]; then
   log "Generating ssh config and keys"
 
   yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh -N ""
