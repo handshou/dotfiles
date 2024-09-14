@@ -66,6 +66,8 @@ config submodule add <clone address> <directory>
 ```
 # Brewfile
 
+## Apps with command line interface
+
 |CLI Apps       |Links        |
 |:--------------|:------------|
 |docker         |https://formulae.brew.sh/formula/docker |
@@ -78,6 +80,8 @@ config submodule add <clone address> <directory>
 |tree           |https://formulae.brew.sh/formula/tree |
 |yabai          |https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release) |
 |skhd           |https://github.com/koekeishiya/skhd |
+
+## Apps with user interface
 
 |GUI Apps       |Links        |
 |:--------------|:------------|
@@ -102,6 +106,8 @@ config submodule add <clone address> <directory>
 |alacritty      |https://formulae.brew.sh/cask/alacritty |
 |obsidian       |https://formulae.brew.sh/cask/obsidian |
 
+## Apps from the store
+
 |Appstore       |ID             |Links          |
 |:--------------|:--------------|:--------------|
 |Things 3       |904280696      |https://apps.apple.com/us/app/things-3/id904237743 |
@@ -115,4 +121,14 @@ config submodule add <clone address> <directory>
 |Wireless@SG    |1449928544     |https://apps.apple.com/us/app/wireless-sgx/id1449928538 |
 |Refined Github |1519867270     |https://apps.apple.com/us/app/refined-github/id1519867270 |
 |DeArrow        |6451469297     |https://apps.apple.com/us/app/dearrow-for-youtube/id6451469297 |
+
+# Learning
+
+Using `test` to check file conditionals. Read more with `man test`.
+
+# Caveats
+
+Some apps will regress.
+
+1Password issues.
 
