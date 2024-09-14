@@ -389,7 +389,9 @@ fi
 if [ ! -f ~/.ssh/config ]; then
   log "Generating ssh config and keys"
 
-  yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh -N ""
+  mkdir ~/.ssh
+
+  yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh/id_ed25519 -N ""
 
   touch ~/.ssh/config
   echo "Host github.com
