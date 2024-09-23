@@ -10,6 +10,8 @@ brew "python@3.11"
 brew "pgcli"
 brew "ripgrep"
 brew "tree"
+brew "tmux"
+brew "tpm"
 
 tap "koekeishiya/formulae"
 brew "yabai"
