@@ -1,6 +1,5 @@
 cask_args appdir: "/Applications", require_sha: true
 
-tap "1password/tap"
 tap "homebrew/bundle"
 
 brew "docker"
@@ -15,13 +14,18 @@ brew "tree"
 tap "koekeishiya/formulae"
 brew "yabai"
 brew "skhd"
+untap "koekeishiya/formulae"
 
 cask "stats"
 cask "firefox"
 cask "iterm2"
 cask "hazel"
+
+tap "1password/tap"
 cask "1password-cli"
 cask "1password"
+untap "1password/tap"
+
 cask "karabiner-elements"
 cask "font-hack-nerd-font"
 cask "alfred"
@@ -51,4 +55,4 @@ mas "omnivore reader", id: 1564031042
 mas "wireless@sg", id: 1449928544
 mas "refined github", id: 1519867270
 mas "dearrow", id: 6451469297
-
+mas "duolingo", id: 570060128
