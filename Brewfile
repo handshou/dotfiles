@@ -13,6 +13,9 @@ brew "tree"
 brew "tmux"
 brew "tpm"
 
+brew "rustup"
+brew "goenv"
+
 tap "koekeishiya/formulae"
 brew "yabai"
 brew "skhd"
