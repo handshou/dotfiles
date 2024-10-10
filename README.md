@@ -122,6 +122,7 @@ config submodule add <clone address> <directory>
 |Refined Github |1519867270     |https://apps.apple.com/us/app/refined-github/id1519867270 |
 |DeArrow        |6451469297     |https://apps.apple.com/us/app/dearrow-for-youtube/id6451469297 |
 |Duolingo       |570060128      |https://apps.apple.com/us/app/duolingo-language-lessons/id570060128 |
+|Wappalyzer     |1520333300     |https://apps.apple.com/us/app/wappalyzer/id1520333300 |
 
 # Learning
 
