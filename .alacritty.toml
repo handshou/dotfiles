@@ -1,7 +1,7 @@
 import = ["/Users/h/.config/alacritty/themes/tokyonight_storm.toml"]
 
 [font]
-size = 14
+size = 17
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -10,7 +10,7 @@ family = "JetBrainsMono Nerd Font"
 decorations = "Buttonless"
 
 [window.padding]
-x = 7
+x = 0
 y = 0
 
 [keyboard]
