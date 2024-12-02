@@ -12,9 +12,12 @@ brew "ripgrep"
 brew "tree"
 brew "tmux"
 brew "tpm"
+brew "deno"
 
 brew "rustup"
 brew "goenv"
+
+brew "stylua"
 
 tap "koekeishiya/formulae"
 brew "yabai"
