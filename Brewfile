@@ -13,6 +13,7 @@ brew "tree"
 brew "tmux"
 brew "tpm"
 brew "deno"
+brew "pnpm"
 
 brew "rustup"
 brew "goenv"
