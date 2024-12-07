@@ -53,6 +53,7 @@ cask "protonvpn"
 cask "transmission"
 cask "alacritty"
 cask "obsidian"
+cask "subler"
 
 mas "things 3", id: 904280696
 mas "magnet", id: 441258766
