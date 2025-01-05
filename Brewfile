@@ -15,6 +15,7 @@ brew "tmux"
 brew "tpm"
 brew "deno"
 brew "pnpm"
+brew "chafa"
 
 brew "rustup"
 brew "goenv"
