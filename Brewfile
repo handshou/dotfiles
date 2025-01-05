@@ -16,6 +16,7 @@ brew "tpm"
 brew "deno"
 brew "pnpm"
 brew "chafa"
+brew "fzf"
 
 brew "rustup"
 brew "goenv"

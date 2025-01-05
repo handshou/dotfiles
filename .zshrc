@@ -15,3 +15,11 @@ esac
 
 # Added by Windsurf
 export PATH="/Users/h/.codeium/windsurf/bin:$PATH"
+
+source <(fzf --zsh)
+
+# Add tmux-sessionizer script to PATH
+export PATH="$HOME/scripts/tmux-sessionizer:$PATH"
+
+# Alias for tmux-sessionizer
+alias tmux-sessionizer="tmux-sessionizer"
