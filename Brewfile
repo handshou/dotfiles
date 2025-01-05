@@ -21,6 +21,10 @@ brew "goenv"
 
 brew "stylua"
 
+tap "supabase/tap"
+brew "supabase"
+untap "supabase"
+
 tap "koekeishiya/formulae"
 brew "yabai"
 brew "skhd"
