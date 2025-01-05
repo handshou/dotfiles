@@ -4,3 +4,11 @@ export NVM_DIR="$HOME/.nvm"
 
 source ~/.bashrc
 
+
+# pnpm
+export PNPM_HOME="/Users/h/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
