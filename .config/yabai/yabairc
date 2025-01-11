@@ -56,6 +56,7 @@ yabai -m rule --add app="^Instagram$" space=3
 yabai -m rule --add app="^YouTube$" space=3
 yabai -m rule --add app="^Claude$" space=3
 yabai -m rule --add app="^Busuu$" space=3
+yabai -m rule --add app="^Carousell Lite$" space=3
 yabai -m rule --add app="^Duolingo$" space=3
 yabai -m rule --add app="^Photo Mechanic 6$" space=4
 yabai -m rule --add app="^Mail$" space=4
