@@ -498,7 +498,7 @@
                         ]
                     },
                     {
-                        "description": "Left ctrl + hjkl to arrow keys Vim, Left ctrl + duw to page_up page_down",
+                        "description": "Left ctrl + hjkl to arrow keys Vim, Left ctrl + dus to page_up page_down",
                         "manipulators": [
                             {
                                 "from": {
