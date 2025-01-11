@@ -23,6 +23,8 @@ brew "goenv"
 
 brew "stylua"
 
+brew "overlayed"
+
 tap "supabase/tap"
 brew "supabase"
 untap "supabase"
