@@ -15,6 +15,10 @@ y = 0
 
 [keyboard]
 bindings = [
+  # { key = "H", mods = "Alt", chars = "\u001B[D" },  # Alt + H -> Left Arrow
+  # { key = "J", mods = "Alt", chars = "\u001B[B" },  # Alt + J -> Down Arrow
+  # { key = "K", mods = "Alt", chars = "\u001B[A" },  # Alt + K -> Up Arrow
+  # { key = "L", mods = "Alt", chars = "\u001B[C" },  # Alt + L -> Right Arrow
   { key = "Right", mods = "Alt", chars = "\u001BF" },
   { key = "Left",  mods = "Alt", chars = "\u001BB" },
   { key = "B", mods = "Alt", chars = "\u001BB" },  # Alt + B (Move backward one word)
@@ -22,7 +26,6 @@ bindings = [
   { key = "D", mods = "Alt", chars = "\u001BD" },  # Alt + D (Delete the word after the cursor)
   { key = "Backspace", mods = "Alt", chars = "\u001B\u007F" },  # Alt + Backspace (Delete word before cursor)
   { key = "U", mods = "Alt", chars = "\u001BU" },  # Alt + U (Uppercase from cursor to end of word)
-  { key = "L", mods = "Alt", chars = "\u001BL" },  # Alt + L (Lowercase from cursor to end of word)
   { key = "C", mods = "Alt", chars = "\u001BC" },  # Alt + C (Capitalize the current word)
   { key = ".", mods = "Alt", chars = "\u001B." },  # Alt + . (Insert the last argument of previous command)
   { key = "Y", mods = "Alt", chars = "\u001BY" },  # Alt + Y (Yank the top of the kill-ring)
