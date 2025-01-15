@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+tmux neww -n work
+tmux neww -n work
+tmux neww -n scratch
+
