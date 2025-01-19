@@ -23,3 +23,10 @@ export PATH="$HOME/scripts/tmux-sessionizer:$PATH"
 
 # Alias for tmux-sessionizer
 alias tmux-sessionizer="tmux-sessionizer"
+
+# Add ssh keys for git
+if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
+    eval `/usr/bin/ssh-agent`
+    ssh-add ~/.ssh/id_ed25519_work
+    ssh-add ~/.ssh/id_ed25519
+fi
