@@ -19,6 +19,8 @@ bindings = [
   # { key = "J", mods = "Alt", chars = "\u001B[B" },  # Alt + J -> Down Arrow
   # { key = "K", mods = "Alt", chars = "\u001B[A" },  # Alt + K -> Up Arrow
   # { key = "L", mods = "Alt", chars = "\u001B[C" },  # Alt + L -> Right Arrow
+  { key = "J", mods = "Command", chars = "\u00AA" },
+  { key = "K", mods = "Command", chars = "\u00AB" },
   { key = "Right", mods = "Alt", chars = "\u001BF" },
   { key = "Left",  mods = "Alt", chars = "\u001BB" },
   { key = "B", mods = "Alt", chars = "\u001BB" },  # Alt + B (Move backward one word)
