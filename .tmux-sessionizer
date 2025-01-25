@@ -4,3 +4,5 @@ tmux neww -n work
 tmux neww -n work
 tmux neww -n scratch
 
+vim .
+clear
