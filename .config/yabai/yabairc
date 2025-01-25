@@ -43,7 +43,6 @@ yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Transmission$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
 yabai -m rule --add app="^TV$" manage=off
-yabai -m rule --add app="^Discord$" manage=off
 
 # move apps to specific spaces
 # adding ^ before spaces will auto focus on start
@@ -67,3 +66,4 @@ yabai -m rule --add app="^Figma$" space=6
 yabai -m rule --add app="^Final Cut Pro$" space=6
 yabai -m rule --add app="^Microsoft Teams$" space=6
 yabai -m rule --add app="^Telegram$" space=6
+yabai -m rule --add app="^WhatsApp$" space=6
