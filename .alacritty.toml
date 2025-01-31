@@ -36,6 +36,6 @@ bindings = [
   { key = "R", mods = "Alt", chars = "\u001BR" },  # Alt + R (Recall the last command that matches input)
   { key = "N", mods = "Alt", chars = "\u001BN" },  # Alt + N (Search forward through history)
   { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
-  { key = "Q", mods = "Alt", chars = "\u001BQ" },  # Alt + Q (Not a standard bash shortcut, customizable)
+  { key = "Q", mods = "Alt", chars = "\u001Bq" },  # Alt + Q (Not a standard bash shortcut, customizable)
 ]
 
