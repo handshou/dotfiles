@@ -124,6 +124,7 @@ config submodule add <clone address> <directory>
 |Duolingo       |570060128      |https://apps.apple.com/us/app/duolingo-language-lessons/id570060128 |
 |Wappalyzer     |1520333300     |https://apps.apple.com/us/app/wappalyzer/id1520333300 |
 |Trello         |1278508951     |https://apps.apple.com/us/app/trello/id1278508951 |
+|Dropover       |1355679052     |https://apps.apple.com/us/app/dropover-easier-drag-drop/id1355679052 |
 
 # Learning
 
