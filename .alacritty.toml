@@ -37,5 +37,5 @@ bindings = [
   { key = "N", mods = "Alt", chars = "\u001BN" },  # Alt + N (Search forward through history)
   { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
   { key = "Q", mods = "Alt", chars = "\u001Bq" },  # Alt + Q (Not a standard bash shortcut, customizable)
+  { key = "Tab", mods = "Control", chars = "\u001b[27;5;9~" },
 ]
-

@@ -34,6 +34,7 @@ brew "yabai"
 brew "skhd"
 untap "koekeishiya/formulae"
 
+cask "hiddenbar"
 cask "stats"
 cask "firefox"
 cask "iterm2"

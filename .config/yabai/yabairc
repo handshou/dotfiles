@@ -67,5 +67,6 @@ yabai -m rule --add app="^Figma$" space=6
 yabai -m rule --add app="^Final Cut Pro$" space=6
 yabai -m rule --add app="^Microsoft Teams$" space=6
 yabai -m rule --add app="^Trello$" space=6
+yabai -m rule --add app="^ClickUp$" space=6
 yabai -m rule --add app="^Telegram$" space=6
 yabai -m rule --add app="^WhatsApp$" space=6
