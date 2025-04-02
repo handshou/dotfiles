@@ -79,3 +79,8 @@ mas "duolingo", id: 570060128
 mas "wappalyzer", id: 1520333300
 mas "trello", id: 1278508951
 mas "dropover", id: id1355679052
+
+# For work
+
+brew "pulumi"
+cask "google-cloud-sdk"

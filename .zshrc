@@ -4,6 +4,8 @@ export NVM_DIR="$HOME/.nvm"
 
 source ~/.bashrc
 
+# poetry in python3
+export PATH="/Users/h/.local/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/h/Library/pnpm"
