@@ -70,3 +70,5 @@ yabai -m rule --add app="^Trello$" space=6
 yabai -m rule --add app="^ClickUp$" space=6
 yabai -m rule --add app="^Telegram$" space=6
 yabai -m rule --add app="^WhatsApp$" space=6
+yabai -m rule --add app="^Streamlink Twitch GUI$" space=6
+yabai -m rule --add app="^VLC$" space=6
