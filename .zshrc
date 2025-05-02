@@ -4,6 +4,15 @@ export NVM_DIR="$HOME/.nvm"
 
 source ~/.bashrc
 
+# prune git branches
+function prune-local () {
+  git fetch -p;
+  git branch -vv | grep ': gone]' | grep -v '*' | awk '{ print $1; }' > /tmp/branch-to-delete;
+  ${EDITOR:-vi} /tmp/branch-to-delete;
+  xargs git branch -D < /tmp/branch-to-delete;
+  rm /tmp/branch-to-delete;
+}
+
 # poetry in python3
 export PATH="/Users/h/.local/bin:$PATH"
 
