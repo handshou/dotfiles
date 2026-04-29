@@ -41,9 +41,17 @@ STDIN_FILE_DESCRIPTOR=0
 if [ -f ~/.ssh/id_ed25519_work.pub ]; then
   work_email_from_key="$(awk '{print $3}' ~/.ssh/id_ed25519_work.pub 2>/dev/null)"
   [ -z "$STRAP_GIT_EMAIL_WORK" ] && STRAP_GIT_EMAIL_WORK="$work_email_from_key"
-  # Extract GitHub username from noreply email (e.g., 190053598+hanselse@users.noreply.github.com -> hanselse)
-  if [ -z "$STRAP_GITHUB_USER_WORK" ] && [[ "$work_email_from_key" == *"+@users.noreply.github.com"* || "$work_email_from_key" == *"@users.noreply.github.com"* ]]; then
-    STRAP_GITHUB_USER_WORK="$(echo "$work_email_from_key" | sed -E 's/^[0-9]+\+//' | sed 's/@users\.noreply\.github\.com$//')"
+  # Extract GitHub username from noreply email formats:
+  #   - username@users.noreply.github.com -> username
+  #   - 12345+username@users.noreply.github.com -> username
+  #   - anything+username@users.noreply.github.com -> username
+  if [ -z "$STRAP_GITHUB_USER_WORK" ] && [[ "$work_email_from_key" == *"@users.noreply.github.com" ]]; then
+    local_part="${work_email_from_key%@users.noreply.github.com}"
+    if [[ "$local_part" == *"+"* ]]; then
+      STRAP_GITHUB_USER_WORK="${local_part##*+}"
+    else
+      STRAP_GITHUB_USER_WORK="$local_part"
+    fi
   fi
   # Default work name to personal name if not set
   [ -z "$STRAP_GIT_NAME_WORK" ] && STRAP_GIT_NAME_WORK="$STRAP_GIT_NAME"
