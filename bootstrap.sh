@@ -41,17 +41,19 @@ STDIN_FILE_DESCRIPTOR=0
 if [ -f ~/.ssh/id_ed25519_work.pub ]; then
   work_email_from_key="$(awk '{print $3}' ~/.ssh/id_ed25519_work.pub 2>/dev/null)"
   [ -z "$STRAP_GIT_EMAIL_WORK" ] && STRAP_GIT_EMAIL_WORK="$work_email_from_key"
-  # Extract GitHub username from noreply email formats:
+  # Extract GitHub username from noreply email formats (POSIX-compatible):
   #   - username@users.noreply.github.com -> username
   #   - 12345+username@users.noreply.github.com -> username
-  #   - anything+username@users.noreply.github.com -> username
-  if [ -z "$STRAP_GITHUB_USER_WORK" ] && [[ "$work_email_from_key" == *"@users.noreply.github.com" ]]; then
-    local_part="${work_email_from_key%@users.noreply.github.com}"
-    if [[ "$local_part" == *"+"* ]]; then
-      STRAP_GITHUB_USER_WORK="${local_part##*+}"
-    else
-      STRAP_GITHUB_USER_WORK="$local_part"
-    fi
+  if [ -z "$STRAP_GITHUB_USER_WORK" ]; then
+    case "$work_email_from_key" in
+      *@users.noreply.github.com)
+        local_part="${work_email_from_key%@users.noreply.github.com}"
+        case "$local_part" in
+          *+*) STRAP_GITHUB_USER_WORK="${local_part##*+}" ;;
+          *) STRAP_GITHUB_USER_WORK="$local_part" ;;
+        esac
+        ;;
+    esac
   fi
   # Default work name to work GitHub username if not set
   [ -z "$STRAP_GIT_NAME_WORK" ] && STRAP_GIT_NAME_WORK="$STRAP_GITHUB_USER_WORK"
@@ -619,10 +621,13 @@ if [ ! -d "$HOME/.cfg" ]; then
   if config checkout 2>/dev/null; then
     log "Checked out config."
   else
-    log "Backing up pre-existing dot files."
-    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | while read -r f; do
-      mkdir -p ".config-backup/$(dirname "$f")"
-      mv "$f" ".config-backup/$f" 2>/dev/null || true
+    log "Backing up pre-existing files."
+    # Extract filenames from git error output (lines starting with whitespace, containing paths)
+    config checkout 2>&1 | grep -E "^\s+" | grep -v "^error:" | grep -v "Please move" | grep -v "Aborting" | awk '{$1=$1};1' | while read -r f; do
+      if [ -n "$f" ] && [ -e "$f" ]; then
+        mkdir -p ".config-backup/$(dirname "$f")"
+        mv "$f" ".config-backup/$f" 2>/dev/null || true
+      fi
     done
     config checkout
   fi
