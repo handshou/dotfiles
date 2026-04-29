@@ -33,15 +33,12 @@ cask "darktable"
 
 tap "supabase/tap"
 brew "supabase"
-untap "supabase"
 
 tap "asmvik/formulae"
 brew "yabai"
-untap "asmvik/formulae"
 
 tap "jackielii/tap"
 brew "skhd-zig"
-untap "jackielii/tap"
 
 cask "hiddenbar"
 cask "stats"
@@ -53,7 +50,6 @@ cask "love"
 tap "1password/tap"
 cask "1password-cli"
 cask "1password"
-untap "1password/tap"
 
 cask "karabiner-elements"
 cask "font-hack-nerd-font"
@@ -88,7 +84,7 @@ mas "dearrow", id: 6451469297
 mas "duolingo", id: 570060128
 mas "wappalyzer", id: 1520333300
 mas "trello", id: 1278508951
-mas "dropover", id: id1355679052
+mas "dropover", id: 1355679052
 
 # For work
 
