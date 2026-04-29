@@ -25,20 +25,30 @@ brew "stylua"
 
 brew "overlayed"
 
+brew "codex"
+
+cask "claude-code"
+
+cask "darktable"
+
 tap "supabase/tap"
 brew "supabase"
 untap "supabase"
 
-tap "koekeishiya/formulae"
+tap "asmvik/formulae"
 brew "yabai"
-brew "skhd"
-untap "koekeishiya/formulae"
+untap "asmvik/formulae"
+
+tap "jackielii/tap"
+brew "skhd-zig"
+untap "jackielii/tap"
 
 cask "hiddenbar"
 cask "stats"
 cask "firefox"
 cask "iterm2"
 cask "hazel"
+cask "love"
 
 tap "1password/tap"
 cask "1password-cli"
