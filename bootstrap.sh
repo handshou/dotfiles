@@ -269,6 +269,19 @@ else
   log "Not macOS. Xcode CLT install and license check skipped."
 fi
 
+# Generate SSH key early (needed for git operations)
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+if [ ! -f ~/.ssh/config ]; then
+  log "Generating ssh config and keys"
+  mkdir -p ~/.ssh
+  yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh/id_ed25519 -N ""
+  touch ~/.ssh/config
+  echo "Host github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
+  ssh-add ~/.ssh/id_ed25519
+fi
+
 configure_git() {
   logn "Configuring Git:"
   if [ "$STRAP_CI" -gt 0 ]; then
@@ -324,6 +337,17 @@ else
   fi
   logk
 fi
+
+# Install Homebrew early (needed for gum TUI and other tools)
+# https://docs.brew.sh/Installation
+script_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+NONINTERACTIVE=$STRAP_CI \
+  /usr/bin/env bash -c "$(curl -fsSL $script_url)" || install_homebrew
+
+# Set up Homebrew on Linux: https://docs.brew.sh/Homebrew-on-Linux
+# [ "$LINUX" -gt 0 ] && run_dotfile_scripts scripts/linuxbrew.sh
+
+run_brew_installs || abort "Homebrew installs were not successful."
 
 # Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
 # shellcheck disable=SC2086
@@ -387,25 +411,7 @@ if [ ! -d "$HOME/.cfg" ]; then
   config config --local status.showUntrackedFiles no
 fi
 
-# generate ssh key 
-# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
- 
-if [ ! -f ~/.ssh/config ]; then
-  log "Generating ssh config and keys"
-
-  mkdir ~/.ssh
-
-  yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh/id_ed25519 -N ""
-
-  touch ~/.ssh/config
-  echo "Host github.com
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
-
-  ssh-add ~/.ssh/id_ed25519
-fi
-
-configure_git
+# configure_git already called after SSH setup above
 
 # shellcheck disable=SC2086
 install_homebrew() {
@@ -538,18 +544,6 @@ run_brew_installs() {
     logk
   fi
 }
-
-# Install Homebrew: https://docs.brew.sh/Installation
-script_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-NONINTERACTIVE=$STRAP_CI \
-  /usr/bin/env bash -c "$(curl -fsSL $script_url)" || install_homebrew
-
-# Set up Homebrew on Linux: https://docs.brew.sh/Homebrew-on-Linux
-# [ "$LINUX" -gt 0 ] && run_dotfile_scripts scripts/linuxbrew.sh
-
-run_brew_installs || abort "Homebrew installs were not successful."
-
-# run_dotfile_scripts scripts/strap-after-setup.sh
 
 # Install nvm: https://github.com/nvm-sh/nvm
 log "Installing node version manager (nvm)"
