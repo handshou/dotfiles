@@ -37,9 +37,16 @@ STDIN_FILE_DESCRIPTOR=0
 [ -z "$STRAP_GIT_NAME" ] && STRAP_GIT_NAME="$(git config --global user.name 2>/dev/null)"
 [ -z "$STRAP_GIT_EMAIL" ] && STRAP_GIT_EMAIL="$(git config --global user.email 2>/dev/null)"
 [ -z "$STRAP_GITHUB_USER" ] && STRAP_GITHUB_USER="$(git config --global github.user 2>/dev/null)"
-# Extract work email from SSH key comment if it exists
-if [ -z "$STRAP_GIT_EMAIL_WORK" ] && [ -f ~/.ssh/id_ed25519_work.pub ]; then
-  STRAP_GIT_EMAIL_WORK="$(awk '{print $3}' ~/.ssh/id_ed25519_work.pub 2>/dev/null)"
+# Extract work info from SSH key comment if it exists (format: id+username@users.noreply.github.com)
+if [ -f ~/.ssh/id_ed25519_work.pub ]; then
+  work_email_from_key="$(awk '{print $3}' ~/.ssh/id_ed25519_work.pub 2>/dev/null)"
+  [ -z "$STRAP_GIT_EMAIL_WORK" ] && STRAP_GIT_EMAIL_WORK="$work_email_from_key"
+  # Extract GitHub username from noreply email (e.g., 190053598+hanselse@users.noreply.github.com -> hanselse)
+  if [ -z "$STRAP_GITHUB_USER_WORK" ] && [[ "$work_email_from_key" == *"+@users.noreply.github.com"* || "$work_email_from_key" == *"@users.noreply.github.com"* ]]; then
+    STRAP_GITHUB_USER_WORK="$(echo "$work_email_from_key" | sed -E 's/^[0-9]+\+//' | sed 's/@users\.noreply\.github\.com$//')"
+  fi
+  # Default work name to personal name if not set
+  [ -z "$STRAP_GIT_NAME_WORK" ] && STRAP_GIT_NAME_WORK="$STRAP_GIT_NAME"
 fi
 
 # Interactive prompts for required variables (works on fresh macOS without gum)
