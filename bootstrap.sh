@@ -33,6 +33,32 @@ STRAP_DEBUG=${STRAP_DEBUG:-0}
 STRAP_INTERACTIVE=${STRAP_INTERACTIVE:-0}
 STDIN_FILE_DESCRIPTOR=0
 [ -t "$STDIN_FILE_DESCRIPTOR" ] && STRAP_INTERACTIVE=1
+# Interactive prompts for required variables (works on fresh macOS without gum)
+prompt_if_missing() {
+  local var_name="$1" prompt_text="$2" default_val="$3"
+  local current_val="${!var_name}"
+  if [ -z "$current_val" ]; then
+    if [ "$STRAP_INTERACTIVE" -gt 0 ] 2>/dev/null || [ -t 0 ]; then
+      if [ -n "$default_val" ]; then
+        read -rp "--> $prompt_text [$default_val]: " input
+        eval "$var_name=\"\${input:-$default_val}\""
+      else
+        read -rp "--> $prompt_text: " input
+        eval "$var_name=\"\$input\""
+      fi
+    fi
+  fi
+}
+
+prompt_if_missing STRAP_GIT_NAME "Enter your PERSONAL full name for git commits"
+prompt_if_missing STRAP_GIT_EMAIL "Enter your PERSONAL email for git commits"
+prompt_if_missing STRAP_GITHUB_USER "Enter your PERSONAL GitHub username" "handshou"
+prompt_if_missing STRAP_GIT_EMAIL_WORK "Enter your WORK email (leave blank to skip work setup)"
+if [ -n "$STRAP_GIT_EMAIL_WORK" ]; then
+  prompt_if_missing STRAP_GIT_NAME_WORK "Enter your WORK full name for git commits"
+  prompt_if_missing STRAP_GITHUB_USER_WORK "Enter your WORK GitHub username"
+fi
+
 STRAP_GIT_NAME=${STRAP_GIT_NAME:?Variable not set}
 STRAP_GIT_EMAIL=${STRAP_GIT_EMAIL:?Variable not set}
 STRAP_GITHUB_USER=${STRAP_GITHUB_USER:?Variable not set}
@@ -269,17 +295,49 @@ else
   log "Not macOS. Xcode CLT install and license check skipped."
 fi
 
-# Generate SSH key early (needed for git operations)
+# Generate SSH keys early (needed for git operations)
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 if [ ! -f ~/.ssh/config ]; then
-  log "Generating ssh config and keys"
+  log "Setting up SSH keys and config"
   mkdir -p ~/.ssh
-  yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh/id_ed25519 -N ""
-  touch ~/.ssh/config
-  echo "Host github.com
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
-  ssh-add ~/.ssh/id_ed25519
+  chmod 700 ~/.ssh
+
+  # Generate personal key
+  if [ ! -f ~/.ssh/id_ed25519 ]; then
+    log "Generating personal SSH key"
+    yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL" -f ~/.ssh/id_ed25519 -N ""
+    ssh-add ~/.ssh/id_ed25519
+  fi
+
+  # Generate work key if work email provided
+  if [ -n "$STRAP_GIT_EMAIL_WORK" ] && [ ! -f ~/.ssh/id_ed25519_work ]; then
+    log "Generating work SSH key"
+    yes "y" | ssh-keygen -t ed25519 -C "$STRAP_GIT_EMAIL_WORK" -f ~/.ssh/id_ed25519_work -N ""
+    ssh-add ~/.ssh/id_ed25519_work
+  fi
+
+  # Create SSH config with IdentitiesOnly to prevent key confusion
+  log "Creating SSH config"
+  cat > ~/.ssh/config << 'EOF'
+# Personal GitHub
+Host github.com
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+# Work GitHub (use: git clone git@work.github.com:org/repo.git)
+Host work.github.com
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentityFile ~/.ssh/id_ed25519_work
+    IdentitiesOnly yes
+EOF
+  chmod 600 ~/.ssh/config
 fi
 
 configure_git() {
@@ -337,81 +395,6 @@ else
   fi
   logk
 fi
-
-# Install Homebrew early (needed for gum TUI and other tools)
-# https://docs.brew.sh/Installation
-script_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-NONINTERACTIVE=$STRAP_CI \
-  /usr/bin/env bash -c "$(curl -fsSL $script_url)" || install_homebrew
-
-# Set up Homebrew on Linux: https://docs.brew.sh/Homebrew-on-Linux
-# [ "$LINUX" -gt 0 ] && run_dotfile_scripts scripts/linuxbrew.sh
-
-run_brew_installs || abort "Homebrew installs were not successful."
-
-# Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
-# shellcheck disable=SC2086
-if [ ! -f "$HOME/.bashrc" ]; then
-  if [ -z "$STRAP_DOTFILES_URL" ]; then #|| [ -z "$STRAP_DOTFILES_BRANCH" ]; then
-    abort "Please set STRAP_DOTFILES_URL." # and STRAP_DOTFILES_BRANCH."
-  fi
-  log "Cloning $STRAP_DOTFILES_URL to ~/tmp."
-  git clone $Q "$STRAP_DOTFILES_URL" ~/tmp
-  cp -a ~/tmp/. ~/
-  rm -rf ~/tmp
-  rm -rf ~/.git
-fi
-## strap_dotfiles_branch_name="${STRAP_DOTFILES_BRANCH##*/}"
-## log "Checking out $strap_dotfiles_branch_name in ~/.dotfiles."
-# shellcheck disable=SC2086
-##(
-##  cd ~/.dotfiles
-##  git stash
-##  git fetch $Q
-##  git checkout "$strap_dotfiles_branch_name"
-##  git pull $Q --rebase --autostash
-##)
-
-# Check if the font is installed in the specified directory
-FONT_NAME="JetBrainsMonoNerdFont-Regular"
-FONT_DIR="$HOME/Library/Fonts"
-FONT_FILE="$HOME/JetBrainsMonoNerdFont-Regular.ttf"
-if ls "$FONT_DIR" 2>/dev/null | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
-    log "Font '$FONT_NAME' is installed in $FONT_DIR."
-elif [ -f "$FONT_FILE" ]; then
-    log "Installing font '$FONT_NAME' via Font Book..."
-    open -b com.apple.FontBook "$FONT_FILE"
-elif command -v brew &>/dev/null; then
-    log "Installing font via Homebrew..."
-    brew install --cask font-jetbrains-mono-nerd-font
-else
-    log "Font '$FONT_NAME' not found. Please install manually."
-fi
-
-# run_dotfile_scripts scripts/macos-setup.sh
-logk
-
-if [ ! -d "$HOME/.cfg" ]; then
-  if [ -z "$STRAP_DOTFILES_URL" ] || [ -z "$STRAP_DOTFILES_BRANCH" ]; then
-    abort "Please set STRAP_DOTFILES_URL and STRAP_DOTFILES_BRANCH."
-  fi
-  log "Cloning $STRAP_DOTFILES_URL bare to ~/.cfg."
-  git clone $Q --bare "$STRAP_DOTFILES_URL" $HOME/.cfg
-  function config {
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
-  }
-  mkdir -p .config-backup
-  if config checkout 2>/dev/null; then
-    log "Checked out config."
-  else
-    log "Backing up pre-existing dot files."
-    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | xargs -I{} mv {} .config-backup/{}
-    config checkout
-  fi
-  config config --local status.showUntrackedFiles no
-fi
-
-# configure_git already called after SSH setup above
 
 # shellcheck disable=SC2086
 install_homebrew() {
@@ -545,6 +528,90 @@ run_brew_installs() {
   fi
 }
 
+# Install Homebrew early (needed for gum TUI and other tools)
+# https://docs.brew.sh/Installation
+script_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+NONINTERACTIVE=$STRAP_CI \
+  /usr/bin/env bash -c "$(curl -fsSL $script_url)" || install_homebrew
+
+# Set up Homebrew on Linux: https://docs.brew.sh/Homebrew-on-Linux
+# [ "$LINUX" -gt 0 ] && run_dotfile_scripts scripts/linuxbrew.sh
+
+run_brew_installs || abort "Homebrew installs were not successful."
+
+# Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
+# shellcheck disable=SC2086
+if [ ! -f "$HOME/.bashrc" ]; then
+  if [ -z "$STRAP_DOTFILES_URL" ]; then #|| [ -z "$STRAP_DOTFILES_BRANCH" ]; then
+    abort "Please set STRAP_DOTFILES_URL." # and STRAP_DOTFILES_BRANCH."
+  fi
+  log "Cloning $STRAP_DOTFILES_URL to ~/tmp."
+  git clone $Q "$STRAP_DOTFILES_URL" ~/tmp
+  cp -a ~/tmp/. ~/
+  rm -rf ~/tmp
+  rm -rf ~/.git
+fi
+## strap_dotfiles_branch_name="${STRAP_DOTFILES_BRANCH##*/}"
+## log "Checking out $strap_dotfiles_branch_name in ~/.dotfiles."
+# shellcheck disable=SC2086
+##(
+##  cd ~/.dotfiles
+##  git stash
+##  git fetch $Q
+##  git checkout "$strap_dotfiles_branch_name"
+##  git pull $Q --rebase --autostash
+##)
+
+# Check if the font is installed in the specified directory
+FONT_NAME="JetBrainsMonoNerdFont-Regular"
+FONT_DIR="$HOME/Library/Fonts"
+FONT_FILE="$HOME/JetBrainsMonoNerdFont-Regular.ttf"
+if ls "$FONT_DIR" 2>/dev/null | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
+    log "Font '$FONT_NAME' is installed in $FONT_DIR."
+elif [ -f "$FONT_FILE" ]; then
+    log "Installing font '$FONT_NAME' via Font Book..."
+    open -b com.apple.FontBook "$FONT_FILE"
+elif command -v brew &>/dev/null; then
+    log "Installing font via Homebrew..."
+    brew install --cask font-jetbrains-mono-nerd-font
+else
+    log "Font '$FONT_NAME' not found. Please install manually."
+fi
+
+# run_dotfile_scripts scripts/macos-setup.sh
+logk
+
+if [ ! -d "$HOME/.cfg" ]; then
+  if [ -z "$STRAP_DOTFILES_URL" ] || [ -z "$STRAP_DOTFILES_BRANCH" ]; then
+    abort "Please set STRAP_DOTFILES_URL and STRAP_DOTFILES_BRANCH."
+  fi
+  log "Cloning $STRAP_DOTFILES_URL bare to ~/.cfg."
+  git clone $Q --bare "$STRAP_DOTFILES_URL" $HOME/.cfg
+  function config {
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
+  }
+  mkdir -p .config-backup
+  if config checkout 2>/dev/null; then
+    log "Checked out config."
+  else
+    log "Backing up pre-existing dot files."
+    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | xargs -I{} mv {} .config-backup/{}
+    config checkout
+  fi
+  config config --local status.showUntrackedFiles no
+  # Initialize submodules (e.g., nvim config)
+  log "Initializing git submodules"
+  config submodule update --init --recursive
+fi
+
+# configure_git already called after SSH setup above
+
+# Install neovim plugins (lazy.nvim)
+if command -v nvim &>/dev/null; then
+  log "Installing neovim plugins via lazy.nvim"
+  nvim --headless "+Lazy! sync" +qa 2>/dev/null || log "Neovim plugin install skipped (will install on first launch)"
+fi
+
 # Install nvm: https://github.com/nvm-sh/nvm
 log "Installing node version manager (nvm)"
 
@@ -552,3 +619,41 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/HEAD/install.sh | bash
 
 STRAP_SUCCESS=1
 log "Your system is now bootstrapped!"
+
+echo ""
+echo "=============================================="
+echo "  POST-INSTALL CHECKLIST"
+echo "=============================================="
+echo ""
+echo "  1. Add SSH keys to GitHub:"
+echo ""
+echo "     PERSONAL: pbcopy < ~/.ssh/id_ed25519.pub"
+echo "     → github.com/settings/keys → New SSH key"
+echo ""
+if [ -n "$STRAP_GIT_EMAIL_WORK" ]; then
+echo "     WORK: pbcopy < ~/.ssh/id_ed25519_work.pub"
+echo "     → Log into work GitHub → settings/keys → New SSH key"
+echo ""
+echo "     Test with: ssh -T git@github.com"
+echo "                ssh -T git@work.github.com"
+echo ""
+fi
+echo "  2. Grant skhd accessibility permission:"
+echo "     System Settings → Privacy & Security → Accessibility"
+echo "     Add /Applications/skhd.app → Toggle ON"
+echo ""
+echo "  3. Update yabai sudoers (required after every yabai update):"
+echo "     echo \"\$(whoami) ALL=(root) NOPASSWD: sha256:\$(shasum -a 256 \$(which yabai) | cut -d ' ' -f 1) \$(which yabai) --load-sa\""
+echo "     sudo visudo -f /private/etc/sudoers.d/yabai"
+echo "     yabai --restart-service"
+echo ""
+echo "  4. Install tmux plugins:"
+echo "     Open tmux, then press: Ctrl+a, Shift+I"
+echo ""
+echo "  5. Install Node.js via nvm:"
+echo "     source ~/.nvm/nvm.sh && nvm install --lts"
+echo ""
+echo "  6. Restart your terminal or run:"
+echo "     source ~/.bashrc"
+echo ""
+echo "=============================================="
