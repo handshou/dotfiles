@@ -1,6 +1,11 @@
 cask_args appdir: "/Applications", require_sha: true
 
+# All taps first
 tap "homebrew/bundle"
+tap "supabase/tap"
+tap "asmvik/formulae"
+tap "jackielii/tap"
+tap "1password/tap"
 
 brew "docker"
 brew "docker-compose"
@@ -31,13 +36,10 @@ cask "claude-code"
 
 cask "darktable"
 
-tap "supabase/tap"
 brew "supabase"
 
-tap "asmvik/formulae"
 brew "yabai"
 
-tap "jackielii/tap"
 brew "skhd-zig"
 
 cask "hiddenbar"
@@ -47,7 +49,6 @@ cask "iterm2"
 cask "hazel"
 cask "love"
 
-tap "1password/tap"
 cask "1password-cli"
 cask "1password"
 
