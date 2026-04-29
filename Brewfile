@@ -1,7 +1,6 @@
 cask_args appdir: "/Applications", require_sha: true
 
 # All taps first
-tap "homebrew/bundle"
 tap "supabase/tap"
 tap "asmvik/formulae"
 tap "jackielii/tap"
