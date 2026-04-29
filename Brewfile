@@ -27,10 +27,6 @@ brew "goenv"
 
 brew "stylua"
 
-brew "overlayed"
-
-brew "codex"
-
 cask "claude-code"
 
 cask "darktable"
@@ -74,15 +70,11 @@ cask "subler"
 mas "things 3", id: 904280696
 mas "magnet", id: 441258766
 mas "1password for safari", id: 1569813296
-mas "effortless", id: 1368722917
 mas "keys for safari", id: 1494642810
 mas "vinegar", id: 1591303229
 mas "baking soda", id: 1601151613
-mas "omnivore reader", id: 1564031042
-mas "wireless@sg", id: 1449928544
 mas "refined github", id: 1519867270
 mas "dearrow", id: 6451469297
-mas "duolingo", id: 570060128
 mas "wappalyzer", id: 1520333300
 mas "trello", id: 1278508951
 mas "dropover", id: 1355679052
