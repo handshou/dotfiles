@@ -53,8 +53,8 @@ if [ -f ~/.ssh/id_ed25519_work.pub ]; then
       STRAP_GITHUB_USER_WORK="$local_part"
     fi
   fi
-  # Default work name to personal name if not set
-  [ -z "$STRAP_GIT_NAME_WORK" ] && STRAP_GIT_NAME_WORK="$STRAP_GIT_NAME"
+  # Default work name to work GitHub username if not set
+  [ -z "$STRAP_GIT_NAME_WORK" ] && STRAP_GIT_NAME_WORK="$STRAP_GITHUB_USER_WORK"
 fi
 
 # Interactive prompts for required variables (works on fresh macOS without gum)
