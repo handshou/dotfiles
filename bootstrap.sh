@@ -35,7 +35,7 @@ STDIN_FILE_DESCRIPTOR=0
 [ -t "$STDIN_FILE_DESCRIPTOR" ] && STRAP_INTERACTIVE=1
 STRAP_GIT_NAME=${STRAP_GIT_NAME:?Variable not set}
 STRAP_GIT_EMAIL=${STRAP_GIT_EMAIL:?Variable not set}
-STRAP_GITHUB_USER=${STRAP_GITHUB_USER:="br3ndonland"}
+STRAP_GITHUB_USER=${STRAP_GITHUB_USER:?Variable not set}
 DEFAULT_DOTFILES_URL="https://github.com/$STRAP_GITHUB_USER/dotfiles"
 STRAP_DOTFILES_URL=${STRAP_DOTFILES_URL:="$DEFAULT_DOTFILES_URL"}
 STRAP_DOTFILES_BRANCH=${STRAP_DOTFILES_BRANCH:="main"}
@@ -327,7 +327,7 @@ fi
 
 # Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
 # shellcheck disable=SC2086
-if [ ! -d "$HOME/.bashrc" ]; then
+if [ ! -f "$HOME/.bashrc" ]; then
   if [ -z "$STRAP_DOTFILES_URL" ]; then #|| [ -z "$STRAP_DOTFILES_BRANCH" ]; then
     abort "Please set STRAP_DOTFILES_URL." # and STRAP_DOTFILES_BRANCH."
   fi
@@ -351,14 +351,20 @@ fi
 # Check if the font is installed in the specified directory
 FONT_NAME="JetBrainsMonoNerdFont-Regular"
 FONT_DIR="$HOME/Library/Fonts"
-if ls "$FONT_DIR" | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
-    log "Font '$FONT_NAME' is installed in $FONT_DIR.";
+FONT_FILE="$HOME/JetBrainsMonoNerdFont-Regular.ttf"
+if ls "$FONT_DIR" 2>/dev/null | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
+    log "Font '$FONT_NAME' is installed in $FONT_DIR."
+elif [ -f "$FONT_FILE" ]; then
+    log "Installing font '$FONT_NAME' via Font Book..."
+    open -b com.apple.FontBook "$FONT_FILE"
+elif command -v brew &>/dev/null; then
+    log "Installing font via Homebrew..."
+    brew install --cask font-jetbrains-mono-nerd-font
 else
-    log "Font '$FONT_NAME' is NOT installed in $FONT_DIR.";
-    open -b com.apple.FontBook $HOME/JetBrainsMonoNerdFont-Regular.ttf
+    log "Font '$FONT_NAME' not found. Please install manually."
 fi
 
-run_dotfile_scripts scripts/brendan.macos.sh
+# run_dotfile_scripts scripts/macos-setup.sh
 logk
 
 if [ ! -d "$HOME/.cfg" ]; then
@@ -368,18 +374,16 @@ if [ ! -d "$HOME/.cfg" ]; then
   log "Cloning $STRAP_DOTFILES_URL bare to ~/.cfg."
   git clone $Q --bare "$STRAP_DOTFILES_URL" $HOME/.cfg
   function config {
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
   }
   mkdir -p .config-backup
-  config reset
-  # config checkout
-  if [ $? = 0 ]; then
-    log "Checked out config.";
-    else
-      log "Backing up pre-existing dot files.";
-      config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
-  fi;
-  # config checkout
+  if config checkout 2>/dev/null; then
+    log "Checked out config."
+  else
+    log "Backing up pre-existing dot files."
+    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | xargs -I{} mv {} .config-backup/{}
+    config checkout
+  fi
   config config --local status.showUntrackedFiles no
 fi
 
@@ -409,18 +413,31 @@ install_homebrew() {
   HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null || true)"
   [ -n "$HOMEBREW_PREFIX" ] || HOMEBREW_PREFIX="$DEFAULT_HOMEBREW_PREFIX"
   [ -d "$HOMEBREW_PREFIX" ] || sudo_askpass mkdir -p "$HOMEBREW_PREFIX"
-  sudo_askpass chown "root:wheel" "$HOMEBREW_PREFIX" 2>/dev/null || true
+  if [ "$MACOS" -gt 0 ]; then
+    sudo_askpass chown "root:wheel" "$HOMEBREW_PREFIX" 2>/dev/null || true
+  else
+    sudo_askpass chown "root:root" "$HOMEBREW_PREFIX" 2>/dev/null || true
+  fi
   (
     cd "$HOMEBREW_PREFIX"
     sudo_askpass mkdir -p \
       Cellar Caskroom Frameworks bin etc include lib opt sbin share var
-    sudo_askpass chown "$USER:admin" \
-      Cellar Caskroom Frameworks bin etc include lib opt sbin share var
+    if [ "$MACOS" -gt 0 ]; then
+      sudo_askpass chown "$USER:admin" \
+        Cellar Caskroom Frameworks bin etc include lib opt sbin share var
+    else
+      sudo_askpass chown "$USER:$USER" \
+        Cellar Caskroom Frameworks bin etc include lib opt sbin share var
+    fi
   )
   HOMEBREW_REPOSITORY="$(brew --repository 2>/dev/null || true)"
   [ -n "$HOMEBREW_REPOSITORY" ] || HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
   [ -d "$HOMEBREW_REPOSITORY" ] || sudo_askpass mkdir -p "$HOMEBREW_REPOSITORY"
-  sudo_askpass chown -R "$USER:admin" "$HOMEBREW_REPOSITORY"
+  if [ "$MACOS" -gt 0 ]; then
+    sudo_askpass chown -R "$USER:admin" "$HOMEBREW_REPOSITORY"
+  else
+    sudo_askpass chown -R "$USER:$USER" "$HOMEBREW_REPOSITORY"
+  fi
   if [ "$HOMEBREW_PREFIX" != "$HOMEBREW_REPOSITORY" ]; then
     ln -sf "$HOMEBREW_REPOSITORY/bin/brew" "$HOMEBREW_PREFIX/bin/brew"
   fi
@@ -498,7 +515,7 @@ run_brew_installs() {
   else
     [ -z "$STRAP_DOTFILES_BRANCH" ] && STRAP_DOTFILES_BRANCH=HEAD
     git_branch="${STRAP_DOTFILES_BRANCH##*/}"
-    github_user="${STRAP_GITHUB_USER:-br3ndonland}"
+    github_user="${STRAP_GITHUB_USER:?Variable not set}"
     brewfile_domain="https://raw.githubusercontent.com"
     brewfile_path="$github_user/dotfiles/$git_branch/Brewfile"
     brewfile_url="$brewfile_domain/$brewfile_path"
