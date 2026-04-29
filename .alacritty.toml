@@ -1,3 +1,4 @@
+[general]
 import = ["/Users/h/.config/alacritty/themes/tokyonight_storm.toml"]
 
 [font]
@@ -11,7 +12,7 @@ decorations = "Buttonless"
 
 [window.padding]
 x = 0
-y = 0
+y = 8
 
 [keyboard]
 bindings = [
