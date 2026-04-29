@@ -576,13 +576,14 @@ FONT_NAME="JetBrainsMonoNerdFont-Regular"
 FONT_DIR="$HOME/Library/Fonts"
 FONT_FILE="$HOME/JetBrainsMonoNerdFont-Regular.ttf"
 if ls "$FONT_DIR" 2>/dev/null | grep -i "$FONT_NAME" | grep -i ".ttf\|.otf" >/dev/null; then
-    log "Font '$FONT_NAME' is installed in $FONT_DIR."
-elif [ -f "$FONT_FILE" ]; then
-    log "Installing font '$FONT_NAME' via Font Book..."
-    open -b com.apple.FontBook "$FONT_FILE"
+    log "Font '$FONT_NAME' is already installed."
 elif command -v brew &>/dev/null; then
     log "Installing font via Homebrew..."
     brew install --cask font-jetbrains-mono-nerd-font
+elif [ -f "$FONT_FILE" ]; then
+    log "Installing font '$FONT_NAME' by copying to ~/Library/Fonts..."
+    mkdir -p "$FONT_DIR"
+    cp "$FONT_FILE" "$FONT_DIR/"
 else
     log "Font '$FONT_NAME' not found. Please install manually."
 fi
@@ -604,7 +605,10 @@ if [ ! -d "$HOME/.cfg" ]; then
     log "Checked out config."
   else
     log "Backing up pre-existing dot files."
-    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | xargs -I{} mv {} .config-backup/{}
+    config checkout 2>&1 | grep -E "^\s+\." | awk '{print $1}' | while read -r f; do
+      mkdir -p ".config-backup/$(dirname "$f")"
+      mv "$f" ".config-backup/$f" 2>/dev/null || true
+    done
     config checkout
   fi
   config config --local status.showUntrackedFiles no
