@@ -34,6 +34,7 @@ brew "codex"
 cask "claude-code"
 
 cask "darktable"
+cask "rawtherapee"
 
 brew "supabase"
 
