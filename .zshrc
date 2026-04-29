@@ -24,6 +24,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# Darktable
+export PATH="/Applications/darktable.app/Contents/MacOS:$PATH"
+
 # Added by Windsurf
 export PATH="/Users/h/.codeium/windsurf/bin:$PATH"
 
@@ -42,3 +45,6 @@ if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
     ssh-add ~/.ssh/id_ed25519_work
     ssh-add ~/.ssh/id_ed25519
 fi
+
+# Added by Windsurf
+export PATH="/Users/h/.codeium/windsurf/bin:$PATH"

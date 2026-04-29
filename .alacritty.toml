@@ -1,13 +1,13 @@
 import = ["/Users/h/.config/alacritty/themes/tokyonight_storm.toml"]
 
 [font]
-size = 20
+size = 12.5
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 
 [window]
-decorations = "none"
+decorations = "Buttonless"
 
 [window.padding]
 x = 0
@@ -38,4 +38,5 @@ bindings = [
   { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
   { key = "Q", mods = "Alt", chars = "\u001Bq" },  # Alt + Q (Not a standard bash shortcut, customizable)
   { key = "Tab", mods = "Control", chars = "\u001b[27;5;9~" },
+  { key = "Return", mods = "Shift", chars = "\u001b\r" },
 ]

@@ -27,8 +27,7 @@ shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 # -- Modifying Window Size --
 
 # push and expand left pane by 285
-cmd + shift + alt - h : 
-  yabai -m window --focus east -m window --resize left:-285:0
+cmd + shift + alt - h : yabai -m window --focus east; yabai -m window --resize left:-285:0
 
 # maximize a window
 shift + alt - m : yabai -m window --toggle zoom-fullscreen
@@ -73,6 +72,7 @@ shift + alt - 9 : yabai -m window --space 9;
 
 # stop/start/restart yabai
 ctrl + alt - q : yabai --stop-service
-ctrl + alt - s : yabai --start-service 
-ctrl + alt - r : yabai --restart-service
+ctrl + alt - s : yabai --start-service
+# restart yabai, then reapply rules to move windows to assigned spaces
+ctrl + alt - r : yabai --restart-service && sleep 1 && yabai -m rule --apply
 
