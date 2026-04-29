@@ -33,6 +33,15 @@ STRAP_DEBUG=${STRAP_DEBUG:-0}
 STRAP_INTERACTIVE=${STRAP_INTERACTIVE:-0}
 STDIN_FILE_DESCRIPTOR=0
 [ -t "$STDIN_FILE_DESCRIPTOR" ] && STRAP_INTERACTIVE=1
+# Pre-populate from existing git config and SSH keys (for re-runs)
+[ -z "$STRAP_GIT_NAME" ] && STRAP_GIT_NAME="$(git config --global user.name 2>/dev/null)"
+[ -z "$STRAP_GIT_EMAIL" ] && STRAP_GIT_EMAIL="$(git config --global user.email 2>/dev/null)"
+[ -z "$STRAP_GITHUB_USER" ] && STRAP_GITHUB_USER="$(git config --global github.user 2>/dev/null)"
+# Extract work email from SSH key comment if it exists
+if [ -z "$STRAP_GIT_EMAIL_WORK" ] && [ -f ~/.ssh/id_ed25519_work.pub ]; then
+  STRAP_GIT_EMAIL_WORK="$(awk '{print $3}' ~/.ssh/id_ed25519_work.pub 2>/dev/null)"
+fi
+
 # Interactive prompts for required variables (works on fresh macOS without gum)
 prompt_if_missing() {
   local var_name="$1" prompt_text="$2" default_val="$3"
