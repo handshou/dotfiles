@@ -382,6 +382,16 @@ configure_git() {
     [ "$(git config github.user)" != "$STRAP_GITHUB_USER" ]; then
     git config --global github.user "$STRAP_GITHUB_USER"
   fi
+  # SSH commit signing (non-CI). Reuses ~/.ssh/id_ed25519 — no GPG needed.
+  # NOTE: GitHub will only show the "Verified" badge once the same public
+  # key is also registered as a Signing Key (separate role from Auth Key)
+  # at https://github.com/settings/ssh/new
+  if [ "$STRAP_CI" -eq 0 ] && [ -f "$HOME/.ssh/id_ed25519.pub" ]; then
+    [ -z "$(git config --global gpg.format)" ] && git config --global gpg.format ssh
+    [ -z "$(git config --global user.signingkey)" ] && git config --global user.signingkey "$HOME/.ssh/id_ed25519.pub"
+    [ -z "$(git config --global commit.gpgsign)" ] && git config --global commit.gpgsign true
+    [ -z "$(git config --global tag.gpgsign)" ] && git config --global tag.gpgsign true
+  fi
   # Set up GitHub HTTPS credentials
   # shellcheck disable=SC2086
   if git credential-osxkeychain 2>&1 | grep $Q "git.credential-osxkeychain"; then
