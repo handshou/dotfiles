@@ -15,7 +15,6 @@ tap "1password/tap"
 # CLI: Development
 # -----------------------------------------------------------------------------
 brew "neovim"
-brew "node"
 brew "python@3.11"
 brew "python-tk"
 brew "deno"
