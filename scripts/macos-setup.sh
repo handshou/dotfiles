@@ -168,17 +168,25 @@ defaults write com.apple.dock expose-group-by-app -bool true
 # Plist keys 118-126 map to Desktop 1-9. Modifier 262144 = Control.
 # Keycodes for digits 1..9 are non-sequential:
 #   1=18, 2=19, 3=20, 4=21, 5=23, 6=22, 7=26, 8=28, 9=25
-for entry in "118:18" "119:19" "120:20" "121:21" "122:23" "123:22" "124:26" "125:28" "126:25"; do
-  key="${entry%%:*}"
-  code="${entry##*:}"
-  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$key" "
-  {
-    enabled = 1;
-    value = { type = standard; parameters = (65535, $code, 262144); };
-  }
-  "
-done
-# cfprefsd caches plists; full effect after next logout/reboot.
+#
+# cfprefsd caches prefs in memory; if we don't drop the cache BEFORE writing,
+# its stale state can be flushed back over our changes at shutdown, wiping
+# the file on next boot. Bracket the write with kills.
+killall cfprefsd 2>/dev/null || true
+
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict \
+  118 '{enabled=1;value={type=standard;parameters=(65535,18,262144);};}' \
+  119 '{enabled=1;value={type=standard;parameters=(65535,19,262144);};}' \
+  120 '{enabled=1;value={type=standard;parameters=(65535,20,262144);};}' \
+  121 '{enabled=1;value={type=standard;parameters=(65535,21,262144);};}' \
+  122 '{enabled=1;value={type=standard;parameters=(65535,23,262144);};}' \
+  123 '{enabled=1;value={type=standard;parameters=(65535,22,262144);};}' \
+  124 '{enabled=1;value={type=standard;parameters=(65535,26,262144);};}' \
+  125 '{enabled=1;value={type=standard;parameters=(65535,28,262144);};}' \
+  126 '{enabled=1;value={type=standard;parameters=(65535,25,262144);};}'
+
+# Force flush, then drop cache so next reader re-reads from disk.
+defaults read com.apple.symbolichotkeys >/dev/null
 killall cfprefsd 2>/dev/null || true
 
 # Disable Dashboard
@@ -227,6 +235,10 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 # Bottom left screen corner
 defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
+
+# Apply Dock + Mission Control (Dock-side) changes this session and force
+# the Dock to flush its in-memory copy of prefs so it can't overwrite us.
+killall Dock 2>/dev/null || true
 
 ###############################################################################
 # Mail                                                                        #
@@ -389,3 +401,5 @@ defaults delete com.crowdcafe.windowmagnet maximizeWindowComboKey
 
 # Import tokyonight-storm colortheme from plist
 defaults import com.googlecode.iterm2 "$HOME/scripts/iterm2.plist"
+
+printf "\nDone. NOTE: Ctrl+1..9 desktop hotkeys are read by WindowServer at\nlogin. Log out and log back in (not just reboot with auto-login) for them\nto take effect.\n"
