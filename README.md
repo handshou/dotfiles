@@ -128,6 +128,7 @@ config submodule add <clone address> <directory>
 |pgcli          |https://formulae.brew.sh/formula/pgcli |
 |ripgrep        |https://formulae.brew.sh/formula/ripgrep |
 |tree           |https://formulae.brew.sh/formula/tree |
+|bash           |https://formulae.brew.sh/formula/bash |
 |tmux           |https://formulae.brew.sh/formula/tmux |
 |tpm            |https://formulae.brew.sh/formula/tpm |
 |deno           |https://formulae.brew.sh/formula/deno |
@@ -221,6 +222,11 @@ Some apps will regress.
 - Added global caps_lock to left_control in Karabiner
 - Fixed TPM path in tmux.conf (hardcoded /opt/homebrew)
 - Added brew shellenv to .zshrc
+- Added `bash` to Brewfile so tokyo-night-tmux renders correctly. macOS ships
+  bash 3.2 (no associative array support); the plugin's `declare -A THEME=(...)`
+  fails silently and every `${THEME[*]}` collapses to the last scalar write
+  (`#d29922`), turning the entire status bar one ugly orange. Homebrew bash 5+
+  fixes it. Restart the tmux server (`tmux kill-server`) after install.
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG
