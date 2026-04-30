@@ -11,13 +11,17 @@ fi
 # Extract email from SSH key comment (3rd field)
 work_email=$(awk '{print $3}' "$work_key")
 
-# Extract username from "ID+username@users.noreply.github.com" format
-work_user=$(echo "$work_email" | sed 's/.*+\(.*\)@.*/\1/')
-
-# If no + in email, use the part before @
-if [ "$work_user" = "$work_email" ]; then
-  work_user=$(echo "$work_email" | cut -d@ -f1)
-fi
+# Extract username from email
+# GitHub noreply format: "ID+username@users.noreply.github.com" → extract after +
+# Regular email: "name@domain.com" → extract before @
+case "$work_email" in
+  *+*@users.noreply.github.com)
+    work_user=$(echo "$work_email" | sed 's/.*+\(.*\)@.*/\1/')
+    ;;
+  *)
+    work_user=$(echo "$work_email" | cut -d@ -f1)
+    ;;
+esac
 
 echo "Setting up git for work:"
 echo "  user.name: $work_user"
