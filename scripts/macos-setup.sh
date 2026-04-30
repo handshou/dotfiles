@@ -164,6 +164,23 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # Group windows by application in Mission Control
 defaults write com.apple.dock expose-group-by-app -bool true
 
+# Enable Ctrl+1..9 → Switch to Desktop N (off by default on macOS).
+# Plist keys 118-126 map to Desktop 1-9. Modifier 262144 = Control.
+# Keycodes for digits 1..9 are non-sequential:
+#   1=18, 2=19, 3=20, 4=21, 5=23, 6=22, 7=26, 8=28, 9=25
+for entry in "118:18" "119:19" "120:20" "121:21" "122:23" "123:22" "124:26" "125:28" "126:25"; do
+  key="${entry%%:*}"
+  code="${entry##*:}"
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$key" "
+  {
+    enabled = 1;
+    value = { type = standard; parameters = (65535, $code, 262144); };
+  }
+  "
+done
+# cfprefsd caches plists; full effect after next logout/reboot.
+killall cfprefsd 2>/dev/null || true
+
 # Disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
 

@@ -31,8 +31,9 @@ STRAP_GITHUB_USER_WORK="your-work-username"
 4. Checks out dotfiles via bare git repo to `~/.cfg`
 5. Installs packages from Brewfile
 6. Initializes neovim submodule
-7. Runs headless neovim plugin install
-8. Displays post-install checklist
+7. Applies macOS defaults via `scripts/macos-setup.sh`
+8. Runs headless neovim plugin install
+9. Displays post-install checklist
 
 ## Post-Install Checklist
 
@@ -112,6 +113,31 @@ config submodule update --remote --merge
 ### Add Submodule
 ```bash
 config submodule add <clone address> <directory>
+```
+
+## macOS Defaults (`scripts/macos-setup.sh`)
+
+Applies opinionated system preferences via `defaults write`. Backs up your
+current defaults to `~/Desktop/macos-defaults-<timestamp>.txt` first.
+
+| Section | Configures |
+|:---|:---|
+| UI/UX | Dark mode + graphite accent, metric units, save-to-disk default, instant window resize |
+| Trackpad/Keyboard | Tap-to-click, fastest key repeat, full keyboard tab nav, autocorrect off |
+| Finder | Hidden files, all extensions, list view, folders-first sort, no `.DS_Store` on network/USB |
+| Dock & Mission Control | Auto-hide menu bar + dock, no recent apps, all 4 hot corners disabled, **Ctrl+1..9 → Switch to Desktop N** |
+| Mail | Plain-text compose, no animations, newest-first, no remote content |
+| Spotlight | Custom indexing order — apps and conversion first, fonts/messages/contacts/etc. off |
+| Networking | Auto-DHCP for Ethernet, ProtonVPN auto-connect on boot |
+| TextEdit | Plain text mode, UTF-8 |
+| Transmission | Encryption required, blocklist auto-update, peer limits, prevent sleep |
+| Magnet | Clears default hotkeys (keeps center/restore/maximize) |
+| iTerm2 | Imports tokyonight-storm theme |
+
+Run manually after edits:
+```bash
+sh ~/scripts/macos-setup.sh
+killall cfprefsd Dock Finder   # apply changes immediately
 ```
 
 ## Brewfile
@@ -220,6 +246,12 @@ Some apps will regress.
 ## Changelog
 
 ### 2026-04-30
+- Bootstrap now auto-runs `scripts/macos-setup.sh` after Brewfile install
+- Added Ctrl+1..9 → Switch to Desktop N hotkeys to macos-setup.sh
+- Removed `node` from Brewfile (use nvm-managed node instead)
+- Added `tag.gpgsign = true` and `gpg.ssh.allowedSignersFile` to gitconfig
+- Switched hardcoded `/Users/h` paths in dotfiles to `~`/`$HOME` for portability
+- Removed leftover Windsurf PATH entries from .zshrc
 - Split Brewfile into core, work, and optional bundles
 - Added interactive prompts in bootstrap for optional package installs
 - Removed darktable from Brewfile

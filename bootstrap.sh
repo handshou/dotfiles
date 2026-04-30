@@ -658,7 +658,6 @@ else
     log "Font '$FONT_NAME' not found. Please install manually."
 fi
 
-# run_dotfile_scripts scripts/macos-setup.sh
 logk
 
 if [ ! -d "$HOME/.cfg" ]; then
@@ -699,6 +698,14 @@ if [ "$MACOS" -gt 0 ] && [ -d "$ALACRITTY_APP" ] && [ -f "$ALACRITTY_ICON_SRC" ]
   log "Setting custom Alacritty icon"
   fileicon set "$ALACRITTY_APP" "$ALACRITTY_ICON_SRC" 2>/dev/null || \
     log "fileicon set failed (re-run manually if needed)"
+fi
+
+# Apply macOS defaults (dock, Finder, hotkeys, etc.). Runs post-Brewfile so
+# app-specific defaults (Transmission, ProtonVPN, iTerm2 theme) resolve
+# against installed apps. Backs current defaults up to ~/Desktop first.
+if [ "$MACOS" -gt 0 ] && [ -x "$HOME/scripts/macos-setup.sh" ]; then
+  log "Applying macOS defaults (scripts/macos-setup.sh)"
+  "$HOME/scripts/macos-setup.sh" || log "macos-setup.sh exited non-zero (continuing)"
 fi
 
 # Install neovim plugins (lazy.nvim)
