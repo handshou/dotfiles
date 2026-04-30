@@ -10,6 +10,8 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[tag]
+	gpgsign = true
 [alias]
 	clone-for-worktrees = "!sh $HOME/scripts/git-clone-bare-for-worktrees.sh"
 	setup-work = "!sh $HOME/scripts/git-setup-work.sh"
