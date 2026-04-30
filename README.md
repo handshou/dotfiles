@@ -235,6 +235,13 @@ Some apps will regress.
   the custom Alacritty icon (`~/Alacritty.tiff`) to `/Applications/Alacritty.app`
   after `brew bundle`. The `.tiff` source stays at the repo root where it has
   always lived.
+- Added new yabai post-install step (asmvik fork only): `sudo nvram boot-args="-arm64e_preview_abi"`
+  + reboot. The asmvik/yabai fork requires this nvram boot-arg for `--load-sa`
+  (scripting addition) to work; without it, yabai logs `missing required nvram
+  boot-arg '-arm64e_preview_abi'!` and advanced window operations fail.
+- Documented that the yabai sudoers SHA-keyed entry must be regenerated after
+  every `brew upgrade yabai`, since the binary's SHA256 changes and invalidates
+  the prior entry (causing `sudo yabai --load-sa` to start prompting again).
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG
