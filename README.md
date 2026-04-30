@@ -116,84 +116,87 @@ config submodule add <clone address> <directory>
 
 ## Brewfile
 
-### Apps with command line interface
+Packages are split into three Brewfiles. Bootstrap installs `Brewfile` automatically and prompts for optional bundles.
 
-|CLI Apps       |Links        |
-|:--------------|:------------|
-|docker         |https://formulae.brew.sh/formula/docker |
-|docker-compose |https://formulae.brew.sh/formula/docker-compose |
-|neovim         |https://formulae.brew.sh/formula/neovim |
-|node           |https://formulae.brew.sh/formula/node |
-|python@3.11    |https://formulae.brew.sh/formula/python@3.11 |
-|pgcli          |https://formulae.brew.sh/formula/pgcli |
-|ripgrep        |https://formulae.brew.sh/formula/ripgrep |
-|tree           |https://formulae.brew.sh/formula/tree |
-|bash           |https://formulae.brew.sh/formula/bash |
-|tmux           |https://formulae.brew.sh/formula/tmux |
-|tpm            |https://formulae.brew.sh/formula/tpm |
-|deno           |https://formulae.brew.sh/formula/deno |
-|pnpm           |https://formulae.brew.sh/formula/pnpm |
-|fzf            |https://formulae.brew.sh/formula/fzf |
-|chafa          |https://formulae.brew.sh/formula/chafa |
-|stylua         |https://formulae.brew.sh/formula/stylua |
-|fileicon       |https://formulae.brew.sh/formula/fileicon |
-|supabase       |https://formulae.brew.sh/formula/supabase |
-|goenv          |https://formulae.brew.sh/formula/goenv |
-|rustup         |https://formulae.brew.sh/formula/rustup |
-|pulumi         |https://formulae.brew.sh/formula/pulumi |
-|yabai          |https://formulae.brew.sh/formula/yabai |
-|skhd-zig       |https://github.com/jackielii/skhd-zig |
+| File | Description | Install |
+|:-----|:------------|:--------|
+| `Brewfile` | Core development tools and daily apps | Auto |
+| `Brewfile.work` | Work packages (Slack, MS Office, GCloud) | Prompted |
+| `Brewfile.optional` | Photography, media, games | Prompted |
 
-### Apps with user interface
+Manual install after bootstrap:
+```bash
+brew bundle --file=Brewfile.work
+brew bundle --file=Brewfile.optional
+```
 
-|GUI Apps       |Links        |
-|:--------------|:------------|
-|iterm2         |https://formulae.brew.sh/cask/iterm2 |
-|hazel          |https://formulae.brew.sh/cask/hazel |
-|1password-cli  |https://formulae.brew.sh/cask/1password-cli |
-|1password      |https://formulae.brew.sh/cask/1password |
-|karabiner-elements| https://formulae.brew.sh/cask/karabiner-elements |
-|alfred         |https://formulae.brew.sh/cask/alfred |
-|discord        |https://formulae.brew.sh/cask/discord |
-|slack          |https://formulae.brew.sh/cask/slack |
-|gimp           |https://formulae.brew.sh/cask/gimp |
-|telegram       |https://formulae.brew.sh/cask/telegram |
-|microsoft-word |https://formulae.brew.sh/cask/microsoft-word |
-|microsoft-powerpoint|https://formulae.brew.sh/cask/microsoft-powerpoint |
-|microsoft-excel|https://formulae.brew.sh/cask/microsoft-excel |
-|visual-studio-code|https://formulae.brew.sh/cask/visual-studio-code |
-|figma          |https://formulae.brew.sh/cask/figma |
-|postman        |https://formulae.brew.sh/cask/postman |
-|protonvpn      |https://formulae.brew.sh/cask/protonvpn |
-|transmission   |https://formulae.brew.sh/cask/transmission |
-|alacritty      |https://formulae.brew.sh/cask/alacritty |
-|obsidian       |https://formulae.brew.sh/cask/obsidian |
-|zen            |https://formulae.brew.sh/cask/zen |
-|firefox        |https://formulae.brew.sh/cask/firefox |
-|darktable      |https://formulae.brew.sh/cask/darktable |
-|rawtherapee    |https://formulae.brew.sh/cask/rawtherapee |
-|claude-code    |https://formulae.brew.sh/cask/claude-code |
-|hiddenbar      |https://formulae.brew.sh/cask/hiddenbar |
-|stats          |https://formulae.brew.sh/cask/stats |
-|love           |https://formulae.brew.sh/cask/love |
-|subler         |https://formulae.brew.sh/cask/subler |
-|gcloud-cli     |https://formulae.brew.sh/cask/gcloud-cli |
+### Core CLI Apps (Brewfile)
 
-### Apps from the store
+| App | Description |
+|:----|:------------|
+| neovim | Editor |
+| node, deno, pnpm | JavaScript runtimes |
+| python@3.11 | Python |
+| rustup, goenv | Language version managers |
+| tmux, tpm | Terminal multiplexer |
+| ripgrep, fzf, tree, chafa | CLI utilities |
+| pgcli | Database tools |
+| stylua | Lua formatter |
+| yabai, skhd-zig | Window management |
 
-|Appstore       |ID             |Links          |
-|:--------------|:--------------|:--------------|
-|Things 3       |904280696      |https://apps.apple.com/us/app/things-3/id904280696 |
-|Magnet         |441258766      |https://apps.apple.com/us/app/magnet/id441258766 |
-|1password      |1569813296     |https://apps.apple.com/us/app/1password-password-manager/id159813296 |
-|Keys for Safari|1494642810     |https://apps.apple.com/us/app/keys-for-safari/id1494642810 |
-|Vinegar        |1591303229     |https://apps.apple.com/sg/app/vinegar-tube-cleaner/id1591303229 |
-|Baking Soda    |1601151613     |https://apps.apple.com/us/app/baking-soda-tube-cleaner/id1601151613 |
-|Refined Github |1519867270     |https://apps.apple.com/us/app/refined-github/id1519867270 |
-|DeArrow        |6451469297     |https://apps.apple.com/us/app/dearrow-for-youtube/id6451469297 |
-|Wappalyzer     |1520333300     |https://apps.apple.com/us/app/wappalyzer/id1520333300 |
-|Trello         |1278508951     |https://apps.apple.com/us/app/trello/id1278508951 |
-|Dropover       |1355679052     |https://apps.apple.com/us/app/dropover-easier-drag-drop/id1355679052 |
+### Core GUI Apps (Brewfile)
+
+| App | Description |
+|:----|:------------|
+| iterm2, alacritty | Terminals |
+| firefox, zen | Browsers |
+| alfred, obsidian | Productivity |
+| claude-code | AI assistant |
+| figma | Design |
+| 1password, 1password-cli | Password manager |
+| protonvpn | VPN |
+| karabiner-elements | Keyboard remapping |
+| hiddenbar, stats | Menu bar utilities |
+| font-hack-nerd-font | Nerd font |
+
+### Work Apps (Brewfile.work)
+
+| App | Description |
+|:----|:------------|
+| docker, docker-compose | Containers |
+| supabase | Database |
+| slack | Work communication |
+| visual-studio-code | Editor |
+| microsoft-word/excel/powerpoint | Office suite |
+| postman | API testing |
+| google-cloud-sdk | GCloud CLI |
+| pulumi | Infrastructure as code |
+| trello (App Store) | Project management |
+
+### Optional Apps (Brewfile.optional)
+
+| App | Description |
+|:----|:------------|
+| rawtherapee, gimp | Photography/image editing |
+| subler, transmission | Media tools |
+| love | Game engine |
+| hazel | Automation |
+| discord, telegram | Communication |
+
+### App Store (Brewfile)
+
+| App | ID |
+|:----|:---|
+| Things 3 | 904280696 |
+| Magnet | 441258766 |
+| Dropover | 1355679052 |
+| 1password for Safari | 1569813296 |
+| Keys for Safari | 1494642810 |
+| Vinegar | 1591303229 |
+| Baking Soda | 1601151613 |
+| Refined GitHub | 1519867270 |
+| DeArrow | 6451469297 |
+| Wappalyzer | 1520333300 |
 
 ## Manual Installs
 
@@ -217,44 +220,15 @@ Some apps will regress.
 ## Changelog
 
 ### 2026-04-30
+- Split Brewfile into core, work, and optional bundles
+- Added interactive prompts in bootstrap for optional package installs
+- Removed darktable from Brewfile
 - Added 9-step post-install checklist with detailed SIP disable instructions
 - Migrated from koekeishiya/skhd to jackielii/skhd-zig
 - Updated nvim config for neovim 0.12 (removed lsp-zero, use native LSP)
 - Added global caps_lock to left_control in Karabiner
 - Fixed TPM path in tmux.conf (hardcoded /opt/homebrew)
 - Added brew shellenv to .zshrc
-- Added `bash` to Brewfile so tokyo-night-tmux renders correctly. macOS ships
-  bash 3.2 (no associative array support); the plugin's `declare -A THEME=(...)`
-  fails silently and every `${THEME[*]}` collapses to the last scalar write
-  (`#d29922`), turning the entire status bar one ugly orange. Homebrew bash 5+
-  fixes it. Restart the tmux server (`tmux kill-server`) after install.
-- Added Step 5 to post-install #1: switch dotfiles remote from HTTPS to SSH
-  (`config remote set-url origin git@github.com:USER/dotfiles.git`) so
-  `config push` uses the SSH key instead of failing on missing HTTPS creds.
-- Added `fileicon` to Brewfile and an automated bootstrap step that applies
-  the custom Alacritty icon (`~/Alacritty.tiff`) to `/Applications/Alacritty.app`
-  after `brew bundle`. The `.tiff` source stays at the repo root where it has
-  always lived.
-- Added new yabai post-install step (asmvik fork only): `sudo nvram boot-args="-arm64e_preview_abi"`
-  + reboot. The asmvik/yabai fork requires this nvram boot-arg for `--load-sa`
-  (scripting addition) to work; without it, yabai logs `missing required nvram
-  boot-arg '-arm64e_preview_abi'!` and advanced window operations fail.
-- Documented that the yabai sudoers SHA-keyed entry must be regenerated after
-  every `brew upgrade yabai`, since the binary's SHA256 changes and invalidates
-  the prior entry (causing `sudo yabai --load-sa` to start prompting again).
-- Renamed `google-cloud-sdk` → `gcloud-cli` in Brewfile and CLI Apps table.
-  Homebrew renamed the cask; `brew bundle` was emitting a deprecation warning.
-- Added `install_ts_parser` helper to bootstrap.sh that compiles tree-sitter
-  parsers (markdown, markdown_inline) from pinned source tarballs and drops
-  them in `~/.local/share/nvim/site/parser/`. Workaround for an upstream
-  `nvim-treesitter` bug where `:TSUpdate` fails on parsers whose upstream
-  repos renamed their default branch from `master` (the rename `mv` expects
-  `<parser>-master/` but archives extract to `<parser>-main/`,
-  `<parser>-split_parser/`, etc.). Without this, fresh installs would have
-  zero parsers and `render-markdown.nvim` would crash on every `.md` file
-  with `attempt to call method 'range' (a nil value)`. Idempotent, returns
-  0 on failure so set -e doesn't abort bootstrap. Add more parsers by
-  appending one `install_ts_parser` line.
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG
