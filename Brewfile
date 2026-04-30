@@ -28,6 +28,8 @@ brew "goenv"
 
 brew "stylua"
 
+brew "fileicon"
+
 cask "claude-code"
 
 cask "darktable"

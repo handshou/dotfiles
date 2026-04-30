@@ -136,6 +136,7 @@ config submodule add <clone address> <directory>
 |fzf            |https://formulae.brew.sh/formula/fzf |
 |chafa          |https://formulae.brew.sh/formula/chafa |
 |stylua         |https://formulae.brew.sh/formula/stylua |
+|fileicon       |https://formulae.brew.sh/formula/fileicon |
 |supabase       |https://formulae.brew.sh/formula/supabase |
 |goenv          |https://formulae.brew.sh/formula/goenv |
 |rustup         |https://formulae.brew.sh/formula/rustup |
@@ -227,6 +228,13 @@ Some apps will regress.
   fails silently and every `${THEME[*]}` collapses to the last scalar write
   (`#d29922`), turning the entire status bar one ugly orange. Homebrew bash 5+
   fixes it. Restart the tmux server (`tmux kill-server`) after install.
+- Added Step 5 to post-install #1: switch dotfiles remote from HTTPS to SSH
+  (`config remote set-url origin git@github.com:USER/dotfiles.git`) so
+  `config push` uses the SSH key instead of failing on missing HTTPS creds.
+- Added `fileicon` to Brewfile and an automated bootstrap step that applies
+  the custom Alacritty icon (`~/Alacritty.tiff`) to `/Applications/Alacritty.app`
+  after `brew bundle`. The `.tiff` source stays at the repo root where it has
+  always lived.
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG

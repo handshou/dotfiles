@@ -639,6 +639,15 @@ fi
 
 # configure_git already called after SSH setup above
 
+# Set custom Alacritty icon (macOS only; requires fileicon from Brewfile)
+ALACRITTY_ICON_SRC="$HOME/Alacritty.tiff"
+ALACRITTY_APP="/Applications/Alacritty.app"
+if [ "$MACOS" -gt 0 ] && [ -d "$ALACRITTY_APP" ] && [ -f "$ALACRITTY_ICON_SRC" ] && command -v fileicon &>/dev/null; then
+  log "Setting custom Alacritty icon"
+  fileicon set "$ALACRITTY_APP" "$ALACRITTY_ICON_SRC" 2>/dev/null || \
+    log "fileicon set failed (re-run manually if needed)"
+fi
+
 # Install neovim plugins (lazy.nvim)
 if command -v nvim &>/dev/null; then
   log "Installing neovim plugins via lazy.nvim"
@@ -674,6 +683,10 @@ echo ""
 echo "     Step 4: Test connection:"
 echo "       ssh -T git@github.com"
 echo "       # Success: 'Hi $STRAP_GITHUB_USER! You've successfully authenticated...'"
+echo ""
+echo "     Step 5: Switch dotfiles remote from HTTPS to SSH (so 'config push' works):"
+echo "       config remote set-url origin git@github.com:$STRAP_GITHUB_USER/dotfiles.git"
+echo "       config remote -v   # verify it now shows git@github.com"
 echo ""
 if [ -n "$STRAP_GIT_EMAIL_WORK" ]; then
 echo "     ───────────────────────"
