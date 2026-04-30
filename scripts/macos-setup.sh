@@ -352,6 +352,15 @@ defaults write com.apple.finder CreateDesktop false
 # Magnet hotkeys                                                              #
 ###############################################################################
 
+# Magnet's prefs domain only exists after first launch; open it (backgrounded)
+# and wait briefly so the defaults writes below have a domain to target.
+# First run still needs you to grant Accessibility in System Settings →
+# Privacy & Security → Accessibility for Magnet to actually function.
+if [ -d "/Applications/Magnet.app" ]; then
+  open -ga Magnet 2>/dev/null
+  sleep 2
+fi
+
 # Removes default hotkey. Replace with no hotkey.
 defaults write com.crowdcafe.windowmagnet expandWindowCenterThirdComboKey {}
 defaults write com.crowdcafe.windowmagnet expandWindowEastComboKey {}
@@ -379,4 +388,4 @@ defaults delete com.crowdcafe.windowmagnet maximizeWindowComboKey
 ###############################################################################
 
 # Import tokyonight-storm colortheme from plist
-defaults import com.googlecode.iterm2 iterm2.plist
+defaults import com.googlecode.iterm2 "$HOME/scripts/iterm2.plist"
