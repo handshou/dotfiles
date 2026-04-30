@@ -244,6 +244,17 @@ Some apps will regress.
   the prior entry (causing `sudo yabai --load-sa` to start prompting again).
 - Renamed `google-cloud-sdk` → `gcloud-cli` in Brewfile and CLI Apps table.
   Homebrew renamed the cask; `brew bundle` was emitting a deprecation warning.
+- Added `install_ts_parser` helper to bootstrap.sh that compiles tree-sitter
+  parsers (markdown, markdown_inline) from pinned source tarballs and drops
+  them in `~/.local/share/nvim/site/parser/`. Workaround for an upstream
+  `nvim-treesitter` bug where `:TSUpdate` fails on parsers whose upstream
+  repos renamed their default branch from `master` (the rename `mv` expects
+  `<parser>-master/` but archives extract to `<parser>-main/`,
+  `<parser>-split_parser/`, etc.). Without this, fresh installs would have
+  zero parsers and `render-markdown.nvim` would crash on every `.md` file
+  with `attempt to call method 'range' (a nil value)`. Idempotent, returns
+  0 on failure so set -e doesn't abort bootstrap. Add more parsers by
+  appending one `install_ts_parser` line.
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG

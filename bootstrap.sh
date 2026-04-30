@@ -664,6 +664,55 @@ if command -v nvim &>/dev/null; then
   nvim --headless "+Lazy! sync" +qa 2>/dev/null || log "Neovim plugin install skipped (will install on first launch)"
 fi
 
+# Tree-sitter parser install (workaround for upstream nvim-treesitter bug:
+# :TSUpdate fails on parsers whose upstream repo renamed their default branch
+# away from "master" — the rename mv expects <parser>-master/ but the archive
+# extracts to <parser>-main/ or <parser>-split_parser/, etc.). Compile the
+# parser .so files directly from pinned source tarballs and drop them in
+# nvim's parser dir. Idempotent; skips parsers already compiled. Returns 0
+# even on failure so set -e doesn't abort bootstrap.
+install_ts_parser() {
+  local name="$1" repo="$2" subdir="$3" rev="$4"
+  local parser_dir="$HOME/.local/share/nvim/site/parser"
+  local out="$parser_dir/$name.so"
+  [ -f "$out" ] && return 0
+  local tmp src
+  tmp=$(mktemp -d)
+  if ! curl -fsSL "https://github.com/$repo/archive/$rev.tar.gz" | tar xz -C "$tmp" 2>/dev/null; then
+    rm -rf "$tmp"
+    log "ts-parser $name: download failed"
+    return 0
+  fi
+  if [ -n "$subdir" ]; then
+    src=$(find "$tmp" -maxdepth 3 -type d -path "*/$subdir/src" 2>/dev/null | head -1)
+  else
+    src=$(find "$tmp" -maxdepth 2 -type d -name src 2>/dev/null | head -1)
+  fi
+  if [ -z "$src" ] || [ ! -f "$src/parser.c" ]; then
+    rm -rf "$tmp"
+    log "ts-parser $name: source not found in archive"
+    return 0
+  fi
+  mkdir -p "$parser_dir"
+  local args=("-O2" "-fPIC" "-shared" "-I" "$src" "-o" "$out" "$src/parser.c")
+  [ -f "$src/scanner.c" ] && args+=("$src/scanner.c")
+  if cc "${args[@]}" 2>/dev/null; then
+    log "ts-parser $name: installed"
+  else
+    log "ts-parser $name: compile failed"
+  fi
+  rm -rf "$tmp"
+  return 0
+}
+
+if command -v cc &>/dev/null; then
+  log "Installing tree-sitter parsers (bypass for broken :TSUpdate)"
+  install_ts_parser markdown tree-sitter-grammars/tree-sitter-markdown \
+    tree-sitter-markdown f969cd3ae3f9fbd4e43205431d0ae286014c05b5
+  install_ts_parser markdown_inline tree-sitter-grammars/tree-sitter-markdown \
+    tree-sitter-markdown-inline f969cd3ae3f9fbd4e43205431d0ae286014c05b5
+fi
+
 # Install nvm: https://github.com/nvm-sh/nvm
 log "Installing node version manager (nvm)"
 
