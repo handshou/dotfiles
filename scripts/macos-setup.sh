@@ -169,21 +169,48 @@ defaults write com.apple.dock expose-group-by-app -bool true
 # Keycodes for digits 1..9 are non-sequential:
 #   1=18, 2=19, 3=20, 4=21, 5=23, 6=22, 7=26, 8=28, 9=25
 #
-# cfprefsd caches prefs in memory; if we don't drop the cache BEFORE writing,
-# its stale state can be flushed back over our changes at shutdown, wiping
-# the file on next boot. Bracket the write with kills.
+# Notes on why this uses `plutil -insert` and not the more obvious approaches:
+#   - `defaults write -dict '{enabled=1;parameters=(...);}'` writes every bare
+#     numeric value as a STRING. WindowServer ignores symbolic-hotkey entries
+#     whose `enabled`/`parameters` aren't real bools/ints, so the bindings
+#     silently never activate even though the file looks right.
+#   - `defaults write -dict ...` also REPLACES the entire AppleSymbolicHotKeys
+#     dict, wiping unrelated hotkeys (Spotlight, Mission Control, …).
+#   - `PlistBuddy Add` mis-parses paths whose intermediate component is numeric
+#     (e.g. `:AppleSymbolicHotKeys:119:enabled` collapses to `:...:nabled`).
+#
+# cfprefsd caches prefs in memory; plutil bypasses cfprefsd, so we kill it
+# before and after to keep the cache from flushing stale state over our edits.
+PLIST="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
 killall cfprefsd 2>/dev/null || true
 
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict \
-  118 '{enabled=1;value={type=standard;parameters=(65535,18,262144);};}' \
-  119 '{enabled=1;value={type=standard;parameters=(65535,19,262144);};}' \
-  120 '{enabled=1;value={type=standard;parameters=(65535,20,262144);};}' \
-  121 '{enabled=1;value={type=standard;parameters=(65535,21,262144);};}' \
-  122 '{enabled=1;value={type=standard;parameters=(65535,23,262144);};}' \
-  123 '{enabled=1;value={type=standard;parameters=(65535,22,262144);};}' \
-  124 '{enabled=1;value={type=standard;parameters=(65535,26,262144);};}' \
-  125 '{enabled=1;value={type=standard;parameters=(65535,28,262144);};}' \
-  126 '{enabled=1;value={type=standard;parameters=(65535,25,262144);};}'
+# Ensure the container exists; plutil -insert needs a file with a root dict.
+[ -f "$PLIST" ] || plutil -create xml1 "$PLIST"
+plutil -insert AppleSymbolicHotKeys -dictionary "$PLIST" 2>/dev/null || true
+
+set_space_hotkey() {
+  id=$1
+  keycode=$2
+  plutil -remove "AppleSymbolicHotKeys.$id" "$PLIST" 2>/dev/null || true
+  plutil -insert "AppleSymbolicHotKeys.$id" -dictionary "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.enabled" -bool true "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value" -dictionary "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value.type" -string standard "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value.parameters" -array "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value.parameters.0" -integer 65535 "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value.parameters.1" -integer "$keycode" "$PLIST"
+  plutil -insert "AppleSymbolicHotKeys.$id.value.parameters.2" -integer 262144 "$PLIST"
+}
+
+set_space_hotkey 118 18
+set_space_hotkey 119 19
+set_space_hotkey 120 20
+set_space_hotkey 121 21
+set_space_hotkey 122 23
+set_space_hotkey 123 22
+set_space_hotkey 124 26
+set_space_hotkey 125 28
+set_space_hotkey 126 25
 
 # Force flush, then drop cache so next reader re-reads from disk.
 defaults read com.apple.symbolichotkeys >/dev/null
