@@ -86,4 +86,4 @@ mas "dropover", id: 1355679052
 # For work
 
 brew "pulumi"
-cask "google-cloud-sdk"
+cask "gcloud-cli"

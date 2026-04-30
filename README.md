@@ -177,7 +177,7 @@ config submodule add <clone address> <directory>
 |stats          |https://formulae.brew.sh/cask/stats |
 |love           |https://formulae.brew.sh/cask/love |
 |subler         |https://formulae.brew.sh/cask/subler |
-|google-cloud-sdk|https://formulae.brew.sh/cask/google-cloud-sdk |
+|gcloud-cli     |https://formulae.brew.sh/cask/gcloud-cli |
 
 ### Apps from the store
 
@@ -242,6 +242,8 @@ Some apps will regress.
 - Documented that the yabai sudoers SHA-keyed entry must be regenerated after
   every `brew upgrade yabai`, since the binary's SHA256 changes and invalidates
   the prior entry (causing `sudo yabai --load-sa` to start prompting again).
+- Renamed `google-cloud-sdk` → `gcloud-cli` in Brewfile and CLI Apps table.
+  Homebrew renamed the cask; `brew bundle` was emitting a deprecation warning.
 
 ### 2026-04-29
 - Removed discontinued apps: Effortless, Omnivore, Duolingo, Wireless@SG
