@@ -1,4 +1,4 @@
-alias config='/usr/bin/git --git-dir=/Users/h/.cfg/ --work-tree=/Users/h'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias vim='nvim'
 alias ls='ls -al --color'
 alias tree='tree -I node_modules'

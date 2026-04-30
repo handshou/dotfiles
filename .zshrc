@@ -17,10 +17,10 @@ function prune-local () {
 }
 
 # poetry in python3
-export PATH="/Users/h/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/h/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -29,9 +29,6 @@ esac
 
 # Darktable
 export PATH="/Applications/darktable.app/Contents/MacOS:$PATH"
-
-# Added by Windsurf
-export PATH="/Users/h/.codeium/windsurf/bin:$PATH"
 
 source <(fzf --zsh)
 
@@ -48,6 +45,3 @@ if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
     ssh-add ~/.ssh/id_ed25519_work
     ssh-add ~/.ssh/id_ed25519
 fi
-
-# Added by Windsurf
-export PATH="/Users/h/.codeium/windsurf/bin:$PATH"
