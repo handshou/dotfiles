@@ -1,7 +1,7 @@
 [user]
 	name = handshou
 	email = handshou@users.noreply.github.com
-	signingkey = /Users/h/.ssh/id_ed25519.pub
+	signingkey = ~/.ssh/id_ed25519.pub
 [github]
 	user = handshou
 [credential]
@@ -15,3 +15,5 @@
 [alias]
 	clone-for-worktrees = "!sh $HOME/scripts/git-clone-bare-for-worktrees.sh"
 	setup-work = "!sh $HOME/scripts/git-setup-work.sh"
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
