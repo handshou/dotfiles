@@ -575,6 +575,49 @@ NONINTERACTIVE=$STRAP_CI \
 
 run_brew_installs || abort "Homebrew installs were not successful."
 
+# Optional Brewfile installs (interactive prompts)
+install_optional_brewfile() {
+  local brewfile_name="$1" description="$2" default="${3:-n}"
+  local brewfile_path="$HOME/$brewfile_name"
+
+  # Check if Brewfile exists locally or in repo
+  if [ ! -f "$brewfile_path" ]; then
+    # Try to fetch from repo
+    local brewfile_url="https://raw.githubusercontent.com/$STRAP_GITHUB_USER/dotfiles/$STRAP_DOTFILES_BRANCH/$brewfile_name"
+    if curl --output /dev/null --silent --head --fail "$brewfile_url"; then
+      log "Fetching $brewfile_name from repo..."
+      curl -fsSL "$brewfile_url" -o "$brewfile_path"
+    else
+      return 0  # Brewfile doesn't exist, skip silently
+    fi
+  fi
+
+  if [ "$STRAP_INTERACTIVE" -gt 0 ] && [ -t 0 ]; then
+    local prompt_default
+    [ "$default" = "y" ] && prompt_default="Y/n" || prompt_default="y/N"
+    read -rp "--> Install $description? [$prompt_default]: " response
+    response="${response:-$default}"
+    case "$response" in
+      [Yy]*)
+        log "Installing $description from $brewfile_name"
+        brew bundle --file="$brewfile_path"
+        logk
+        ;;
+      *)
+        log "Skipping $description"
+        ;;
+    esac
+  fi
+}
+
+# Prompt for optional package installs
+if [ "$STRAP_INTERACTIVE" -gt 0 ]; then
+  echo ""
+  echo "--> Optional package bundles:"
+  install_optional_brewfile "Brewfile.work" "work packages (Slack, MS Office, Figma, GCloud)" "n"
+  install_optional_brewfile "Brewfile.optional" "optional packages (photography, media, games)" "n"
+fi
+
 # Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
 # shellcheck disable=SC2086
 if [ ! -f "$HOME/.bashrc" ]; then
