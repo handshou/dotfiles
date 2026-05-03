@@ -10,6 +10,7 @@ cask_args appdir: "/Applications", require_sha: true
 # Taps
 tap "jackielii/tap"
 tap "1password/tap"
+tap "asmvik/formulae"
 
 # -----------------------------------------------------------------------------
 # CLI: Development
