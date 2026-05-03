@@ -618,18 +618,8 @@ if [ "$STRAP_INTERACTIVE" -gt 0 ]; then
   install_optional_brewfile "Brewfile.optional" "optional packages (photography, media, games)" "n"
 fi
 
-# Set up dotfiles, uncomment with ## for old config, ignore uncommenting # comments
-# shellcheck disable=SC2086
-if [ ! -f "$HOME/.bashrc" ]; then
-  if [ -z "$STRAP_DOTFILES_URL" ]; then #|| [ -z "$STRAP_DOTFILES_BRANCH" ]; then
-    abort "Please set STRAP_DOTFILES_URL." # and STRAP_DOTFILES_BRANCH."
-  fi
-  log "Cloning $STRAP_DOTFILES_URL to ~/tmp."
-  git clone $Q "$STRAP_DOTFILES_URL" ~/tmp
-  cp -a ~/tmp/. ~/
-  rm -rf ~/tmp
-  rm -rf ~/.git
-fi
+# Dotfiles are set up via bare repo method below (lines 664+)
+# Old clone-and-copy method removed - it conflicted with bare repo checkout
 ## strap_dotfiles_branch_name="${STRAP_DOTFILES_BRANCH##*/}"
 ## log "Checking out $strap_dotfiles_branch_name in ~/.dotfiles."
 # shellcheck disable=SC2086
