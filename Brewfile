@@ -39,6 +39,7 @@ brew "ripgrep"
 brew "tree"
 brew "fzf"
 brew "chafa"
+brew "gh"
 
 # -----------------------------------------------------------------------------
 # CLI: Terminal multiplexer
@@ -54,8 +55,8 @@ brew "stylua"
 # -----------------------------------------------------------------------------
 # CLI: Window management
 # -----------------------------------------------------------------------------
-brew "yabai"
-brew "skhd"
+brew "asmvik/formulae/yabai"
+brew "jackielii/tap/skhd-zig"
 
 # -----------------------------------------------------------------------------
 # GUI: Terminals
@@ -74,6 +75,7 @@ cask "zen"
 # -----------------------------------------------------------------------------
 cask "alfred"
 cask "obsidian"
+cask "claude"
 cask "claude-code"
 cask "figma"
 
