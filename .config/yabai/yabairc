@@ -18,7 +18,9 @@ yabai -m config window_gap 8
 # -- mouse settings --
 
 # center mouse on window with focus
-yabai -m config mouse_follows_focus on
+# kept off: with AppleSpacesSwitchOnActivate=true, yanking the cursor to an
+# off-space window would trigger macOS to snap back to that space.
+yabai -m config mouse_follows_focus off
 
 # modifier for clicking and dragging with mouse
 yabai -m config mouse_modifier alt

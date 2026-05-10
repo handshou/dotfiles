@@ -225,9 +225,10 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
-# Don't switch to a Space with open windows when activating an app.
-# Required for yabai-pinned apps not to yank focus back across spaces.
-defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool false
+# Keep macOS default: activating an app switches to a Space that has its
+# windows. Required for Alt-Tab to follow yabai-pinned apps across spaces.
+# (Pair with `mouse_follows_focus off` in yabairc to avoid snap-back.)
+defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool true
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
