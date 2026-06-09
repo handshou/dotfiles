@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
-# Active-window label for tmux. Shows [PR#] when an open GitHub PR exists
-# for the current branch in the pane's directory; otherwise the folder
-# basename. The gh lookup is cached for 5 seconds and refreshed in the
-# background so the status bar never blocks.
+# Window label for tmux. Display priority:
+#   1. [PR#] when an open GitHub PR exists for the current branch
+#   2. the branch name if it is a git repo with a branch
+#   3. the folder basename as final fallback
+# The gh lookup is cached and refreshed in the background so the status
+# bar never blocks.
 
 DIR="$1"
 [[ -z "$DIR" ]] && exit 0
 
-FALLBACK=$(basename "$DIR")
+FOLDER=$(basename "$DIR")
 
-cd "$DIR" 2>/dev/null || { echo "$FALLBACK"; exit 0; }
-git rev-parse --git-dir >/dev/null 2>&1 || { echo "$FALLBACK"; exit 0; }
+cd "$DIR" 2>/dev/null || { echo "$FOLDER"; exit 0; }
+git rev-parse --git-dir >/dev/null 2>&1 || { echo "$FOLDER"; exit 0; }
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-[[ -z "$BRANCH" ]] && { echo "$FALLBACK"; exit 0; }
+[[ -z "$BRANCH" ]] && { echo "$FOLDER"; exit 0; }
 
 HASH=$(echo "$DIR" | shasum 2>/dev/null | awk '{print $1}')
 SAFE_BRANCH="${BRANCH//[^a-zA-Z0-9]/_}"
@@ -40,5 +42,5 @@ fi
 if [[ -n "$PR" ]]; then
   echo "[$PR]"
 else
-  echo "$FALLBACK"
+  echo "$BRANCH"
 fi
