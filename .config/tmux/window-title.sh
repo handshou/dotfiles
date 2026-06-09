@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Window label for tmux. Display priority:
 #   1. [PR#] when an open GitHub PR exists for the current branch
-#   2. the branch name if it is a git repo with a branch
-#   3. the folder basename as final fallback
+#   2. [m] when the current branch is main or master
+#   3. nothing (hide) when the pane is in a git repo but no PR is found
+#   4. the folder basename when the pane is not in a git repo
 # The gh lookup is cached and refreshed in the background so the status
 # bar never blocks.
 
@@ -16,6 +17,11 @@ git rev-parse --git-dir >/dev/null 2>&1 || { echo "$FOLDER"; exit 0; }
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 [[ -z "$BRANCH" ]] && { echo "$FOLDER"; exit 0; }
+
+if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
+  echo "[m]"
+  exit 0
+fi
 
 HASH=$(echo "$DIR" | shasum 2>/dev/null | awk '{print $1}')
 SAFE_BRANCH="${BRANCH//[^a-zA-Z0-9]/_}"
@@ -41,6 +47,4 @@ fi
 
 if [[ -n "$PR" ]]; then
   echo "[$PR]"
-else
-  echo "$BRANCH"
 fi
