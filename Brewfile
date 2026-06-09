@@ -93,6 +93,7 @@ cask "karabiner-elements"
 cask "font-hack-nerd-font"
 cask "hiddenbar"
 cask "stats"
+cask "docker-desktop"
 
 # -----------------------------------------------------------------------------
 # App Store: Productivity

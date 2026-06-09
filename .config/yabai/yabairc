@@ -52,7 +52,7 @@ yabai -m rule --add app="^TV$" manage=off
 # Space 1 gets 20% x-axis padding (dynamic), no vertical padding
 yabai -m rule --add app="^Alacritty$" space=1
 WIDTH=$(yabai -m query --displays --display | jq '.frame.w')
-PADDING=$(echo "$WIDTH * 0.20 / 1" | bc)
+PADDING=$(echo "$WIDTH * 0.130 / 1" | bc)
 yabai -m config --space 1 top_padding 0
 yabai -m config --space 1 bottom_padding 0
 yabai -m config --space 1 left_padding $PADDING
@@ -61,6 +61,7 @@ yabai -m rule --add app="^cmux$" space=1
 yabai -m rule --add app="^Safari$" space=2
 yabai -m rule --add app="^Google Chrome$" space=2
 yabai -m rule --add app="^Claude$" space=2
+yabai -m rule --add app="^Obsidian$" space=2
 yabai -m rule --add app="^Zen$" space=3
 yabai -m rule --add app="^Firefox$" space=3
 yabai -m rule --add app="^Instagram$" space=3
@@ -81,11 +82,14 @@ yabai -m rule --add app="^Final Cut Pro$" space=6
 yabai -m rule --add app="^WhatsApp$" space=6
 yabai -m rule --add app="^Streamlink Twitch GUI$" space=6
 yabai -m rule --add app="^Discord$" space=6
+yabai -m rule --add app="^Things$" space=6
 yabai -m rule --add app="^Slack$" space=6
 yabai -m rule --add app="^ClickUp$" space=7
+yabai -m rule --add app="^Linear$" space=7
 yabai -m rule --add app="^DBeaver$" space=7
-yabai -m rule --add app="^Docker Desktop$" space=7
+yabai -m rule --add app="^Docker Desktop$" space=8
 yabai -m rule --add app="^Cider$" space=8
+yabai -m rule --add app="^Music$" space=8
 yabai -m rule --add app="^Granola$" space=8
 yabai -m rule --add app="^Telegram$" space=8
 yabai -m rule --add app="^Microsoft Teams$" space=8

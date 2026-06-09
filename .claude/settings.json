@@ -1,17 +1,41 @@
 {
-	"alwaysThinkingEnabled": true,
-	"hooks": {
-		"Notification": [
-			{
-				"matcher": "",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "osascript -e 'display notification \"Claude needs permission to continue\" with title \"Claude Code\" sound name \"Glass\"'",
-						"statusMessage": "Sending macOS notification..."
-					}
-				]
-			}
-		]
-	}
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude needs permission to continue\" with title \"Claude Code\" sound name \"Glass\"'",
+            "statusMessage": "Sending macOS notification..."
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "obsidian@obsidian-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "obsidian-skills": {
+      "source": {
+        "source": "github",
+        "repo": "kepano/obsidian-skills"
+      }
+    },
+    "plannotator": {
+      "source": {
+        "source": "github",
+        "repo": "backnotprop/plannotator"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
 }
