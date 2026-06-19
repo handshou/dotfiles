@@ -13,8 +13,13 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
   "enabledPlugins": {
-    "obsidian@obsidian-skills": true
+    "obsidian@obsidian-skills": true,
+    "plannotator@plannotator": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -28,6 +33,12 @@
         "source": "github",
         "repo": "backnotprop/plannotator"
       }
+    },
+    "claude-annotator-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "nguyenvanduocit/claude-annotator-plugin"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
@@ -37,5 +48,6 @@
   },
   "theme": "auto",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "agentPushNotifEnabled": true
 }

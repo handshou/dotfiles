@@ -45,3 +45,21 @@ if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
     ssh-add ~/.ssh/id_ed25519_work
     ssh-add ~/.ssh/id_ed25519
 fi
+
+# Format ONLY the Python files you've changed (working tree + staged) on the
+# current branch — never the whole tree. Mirrors the lefthook pre-commit hook
+# (`ruff format {staged_files}`) so manual runs stop reformatting dormant files
+# owned by other teams. ruff discovers each file's nearest pyproject.toml, so
+# per-service config (quote-style etc.) still applies.
+function ruff-mine () {
+  local files
+  files=$( { git diff --name-only --diff-filter=d HEAD -- '*.py'; \
+             git diff --cached --name-only --diff-filter=d -- '*.py'; } \
+           | sort -u | grep . )
+  if [ -z "$files" ]; then
+    echo "ruff-mine: no changed .py files"
+    return 0
+  fi
+  echo "$files" | tr '\n' ' ' | xargs ruff format
+  echo "$files" | tr '\n' ' ' | xargs ruff check --fix
+}
