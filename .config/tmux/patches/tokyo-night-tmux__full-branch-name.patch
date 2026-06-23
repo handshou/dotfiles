@@ -1,0 +1,14 @@
+diff --git a/src/git-status.sh b/src/git-status.sh
+index 3673d60..354151a 100755
+--- a/src/git-status.sh
++++ b/src/git-status.sh
+@@ -16,9 +16,6 @@ STATUS=$(git status --porcelain 2>/dev/null | grep -cE "^(M| M)")
+ SYNC_MODE=0
+ NEED_PUSH=0
+ 
+-if [[ ${#BRANCH} -gt 25 ]]; then
+-  BRANCH="${BRANCH:0:25}…"
+-fi
+ 
+ STATUS_CHANGED=""
+ STATUS_INSERTIONS=""
