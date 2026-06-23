@@ -1,0 +1,45 @@
+diff --git a/src/git-status.sh b/src/git-status.sh
+index 3673d60..3b16f0b 100755
+--- a/src/git-status.sh
++++ b/src/git-status.sh
+@@ -16,9 +16,6 @@ STATUS=$(git status --porcelain 2>/dev/null | grep -cE "^(M| M)")
+ SYNC_MODE=0
+ NEED_PUSH=0
+ 
+-if [[ ${#BRANCH} -gt 25 ]]; then
+-  BRANCH="${BRANCH:0:25}…"
+-fi
+ 
+ STATUS_CHANGED=""
+ STATUS_INSERTIONS=""
+@@ -54,16 +51,25 @@ fi
+ 
+ # Determine repository sync status
+ if [[ $SYNC_MODE -eq 0 ]]; then
+-  NEED_PUSH=$(git log @{push}.. | wc -l | bc)
++  NEED_PUSH=$(git log @{push}.. 2>/dev/null | wc -l | bc)
+   if [[ $NEED_PUSH -gt 0 ]]; then
+     SYNC_MODE=2
+   else
+-    LAST_FETCH=$(stat -c %Y .git/FETCH_HEAD | bc)
+-    NOW=$(date +%s | bc)
++    # FETCH_HEAD lives in the common git dir; resolve it via git so this works
++    # in worktrees (where .git is a file). stat -f %m is BSD/macOS; fall back
++    # to GNU stat -c %Y, then 0 when it has never been fetched.
++    FETCH_HEAD=$(git rev-parse --git-path FETCH_HEAD 2>/dev/null)
++    if [[ -f "$FETCH_HEAD" ]]; then
++      LAST_FETCH=$(stat -f %m "$FETCH_HEAD" 2>/dev/null || stat -c %Y "$FETCH_HEAD" 2>/dev/null || echo 0)
++    else
++      LAST_FETCH=0
++    fi
++    NOW=$(date +%s)
+ 
+-    # if 5 minutes have passed since the last fetch
++    # if 5 minutes have passed since the last fetch, refresh in the background
++    # so the status line never blocks on the network
+     if [[ $((NOW - LAST_FETCH)) -gt 300 ]]; then
+-      git fetch --atomic origin --negotiation-tip=HEAD
++      git fetch --atomic origin --negotiation-tip=HEAD >/dev/null 2>&1 &
+     fi
+ 
+     # Check if the remote branch is ahead of the local branch
