@@ -77,6 +77,7 @@ yabai -m rule --add app="^Calendar$" space=5
 yabai -m rule --add app="^Windsurf$" space=5
 yabai -m rule --add app="^Cursor$" space=5
 yabai -m rule --add app="^RawTherapee$" space=5
+yabai -m rule --add app="^Microsoft Outlook$" space=5
 yabai -m rule --add app="^Figma$" space=6
 yabai -m rule --add app="^Final Cut Pro$" space=6
 yabai -m rule --add app="^WhatsApp$" space=6
