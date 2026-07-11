@@ -63,3 +63,6 @@ function ruff-mine () {
   echo "$files" | tr '\n' ' ' | xargs ruff format
   echo "$files" | tr '\n' ' ' | xargs ruff check --fix
 }
+
+# direnv: per-directory env vars (.envrc)
+eval "$(direnv hook zsh)"

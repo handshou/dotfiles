@@ -40,6 +40,7 @@ brew "ripgrep"
 brew "tree"
 brew "fzf"
 brew "chafa"
+brew "direnv"
 brew "gh"
 brew "omlx"
 
