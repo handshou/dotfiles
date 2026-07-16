@@ -39,7 +39,13 @@ else
   [[ -f "$CACHE" ]] && PR=$(cat "$CACHE")
   (
     if command -v gh &>/dev/null && cd "$DIR" 2>/dev/null; then
-      NEW_PR=$(gh pr view "$BRANCH" --json number --jq '.number' 2>/dev/null || true)
+      # Route through direnv so per-directory GH_TOKEN (account selection)
+      # applies to the lookup; falls back to plain gh when direnv is absent.
+      if command -v direnv &>/dev/null; then
+        NEW_PR=$(direnv exec "$DIR" gh pr view "$BRANCH" --json number --jq '.number' 2>/dev/null || true)
+      else
+        NEW_PR=$(gh pr view "$BRANCH" --json number --jq '.number' 2>/dev/null || true)
+      fi
       printf '%s' "$NEW_PR" > "$CACHE"
     fi
   ) >/dev/null 2>&1 &
