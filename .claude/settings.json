@@ -1,4 +1,5 @@
 {
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -81,7 +82,8 @@
   },
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
-    "plannotator@plannotator": true
+    "plannotator@plannotator": true,
+    "caveman@caveman": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -101,9 +103,16 @@
         "source": "github",
         "repo": "nguyenvanduocit/claude-annotator-plugin"
       }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
@@ -111,6 +120,5 @@
   "theme": "auto",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "tui": "fullscreen"
+  "voiceEnabled": true
 }
