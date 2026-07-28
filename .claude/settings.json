@@ -1,17 +1,6 @@
 {
   "model": "claude-fable-5[1m]",
   "hooks": {
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.config/tmux/plugins/tmux-claude-session-manager/scripts/state.sh working"
-          }
-        ]
-      }
-    ],
     "Notification": [
       {
         "matcher": "",
@@ -22,27 +11,9 @@
             "statusMessage": "Sending macOS notification..."
           }
         ]
-      },
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.config/tmux/plugins/tmux-claude-session-manager/scripts/state.sh waiting"
-          }
-        ]
       }
     ],
     "PreToolUse": [
-      {
-        "matcher": "AskUserQuestion",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.config/tmux/plugins/tmux-claude-session-manager/scripts/state.sh waiting"
-          }
-        ]
-      },
       {
         "matcher": "Bash",
         "hooks": [
@@ -60,17 +31,6 @@
           {
             "type": "command",
             "command": "$HOME/scripts/plannotator-mark.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.config/tmux/plugins/tmux-claude-session-manager/scripts/state.sh idle"
           }
         ]
       }
