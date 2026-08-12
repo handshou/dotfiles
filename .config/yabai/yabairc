@@ -62,6 +62,7 @@ yabai -m rule --add app="^Safari$" space=2
 yabai -m rule --add app="^Google Chrome$" space=2
 yabai -m rule --add app="^Claude$" space=2
 yabai -m rule --add app="^Obsidian$" space=2
+yabai -m rule --add app="^Notion$" space=2
 yabai -m rule --add app="^Zen$" space=3
 yabai -m rule --add app="^Firefox$" space=3
 yabai -m rule --add app="^Instagram$" space=3
@@ -85,7 +86,6 @@ yabai -m rule --add app="^Streamlink Twitch GUI$" space=6
 yabai -m rule --add app="^Discord$" space=6
 yabai -m rule --add app="^Things$" space=6
 yabai -m rule --add app="^Slack$" space=6
-yabai -m rule --add app="^ClickUp$" space=7
 yabai -m rule --add app="^Linear$" space=7
 yabai -m rule --add app="^DBeaver$" space=7
 yabai -m rule --add app="^Docker Desktop$" space=8
