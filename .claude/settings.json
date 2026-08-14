@@ -1,5 +1,8 @@
 {
   "model": "opus[1m]",
+  "permissions": {
+    "defaultMode": "acceptEdits"
+  },
   "hooks": {
     "Notification": [
       {
