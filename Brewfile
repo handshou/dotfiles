@@ -79,7 +79,6 @@ cask "zen"
 cask "alfred"
 cask "obsidian"
 cask "claude"
-cask "claude-code"
 cask "figma"
 
 # -----------------------------------------------------------------------------
