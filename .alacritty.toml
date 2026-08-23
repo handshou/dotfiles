@@ -1,8 +1,6 @@
-[general]
-import = ["~/.config/alacritty/themes/tokyonight_storm.toml"]
 
 [font]
-size = 14
+size = 12.5
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -12,7 +10,7 @@ decorations = "Buttonless"
 
 [window.padding]
 x = 0
-y = 8
+y = 0
 
 [keyboard]
 bindings = [
@@ -22,8 +20,8 @@ bindings = [
   # { key = "L", mods = "Alt", chars = "\u001B[C" },  # Alt + L -> Right Arrow
   { key = "J", mods = "Command", chars = "\u00AA" },
   { key = "K", mods = "Command", chars = "\u00AB" },
-  { key = "Right", mods = "Alt", chars = "\u001BF" },
-  { key = "Left",  mods = "Alt", chars = "\u001BB" },
+  { key = "Right", mods = "Alt", chars = "\u001Bf" },
+  { key = "Left",  mods = "Alt", chars = "\u001Bb" },
   { key = "B", mods = "Alt", chars = "\u001BB" },  # Alt + B (Move backward one word)
   { key = "F", mods = "Alt", chars = "\u001BF" },  # Alt + F (Move forward one word)
   { key = "D", mods = "Alt", chars = "\u001BD" },  # Alt + D (Delete the word after the cursor)
@@ -39,5 +37,8 @@ bindings = [
   { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
   { key = "Q", mods = "Alt", chars = "\u001Bq" },  # Alt + Q (Not a standard bash shortcut, customizable)
   { key = "Tab", mods = "Control", chars = "\u001b[27;5;9~" },
-  { key = "Return", mods = "Shift", chars = "\u001b\r" },
+  { key = "Return", mods = "Shift", chars = "\u001b[13;2u" },
 ]
+
+[general]
+import = ["/Users/h/.config/alacritty/themes/tokyonight_storm.toml"]
