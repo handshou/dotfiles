@@ -41,7 +41,9 @@ brew "tree"
 brew "fzf"
 brew "chafa"
 brew "direnv"
+brew "ffmpeg"
 brew "gh"
+brew "yt-dlp"
 brew "omlx"
 
 # -----------------------------------------------------------------------------

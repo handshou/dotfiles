@@ -29,6 +29,7 @@ Global Pi configuration and local extensions. TypeScript extensions are ESM-only
 | Task | Location |
 | --- | --- |
 | Change provider, model, theme, or package list | `agent/settings.json` |
+| Install or update extension system commands | `~/Brewfile`; run `brew bundle --file ~/Brewfile` |
 | Change keybindings | `agent/keybindings.json` |
 | Change secret masking | `agent/cloak.json` |
 | Create a single-file extension | `agent/extensions/<name>.ts` |
@@ -45,7 +46,19 @@ Global Pi configuration and local extensions. TypeScript extensions are ESM-only
 - Use ESM (`"type": "module"`) and strict TypeScript for packaged extensions.
 - A skill starts at `agent/skills/<name>/SKILL.md`; keep optional scripts, references, and assets beside it.
 - Installed npm and git packages are declared in `agent/settings.json`; let Pi manage `agent/npm/` and `agent/git/`.
+- System commands required by Pi extensions are declared in `~/Brewfile`; reconcile and upgrade them with `brew bundle --file ~/Brewfile`.
 - Run the nearest package's checks after changes: `npm run check` when present, otherwise its `typecheck` and `test` scripts.
+
+## Design changes
+
+For a nontrivial feature, refactor, or new abstraction, present a contract map before implementation. At each affected boundary (for example API, service, class, and function), show **current → proposed** for:
+
+- input types and validation
+- output types and guarantees
+- errors and failure behavior
+- externally observable side effects
+
+Make the proposal concrete enough to resemble pseudocode or signatures rather than a high-level product description. Prefer small, local abstractions that fit the existing design. Introduce broader architecture only when the contract map demonstrates the need, and get approval before implementing it.
 
 ## Guardrails
 

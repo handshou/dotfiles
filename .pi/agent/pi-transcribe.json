@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "backend": {
+    "type": "transcribe-cpp"
+  },
+  "shortcut": "ctrl+q",
+  "preferredLanguages": [
+    "en"
+  ],
+  "transcriptionLanguage": "en",
+  "chineseOutput": "simplified",
+  "microphone": {
+    "type": "system-default"
+  },
+  "model": {
+    "source": "catalog",
+    "id": "whisper-large-v3",
+    "path": "/Users/h/.cache/huggingface/hub/models--handy-computer--whisper-large-v3-gguf/snapshots/e3e29bee6389c7da4a141406f07bb80ddac5337c/whisper-large-v3-Q5_K_M.gguf"
+  }
+}

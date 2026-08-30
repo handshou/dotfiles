@@ -11,7 +11,9 @@
   "packages": [
     "npm:@plannotator/pi-extension",
     "npm:pi-extmgr",
-    "git:github.com/dmmulroy/pi-web-tools"
+    "git:github.com/dmmulroy/pi-web-tools",
+    "npm:pi-multimodal-proxy",
+    "ssh://git@github.com/earendil-works/pi-transcribe"
   ],
   "theme": "catppuccin-macchiato",
   "enableSkillCommands": true
