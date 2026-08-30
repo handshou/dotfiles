@@ -16,6 +16,54 @@ function prune-local () {
   rm /tmp/branch-to-delete;
 }
 
+# Keep project skills explicitly user-invoked only.
+function sklock () {
+  python3 - <<'PY'
+from pathlib import Path
+
+override = Path("AGENTS.override.md")
+override.touch(exist_ok=True)
+
+roots = [path for path in (Path("agents/skills"), Path(".agents/skills")) if path.exists()]
+files = sorted({path.resolve() for root in roots for path in root.glob("**/SKILL.md")})
+
+if not files:
+    raise SystemExit("sklock: no skills found under agents/skills or .agents/skills")
+
+changed = 0
+for path in files:
+    text = path.read_text()
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].strip() != "---":
+        print(f"sklock: skipped {path} (no YAML frontmatter)")
+        continue
+
+    end = next((i for i, line in enumerate(lines[1:], 1) if line.strip() == "---"), None)
+    if end is None:
+        print(f"sklock: skipped {path} (unclosed YAML frontmatter)")
+        continue
+
+    field_indexes = [i for i in range(1, end) if lines[i].startswith("disable-model-invocation:")]
+    desired = "disable-model-invocation: true\n"
+    if field_indexes:
+        first = field_indexes[0]
+        updated = lines[:first] + [desired] + [
+            line for i, line in enumerate(lines[first + 1:], first + 1)
+            if i not in field_indexes[1:]
+        ]
+    else:
+        name_index = next((i for i in range(1, end) if lines[i].startswith("name:")), 0)
+        updated = lines[:name_index + 1] + [desired] + lines[name_index + 1:]
+
+    new_text = "".join(updated)
+    if new_text != text:
+        path.write_text(new_text)
+        changed += 1
+
+print(f"sklock: {changed} changed, {len(files) - changed} already locked; AGENTS.override.md present")
+PY
+}
+
 # poetry in python3
 export PATH="$HOME/.local/bin:$PATH"
 
