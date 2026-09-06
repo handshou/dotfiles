@@ -1,0 +1,24 @@
+{
+  "mcp": {
+    "toolMode": "proxy",
+    "startup": "lazy",
+    "timeout": 30000,
+    "servers": {
+      "supabase": {
+        "type": "remote",
+        "url": "https://mcp.supabase.com/mcp?read_only=true",
+        "enabled": true
+      },
+      "linear": {
+        "type": "remote",
+        "url": "https://mcp.linear.app/mcp",
+        "enabled": true
+      },
+      "vercel": {
+        "type": "remote",
+        "url": "https://mcp.vercel.com",
+        "enabled": true
+      }
+    }
+  }
+}

@@ -13,7 +13,8 @@
     "npm:pi-extmgr",
     "git:github.com/dmmulroy/pi-web-tools",
     "npm:pi-multimodal-proxy",
-    "ssh://git@github.com/earendil-works/pi-transcribe"
+    "ssh://git@github.com/earendil-works/pi-transcribe",
+    "git:github.com/dmmulroy/pi-mcp"
   ],
   "theme": "catppuccin-macchiato",
   "enableSkillCommands": true
