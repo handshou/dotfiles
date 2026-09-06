@@ -1,0 +1,9 @@
+# Pi credentials and generated per-profile state must never enter dotfiles history.
+*/auth.json
+*/mcp-auth.json
+*/sessions/
+*/npm/
+*/git/
+*/bin/
+*/models-store.json
+*.bak

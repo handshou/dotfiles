@@ -1,0 +1,3 @@
+# Codex profile state can contain credentials, transcripts, and generated data.
+*
+!.gitignore

@@ -114,3 +114,26 @@ function ruff-mine () {
 
 # direnv: per-directory env vars (.envrc)
 eval "$(direnv hook zsh)"
+
+# Launch isolated personal and work AI-agent environments in named Herdr sessions.
+# Pi /login credentials remain available in each profile's auth.json; only ambient
+# API-key variables are removed to prevent accidental cross-profile fallback.
+function herdr-personal () {
+  # Future isolation: CLAUDE_CONFIG_DIR, GIT_CONFIG_GLOBAL, and GH_CONFIG_DIR.
+  env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
+    HERDR_SESSION=personal \
+    HERDR_CONFIG_PATH="$HOME/.config/herdr/personal.toml" \
+    PI_CODING_AGENT_DIR="$HOME/.pi/personal" \
+    CODEX_HOME="$HOME/.codex/personal" \
+    herdr
+}
+
+function herdr-work () {
+  # Future isolation: CLAUDE_CONFIG_DIR, GIT_CONFIG_GLOBAL, and GH_CONFIG_DIR.
+  env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
+    HERDR_SESSION=work \
+    HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
+    PI_CODING_AGENT_DIR="$HOME/.pi/work" \
+    CODEX_HOME="$HOME/.codex/work" \
+    herdr
+}
