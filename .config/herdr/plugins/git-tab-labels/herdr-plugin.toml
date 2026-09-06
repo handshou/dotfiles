@@ -1,0 +1,14 @@
+id = "handshou.git-tab-labels"
+name = "Git Tab Labels"
+version = "0.1.0"
+min_herdr_version = "0.8.2"
+description = "Rename focused Herdr tabs to their GitHub PR number or shortened branch name."
+platforms = ["macos", "linux"]
+
+[[events]]
+on = "pane.created"
+command = ["bash", "update-focused-tab-label.sh"]
+
+[[events]]
+on = "pane.focused"
+command = ["bash", "update-focused-tab-label.sh"]

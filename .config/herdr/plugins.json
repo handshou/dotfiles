@@ -1,0 +1,35 @@
+[
+  {
+    "plugin_id": "handshou.git-tab-labels",
+    "name": "Git Tab Labels",
+    "version": "0.1.0",
+    "min_herdr_version": "0.8.2",
+    "description": "Rename focused Herdr tabs to their GitHub PR number or shortened branch name.",
+    "manifest_path": "/Users/h/.config/herdr/plugins/git-tab-labels/herdr-plugin.toml",
+    "plugin_root": "/Users/h/.config/herdr/plugins/git-tab-labels",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "events": [
+      {
+        "on": "pane.created",
+        "command": [
+          "bash",
+          "update-focused-tab-label.sh"
+        ]
+      },
+      {
+        "on": "pane.focused",
+        "command": [
+          "bash",
+          "update-focused-tab-label.sh"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "local"
+    }
+  }
+]
