@@ -1,0 +1,8 @@
+font-family = "JetBrainsMono Nerd Font"
+
+# Preserve the command mappings used by Neovim quickfix navigation.
+keybind = super+j=text:\u{AA}
+keybind = super+k=text:\u{AB}
+
+# Match the previous Alacritty Option+Delete backward-word behavior.
+keybind = alt+backspace=text:\x1b\x7f
