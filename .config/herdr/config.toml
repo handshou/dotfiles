@@ -1,12 +1,17 @@
 [keys]
 prefix = "ctrl+a"
-# Cycle panes with Prefix+h/l instead of directional left/right focus.
-focus_pane_left = ""
-focus_pane_right = ""
-cycle_pane_previous = "prefix+h"
-cycle_pane_next = "prefix+l"
-# Return to the previously focused pane, even across tabs and workspaces.
-last_pane = "prefix+shift+l"
+# Navigate panes spatially with arrow keys.
+focus_pane_left = "prefix+left"
+focus_pane_right = "prefix+right"
+# Navigate tabs with both the Herdr defaults and h/l.
+previous_tab = ["prefix+p", "prefix+h"]
+next_tab = ["prefix+n", "prefix+l"]
+# Cycle workspaces with uppercase H/L. Move the default pane-swap
+# bindings away from those keys to avoid duplicate actions.
+swap_pane_left = "prefix+alt+shift+left"
+swap_pane_right = "prefix+alt+shift+right"
+previous_workspace = "prefix+shift+h"
+next_workspace = "prefix+shift+l"
 # Prefix+D is reserved for the TODO popup below.
 close_workspace = "prefix+alt+shift+d"
 
