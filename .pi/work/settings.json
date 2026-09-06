@@ -18,5 +18,8 @@
     "npm:@narumitw/pi-usage"
   ],
   "theme": "catppuccin-macchiato",
-  "enableSkillCommands": true
+  "enableSkillCommands": true,
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "treeFilterMode": "no-tools"
 }
