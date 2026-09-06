@@ -1,7 +1,18 @@
 [keys]
 prefix = "ctrl+a"
+# Cycle panes with Prefix+h/l instead of directional left/right focus.
+focus_pane_left = ""
+focus_pane_right = ""
+cycle_pane_previous = "prefix+h"
+cycle_pane_next = "prefix+l"
+# Return to the previously focused pane, even across tabs and workspaces.
+last_pane = "prefix+shift+l"
 # Prefix+D is reserved for the TODO popup below.
 close_workspace = "prefix+alt+shift+d"
+
+[theme]
+name = "catppuccin"
+auto_switch = false
 
 [[keys.command]]
 key = "prefix+shift+d"
