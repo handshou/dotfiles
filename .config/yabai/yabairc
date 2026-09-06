@@ -51,6 +51,7 @@ yabai -m rule --add app="^TV$" manage=off
 
 # Space 1 gets 20% x-axis padding (dynamic), no vertical padding
 yabai -m rule --add app="^Alacritty$" space=1
+yabai -m rule --add app="^Ghostty$" space=1
 WIDTH=$(yabai -m query --displays --display | jq '.frame.w')
 PADDING=$(echo "$WIDTH * 0.130 / 1" | bc)
 yabai -m config --space 1 top_padding 0
