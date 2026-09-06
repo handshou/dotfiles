@@ -1,2 +1,12 @@
 [keys]
 prefix = "ctrl+a"
+# Prefix+D is reserved for the TODO popup below.
+close_workspace = "prefix+alt+shift+d"
+
+[[keys.command]]
+key = "prefix+shift+d"
+type = "popup"
+command = "if [ -e TODO.md ]; then exec nvim TODO.md; else exec nvim \"$HOME/Developer/TODO.md\"; fi"
+description = "open TODO"
+width = "90%"
+height = "90%"
