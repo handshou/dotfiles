@@ -42,6 +42,7 @@ brew "fzf"
 brew "chafa"
 brew "direnv"
 brew "ffmpeg"
+brew "imagemagick"
 brew "gh"
 brew "yt-dlp"
 brew "omlx"
@@ -51,6 +52,7 @@ brew "omlx"
 # -----------------------------------------------------------------------------
 brew "tmux"
 brew "tpm"
+brew "herdr"
 
 # -----------------------------------------------------------------------------
 # CLI: Formatters & linters
