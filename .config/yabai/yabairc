@@ -91,6 +91,7 @@ yabai -m rule --add app="^Things$" space=6
 yabai -m rule --add app="^Slack$" space=6
 yabai -m rule --add app="^Linear$" space=7
 yabai -m rule --add app="^DBeaver$" space=7
+yabai -m rule --add app="^QGIS$" space=7
 yabai -m rule --add app="^Docker Desktop$" space=8
 yabai -m rule --add app="^Cider$" space=8
 yabai -m rule --add app="^Music$" space=8
