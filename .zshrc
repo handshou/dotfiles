@@ -125,7 +125,7 @@ function herdr-personal () {
     HERDR_CONFIG_PATH="$HOME/.config/herdr/personal.toml" \
     PI_CODING_AGENT_DIR="$HOME/.pi/personal" \
     CODEX_HOME="$HOME/.codex/personal" \
-    herdr
+    herdr "$@"
 }
 
 function herdr-work () {
@@ -135,5 +135,5 @@ function herdr-work () {
     HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
     PI_CODING_AGENT_DIR="$HOME/.pi/work" \
     CODEX_HOME="$HOME/.codex/work" \
-    herdr
+    herdr "$@"
 }
