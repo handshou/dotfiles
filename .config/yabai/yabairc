@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # load scripting additions
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
@@ -57,8 +59,8 @@ WIDTH=$(yabai -m query --displays --display | jq '.frame.w')
 PADDING=$(echo "$WIDTH * 0.130 / 1" | bc)
 yabai -m config --space 1 top_padding 0
 yabai -m config --space 1 bottom_padding 0
-yabai -m config --space 1 left_padding $PADDING
-yabai -m config --space 1 right_padding $PADDING
+yabai -m config --space 1 left_padding "$PADDING"
+yabai -m config --space 1 right_padding "$PADDING"
 yabai -m rule --add app="^cmux$" space=1
 yabai -m rule --add app="^Safari$" space=2
 yabai -m rule --add app="^Google Chrome$" space=2
@@ -102,3 +104,13 @@ yabai -m rule --add app="^Microsoft Teams$" space=8
 
 # apply rules to existing windows on restart
 yabai -m rule --apply
+
+# Restore the Space 2 layout once its windows exist and whenever it becomes visible.
+SPACE_2_LAYOUT_SCRIPT="$HOME/.config/yabai/layout-space-2.sh"
+yabai -m signal --remove space_2_layout_window_created 2>/dev/null || true
+yabai -m signal --remove space_2_layout_title_changed 2>/dev/null || true
+yabai -m signal --remove space_2_layout_space_changed 2>/dev/null || true
+yabai -m signal --add label=space_2_layout_window_created event=window_created action="$SPACE_2_LAYOUT_SCRIPT"
+yabai -m signal --add label=space_2_layout_title_changed event=window_title_changed app="^Ghostty$" action="$SPACE_2_LAYOUT_SCRIPT"
+yabai -m signal --add label=space_2_layout_space_changed event=space_changed action="$SPACE_2_LAYOUT_SCRIPT"
+"$SPACE_2_LAYOUT_SCRIPT" &
