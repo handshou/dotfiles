@@ -16,6 +16,12 @@
   },
   "reviewAnalysis": {
     "semanticDiff": true,
-    "callFlow": false
+    "callFlow": true
+  },
+  "conventionalComments": true,
+  "theme": {
+    "mode": "dark",
+    "light": "plannotator",
+    "dark": "plannotator"
   }
 }

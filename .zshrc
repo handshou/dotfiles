@@ -86,6 +86,10 @@ export PATH="$HOME/scripts/tmux-sessionizer:$PATH"
 # Alias for tmux-sessionizer
 alias tmux-sessionizer="tmux-sessionizer"
 
+# Keep the Mac awake with its lid closed while on AC power, then restore sleep.
+alias lid-awake='sudo pmset -c disablesleep 1 sleep 0'
+alias lid-sleep='sudo pmset -c disablesleep 0 sleep 10'
+
 # Add ssh keys for git
 if [ "$SSH_AUTH_SOCK" = "" -a -x /usr/bin/ssh-agent ]; then
     eval `/usr/bin/ssh-agent`

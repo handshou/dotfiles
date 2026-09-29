@@ -63,7 +63,6 @@ yabai -m config --space 1 left_padding "$PADDING"
 yabai -m config --space 1 right_padding "$PADDING"
 yabai -m rule --add app="^cmux$" space=1
 yabai -m rule --add app="^Safari$" space=2
-yabai -m rule --add app="^Google Chrome$" space=2
 yabai -m rule --add app="^Claude$" space=2
 yabai -m rule --add app="^(ChatGPT|OpenAI)$" space=2
 yabai -m rule --add app="^Obsidian$" space=2
@@ -101,6 +100,7 @@ yabai -m rule --add app="^Music$" space=8
 yabai -m rule --add app="^Granola$" space=8
 yabai -m rule --add app="^Telegram$" space=8
 yabai -m rule --add app="^Microsoft Teams$" space=8
+yabai -m rule --add app="^Google Chrome$" space=9
 
 # apply rules to existing windows on restart
 yabai -m rule --apply
