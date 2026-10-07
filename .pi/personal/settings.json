@@ -19,7 +19,8 @@
     "git:github.com/dmmulroy/pi-web-tools",
     "npm:pi-multimodal-proxy",
     "ssh://git@github.com/earendil-works/pi-transcribe",
-    "npm:@narumitw/pi-usage"
+    "npm:@narumitw/pi-usage",
+    "npm:@injaneity/pi-computer-use@0.5.1"
   ],
   "theme": "catppuccin-macchiato",
   "enableSkillCommands": true,
