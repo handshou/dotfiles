@@ -51,19 +51,14 @@ const PROTECTED_SERVER_POLICIES = new Map([
   ["vercel", { label: "Vercel", allowedTools: VERCEL_READ_ONLY_TOOLS }],
 ]);
 
-interface McpProxyInput {
-  readonly server?: unknown;
-  readonly tool?: unknown;
-}
-
 interface ProtectedMcpTool {
   readonly server: "supabase" | "vercel";
   readonly tool: string;
 }
 
 /** Returns a denial reason when an MCP call could write to protected Supabase or Vercel resources. */
-export function evaluateMcpReadOnlyPolicy(toolName: string, input: unknown): string | undefined {
-  const protectedTool = resolveProtectedMcpTool(toolName, input);
+export function evaluateMcpReadOnlyPolicy(toolName: string): string | undefined {
+  const protectedTool = parseProtectedMcpTool(toolName);
   if (!protectedTool) return undefined;
 
   const policy = PROTECTED_SERVER_POLICIES.get(protectedTool.server);
@@ -75,42 +70,19 @@ export function evaluateMcpReadOnlyPolicy(toolName: string, input: unknown): str
 /** Blocks MCP write calls while preserving discovery and explicitly allowlisted read operations. */
 export default function registerMcpReadOnlyPermissionGate(pi: ExtensionAPI): void {
   pi.on("tool_call", (toolCallEvent) => {
-    const denialReason = evaluateMcpReadOnlyPolicy(toolCallEvent.toolName, toolCallEvent.input);
+    const denialReason = evaluateMcpReadOnlyPolicy(toolCallEvent.toolName);
     if (!denialReason) return;
 
     return { block: true, reason: denialReason, terminate: true };
   });
 }
 
-function resolveProtectedMcpTool(toolName: string, input: unknown): ProtectedMcpTool | undefined {
-  if (toolName !== "mcp") return parsePrefixedProtectedTool(toolName);
-  if (!isMcpProxyInput(input) || typeof input.tool !== "string") return undefined;
-
-  if (input.server === "supabase" || input.server === "vercel") {
-    return {
-      server: input.server,
-      tool: removeServerPrefix(input.tool, input.server),
-    };
+function parseProtectedMcpTool(toolName: string): ProtectedMcpTool | undefined {
+  if (toolName.startsWith("mcp__supabase__")) {
+    return { server: "supabase", tool: toolName.slice("mcp__supabase__".length) };
   }
-
-  return parsePrefixedProtectedTool(input.tool);
-}
-
-function parsePrefixedProtectedTool(toolName: string): ProtectedMcpTool | undefined {
-  if (toolName.startsWith("supabase_")) {
-    return { server: "supabase", tool: toolName.slice("supabase_".length) };
-  }
-  if (toolName.startsWith("vercel_")) {
-    return { server: "vercel", tool: toolName.slice("vercel_".length) };
+  if (toolName.startsWith("mcp__vercel__")) {
+    return { server: "vercel", tool: toolName.slice("mcp__vercel__".length) };
   }
   return undefined;
-}
-
-function removeServerPrefix(toolName: string, server: "supabase" | "vercel"): string {
-  const prefix = `${server}_`;
-  return toolName.startsWith(prefix) ? toolName.slice(prefix.length) : toolName;
-}
-
-function isMcpProxyInput(input: unknown): input is McpProxyInput {
-  return typeof input === "object" && input !== null && !Array.isArray(input);
 }

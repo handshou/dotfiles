@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp?read_only=true",
+      "exposure": "deferred",
+      "timeout": 30
+    },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "exposure": "deferred",
+      "timeout": 30
+    },
+    "vercel": {
+      "url": "https://mcp.vercel.com",
+      "exposure": "deferred",
+      "timeout": 30
+    }
+  }
+}

@@ -7,3 +7,4 @@
 */bin/
 */models-store.json
 *.bak
+/agent/mcp.json

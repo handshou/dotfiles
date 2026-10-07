@@ -60,6 +60,10 @@ For a nontrivial feature, refactor, or new abstraction, present a contract map b
 
 Make the proposal concrete enough to resemble pseudocode or signatures rather than a high-level product description. Prefer small, local abstractions that fit the existing design. Introduce broader architecture only when the contract map demonstrates the need, and get approval before implementing it.
 
+## MCP changes
+
+For MCP configuration, authentication, tool discovery, or permission-gate changes, read `native-mcp.md`. Preserve the shared profile symlinks and keep the local `agent/mcp.json` outside source control.
+
 ## Guardrails
 
 - Treat `agent/auth.json`, session files, model stores, backups, and package-manager internals as private runtime state. Avoid reading or editing them unless the task explicitly targets that state.
