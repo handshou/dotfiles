@@ -141,3 +141,5 @@ function herdr-work () {
     CODEX_HOME="$HOME/.codex/work" \
     herdr "$@"
 }
+
+export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"

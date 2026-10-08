@@ -1,1 +1,26 @@
-../agent/mcp.json
+{
+  "mcpServers": {
+    "computer": {
+      "command": "/Users/h/.local/bin/cua-driver",
+      "args": ["mcp"],
+      "exposure": "deferred",
+      "timeout": 60,
+      "description": "Cua Driver desktop and browser automation. Use snapshot-action-verify with exact windows; ask before foreground takeover."
+    },
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp?read_only=true",
+      "exposure": "deferred",
+      "timeout": 30
+    },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "exposure": "deferred",
+      "timeout": 30
+    },
+    "vercel": {
+      "url": "https://mcp.vercel.com",
+      "exposure": "deferred",
+      "timeout": 30
+    }
+  }
+}
