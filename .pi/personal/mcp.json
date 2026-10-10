@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "computer": {
-      "command": "/Users/h/.local/bin/cua-driver",
+      "command": "/opt/homebrew/bin/cua-driver",
       "args": ["mcp"],
       "exposure": "deferred",
       "timeout": 60,
