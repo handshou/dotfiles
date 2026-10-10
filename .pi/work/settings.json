@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.87.1",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6.1-sol",
+  "lastChangelogVersion": "1.1.0",
+  "defaultProvider": "omlx",
+  "defaultModel": "Qwen3.5-9B-MLX-lm-nvfp4",
   "enabledModels": [
     "openai-codex/gpt-6.1-sol",
     "openai-codex/gpt-6-astra",
