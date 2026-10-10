@@ -44,6 +44,7 @@ brew "direnv"
 brew "ffmpeg"
 brew "imagemagick"
 brew "gh"
+brew "mas"
 brew "yt-dlp"
 brew "omlx"
 
@@ -63,7 +64,7 @@ brew "stylua"
 # CLI: Window management
 # -----------------------------------------------------------------------------
 brew "asmvik/formulae/yabai"
-brew "jackielii/tap/skhd-zig"
+cask "jackielii/tap/skhd-zig"
 
 # -----------------------------------------------------------------------------
 # GUI: Terminals
