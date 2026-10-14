@@ -1,0 +1,8 @@
+[user]
+	name = hanselse
+	email = 190053598+hanselse@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519_work.pub
+[github]
+	user = hanselse
+[core]
+	sshCommand = ssh -F ~/.config/git/ssh-work

@@ -76,6 +76,50 @@ config config --local status.showUntrackedFiles no
 config remote set-url origin git@github.com:handshou/dotfiles.git
 ```
 
+### Folder-based Git identity
+
+| Git directory | Author / GitHub account | Signing key | SSH authentication key |
+|:---|:---|:---|:---|
+| `~/g/` and `~/.cfg/` | `handshou` / `handshou@users.noreply.github.com` | `~/.ssh/id_ed25519.pub` | `~/.ssh/id_ed25519` |
+| `~/Developer/` | `hanselse` / `190053598+hanselse@users.noreply.github.com` | `~/.ssh/id_ed25519_work.pub` | `~/.ssh/id_ed25519_work` |
+
+The trailing-slash `includeIf gitdir` conditions cover regular repositories,
+canonical `<repo>/.bare` roots, and linked worktrees whose Git directories live
+under those roots. Selection follows the Git directory, not the shell's current
+directory or remote owner. Repositories outside these folders retain the existing
+personal defaults. Repository-local and command-line overrides remain authoritative;
+`git setup-work` remains available for explicit per-repository overrides.
+
+Author identity, SSH commit/tag signing, and remote SSH authentication are separate.
+The folder profiles choose the author and public signing key; Git's SSH profiles
+select the private authentication key without reading or storing its contents.
+For GitHub, `IdentitiesOnly yes` prevents the agent's other account keys from being
+offered. Both profiles support `github.com`, `work.github.com`, `github-public`, and
+`github-personal`; within mapped folders the folder determines the account, even
+when an old remote uses a different alias. Non-GitHub hosts retain the user's and
+system's SSH configuration. HTTPS remotes still use the existing credential helper,
+not these SSH profiles. An explicit `GIT_SSH_COMMAND` takes precedence.
+
+Deploy `.gitconfig` and all four `.config/git/{identity-personal,identity-work,ssh-personal,ssh-work}`
+files together through the HOME dotfiles checkout. Review `config status` first and
+preserve local changes; implementing this in a linked worktree does not install it
+in HOME. No doctor command is included.
+
+Inspect effective settings from a repository:
+
+```bash
+git config --show-origin --get-regexp '^(user\.|github\.|core.sshCommand|gpg\.|commit.gpgsign|tag.gpgsign)'
+ssh -T -F ~/.config/git/ssh-personal git@github.com
+ssh -T -F ~/.config/git/ssh-work git@github.com
+```
+
+GitHub's successful SSH greeting exits with status 1 because it provides no shell.
+Run the isolated configuration tests on macOS with Python, Git, and OpenSSH:
+
+```bash
+python3 -m unittest discover -s scripts/tests -v
+```
+
 ### Todo: manual app configurations (Cider from itch.io)
 
 ## Claude Code Setup
