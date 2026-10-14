@@ -116,9 +116,6 @@ function ruff-mine () {
   echo "$files" | tr '\n' ' ' | xargs ruff check --fix
 }
 
-# direnv: per-directory env vars (.envrc)
-eval "$(direnv hook zsh)"
-
 # Launch isolated personal and work AI-agent environments in named Herdr sessions.
 # Pi /login credentials remain available in each profile's auth.json; only ambient
 # API-key variables are removed to prevent accidental cross-profile fallback.
