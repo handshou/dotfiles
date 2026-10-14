@@ -17,3 +17,11 @@
 	setup-work = "!sh $HOME/scripts/git-setup-work.sh"
 [gpg "ssh"]
 	allowedSignersFile = /Users/h/.ssh/allowed_signers
+[includeIf "gitdir:~/g/"]
+	path = .config/git/identity-personal
+[includeIf "gitdir:~/.cfg"]
+	path = .config/git/identity-personal
+[includeIf "gitdir:~/.cfg/"]
+	path = .config/git/identity-personal
+[includeIf "gitdir:~/Developer/"]
+	path = .config/git/identity-work
