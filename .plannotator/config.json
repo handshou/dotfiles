@@ -1,7 +1,7 @@
 {
   "diffOptions": {
     "diffStyle": "split",
-    "defaultDiffType": "since-base",
+    "defaultDiffType": "uncommitted",
     "hideWhitespace": true,
     "diffIndicators": "bars",
     "overflow": "wrap",
