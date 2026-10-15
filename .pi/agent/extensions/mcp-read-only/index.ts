@@ -1,6 +1,7 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const SUPABASE_READ_ONLY_TOOLS = new Set([
+  "execute_sql",
   "list_tables",
   "list_extensions",
   "list_migrations",

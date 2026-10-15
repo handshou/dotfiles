@@ -158,3 +158,7 @@ function pi-manual () {
 }
 
 export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"
+
+read -rs 'SUPABASE_ACCESS_TOKEN?Paste your replacement Supabase PAT: '
+  printf '\n'
+  export SUPABASE_ACCESS_TOKEN
