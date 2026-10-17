@@ -139,4 +139,21 @@ function herdr-work () {
     herdr "$@"
 }
 
+function pi () {
+  case "$1" in
+    install|remove|uninstall|update|list|config|auth|mcp|--help|-h|--version|-v)
+      command pi "$@"
+      ;;
+    *)
+      command pi update --all >&2 ||
+        printf 'Pi update failed; starting installed version.\n' >&2
+      command pi "$@"
+      ;;
+  esac
+}
+
+function pi-manual () {
+  pi -nc "$@"
+}
+
 export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"
