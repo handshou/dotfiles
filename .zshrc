@@ -130,11 +130,12 @@ function herdr-personal () {
 }
 
 function herdr-work () {
-  # Future isolation: CLAUDE_CONFIG_DIR, GIT_CONFIG_GLOBAL, and GH_CONFIG_DIR.
   env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
     HERDR_SESSION=work \
     HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
     PI_CODING_AGENT_DIR="$HOME/.pi/work" \
+    PI_CLAUDE_CODE_COMMAND="$HOME/Library/pnpm/bin/claude" \
+    PI_CLAUDE_CODE_CONFIG_DIR="$HOME/.claude" \
     CODEX_HOME="$HOME/.codex/work" \
     herdr "$@"
 }
