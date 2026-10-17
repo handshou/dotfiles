@@ -16,7 +16,7 @@
   "longformChunking": true,
   "model": {
     "source": "catalog",
-    "id": "whisper-large-v3",
-    "path": "/Users/h/.cache/huggingface/hub/models--handy-computer--whisper-large-v3-gguf/snapshots/e3e29bee6389c7da4a141406f07bb80ddac5337c/whisper-large-v3-Q5_K_M.gguf"
+    "id": "parakeet-unified-en-0.6b",
+    "path": "/Users/h/.cache/huggingface/hub/models--handy-computer--parakeet-unified-en-0.6b-gguf/snapshots/7e948f21b7bdbac698d3318db9d350f1096f3b6c/parakeet-unified-en-0.6b-Q8_0.gguf"
   }
 }

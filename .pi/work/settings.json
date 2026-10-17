@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.1.0",
+  "lastChangelogVersion": "1.3.0",
   "defaultProvider": "omlx",
   "defaultModel": "Qwen3.5-9B-MLX-lm-nvfp4",
   "enabledModels": [
@@ -20,7 +20,8 @@
     "npm:pi-multimodal-proxy",
     "ssh://git@github.com/earendil-works/pi-transcribe",
     "npm:@narumitw/pi-usage",
-    "npm:@injaneity/pi-computer-use"
+    "npm:@injaneity/pi-computer-use",
+    "https://github.com/earendil-works/pi-claude-code"
   ],
   "theme": "catppuccin-macchiato",
   "enableSkillCommands": true,

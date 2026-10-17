@@ -2,7 +2,9 @@
   "mcpServers": {
     "computer": {
       "command": "/opt/homebrew/bin/cua-driver",
-      "args": ["mcp"],
+      "args": [
+        "mcp"
+      ],
       "exposure": "deferred",
       "timeout": 60,
       "description": "Cua Driver desktop and browser automation. Use snapshot-action-verify with exact windows; ask before foreground takeover."
@@ -15,7 +17,8 @@
     "linear": {
       "url": "https://mcp.linear.app/mcp",
       "exposure": "deferred",
-      "timeout": 30
+      "timeout": 30,
+      "enabled": false
     },
     "vercel": {
       "url": "https://mcp.vercel.com",
