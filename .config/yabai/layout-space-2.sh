@@ -4,7 +4,9 @@
 set -eu
 
 TARGET_SPACE_INDEX=2
-CHATGPT_HEIGHT_RATIO=0.43
+CHATGPT_WIDTH_RATIO=0.20
+# Ghostty gets 75% of the remaining 80%: 60% of the total width.
+GHOSTTY_REMAINING_WIDTH_RATIO=0.75
 LAYOUT_LOCK_DIRECTORY="${TMPDIR:-/tmp}/yabai-space-2-layout-$(id -u).lock"
 
 # Window resizing is unreliable on an inactive macOS Space. The space_changed
@@ -48,22 +50,38 @@ LAYOUT_IS_ALREADY_NESTED=$(printf '%s' "$WINDOWS" | jq -r \
   ([.[] | select(.id == $ghostty)][0]) as $ghostty_window |
   ([.[] | select(.id == $chatgpt)][0]) as $chatgpt_window |
   ([.[] | select(.id == $obsidian)][0]) as $obsidian_window |
+  $chatgpt_window["split-type"] == "vertical" and
+  $chatgpt_window["split-child"] == "first_child" and
   $ghostty_window["split-type"] == "vertical" and
   $ghostty_window["split-child"] == "first_child" and
-  $chatgpt_window["split-type"] == "horizontal" and
-  $chatgpt_window["split-child"] == "first_child" and
-  $obsidian_window["split-type"] == "horizontal" and
-  $obsidian_window["split-child"] == "second_child"
+  $obsidian_window["split-type"] == "vertical" and
+  $obsidian_window["split-child"] == "second_child" and
+  $chatgpt_window.frame.x < $ghostty_window.frame.x and
+  $ghostty_window.frame.x < $obsidian_window.frame.x and
+  $chatgpt_window.frame.y == $ghostty_window.frame.y and
+  $ghostty_window.frame.y == $obsidian_window.frame.y
 ')
 
-# Ghostty occupies the full-height left column. ChatGPT and Obsidian share the
-# right column, with Obsidian receiving the larger lower pane.
+# Three full-height columns: ChatGPT 20% | Ghostty 60% | Obsidian 20%.
+# Warping existing siblings can preserve the wrong BSP topology. Detach the
+# two right-hand windows first, then reinsert them into a known tree.
+# ChatGPT reports a slightly different frame height, so compare top edges
+# rather than requiring identical app-reported heights above.
 if [ "$LAYOUT_IS_ALREADY_NESTED" != "true" ]; then
-  yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --insert east
-  yabai -m window "$CHATGPT_WINDOW_ID" --warp "$PERSONAL_GHOSTTY_WINDOW_ID"
+  for WINDOW_ID in "$PERSONAL_GHOSTTY_WINDOW_ID" "$OBSIDIAN_WINDOW_ID"; do
+    IS_FLOATING=$(yabai -m query --windows --window "$WINDOW_ID" | jq -r '."is-floating"')
+    if [ "$IS_FLOATING" != "true" ]; then
+      yabai -m window "$WINDOW_ID" --toggle float
+    fi
+  done
+  # --insert toggles off when repeated; a different direction first ensures east.
   yabai -m window "$CHATGPT_WINDOW_ID" --insert south
-  yabai -m window "$OBSIDIAN_WINDOW_ID" --warp "$CHATGPT_WINDOW_ID"
+  yabai -m window "$CHATGPT_WINDOW_ID" --insert east
+  yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --toggle float
+  yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --insert south
+  yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --insert east
+  yabai -m window "$OBSIDIAN_WINDOW_ID" --toggle float
 fi
 
-yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --ratio abs:0.50
-yabai -m window "$CHATGPT_WINDOW_ID" --ratio "abs:$CHATGPT_HEIGHT_RATIO"
+yabai -m window "$CHATGPT_WINDOW_ID" --ratio "abs:$CHATGPT_WIDTH_RATIO"
+yabai -m window "$PERSONAL_GHOSTTY_WINDOW_ID" --ratio "abs:$GHOSTTY_REMAINING_WIDTH_RATIO"
