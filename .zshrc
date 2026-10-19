@@ -130,17 +130,19 @@ function herdr-personal () {
 }
 
 function herdr-work () (
-  # Keep the token in Herdr's process tree, not the launching shell.
   if [[ -z "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
     supabase-auth || return 1
   fi
+  if [[ -z "${SLACK_MCP_CLIENT_SECRET:-}" ]]; then
+    slack-auth || return 1
+  fi
 
   env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
+    -u PI_CLAUDE_CODE_CONFIG_DIR \
     HERDR_SESSION=work \
     HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
     PI_CODING_AGENT_DIR="$HOME/.pi/work" \
-    PI_CLAUDE_CODE_COMMAND="$HOME/Library/pnpm/bin/claude" \
-    PI_CLAUDE_CODE_CONFIG_DIR="$HOME/.claude" \
+    PI_CLAUDE_CODE_COMMAND=claude \
     CODEX_HOME="$HOME/.codex/work" \
     herdr "$@"
 )
@@ -173,4 +175,15 @@ function supabase-auth () {
     return 1
   fi
   export SUPABASE_ACCESS_TOKEN="$token"
+}
+
+function slack-auth () {
+  local secret
+  read -rs 'secret?Slack MCP client secret: ' || { printf '\n' >&2; return 1; }
+  printf '\n'
+  if [[ -z "$secret" ]]; then
+    printf 'slack-auth: client secret cannot be empty.\n' >&2
+    return 1
+  fi
+  export SLACK_MCP_CLIENT_SECRET="$secret"
 }
