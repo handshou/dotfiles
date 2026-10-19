@@ -129,7 +129,12 @@ function herdr-personal () {
     herdr "$@"
 }
 
-function herdr-work () {
+function herdr-work () (
+  # Keep the token in Herdr's process tree, not the launching shell.
+  if [[ -z "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
+    supabase-auth || return 1
+  fi
+
   env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
     HERDR_SESSION=work \
     HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
@@ -138,7 +143,7 @@ function herdr-work () {
     PI_CLAUDE_CODE_CONFIG_DIR="$HOME/.claude" \
     CODEX_HOME="$HOME/.codex/work" \
     herdr "$@"
-}
+)
 
 function pi () {
   case "$1" in
