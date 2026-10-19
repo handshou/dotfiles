@@ -159,6 +159,13 @@ function pi-manual () {
 
 export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"
 
-read -rs 'SUPABASE_ACCESS_TOKEN?Paste your replacement Supabase PAT: '
+function supabase-auth () {
+  local token
+  read -rs 'token?Supabase PAT: ' || { printf '\n' >&2; return 1; }
   printf '\n'
-  export SUPABASE_ACCESS_TOKEN
+  if [[ -z "$token" ]]; then
+    printf 'supabase-auth: token cannot be empty.\n' >&2
+    return 1
+  fi
+  export SUPABASE_ACCESS_TOKEN="$token"
+}
