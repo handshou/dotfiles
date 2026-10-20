@@ -66,6 +66,7 @@ PY
 
 # poetry in python3
 export PATH="$HOME/.local/bin:$PATH"
+export PI_CLAUDE_CODE_COMMAND=claude
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
