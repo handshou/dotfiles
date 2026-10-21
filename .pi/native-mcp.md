@@ -1,9 +1,9 @@
 # Native MCP
 
-Personal and work profiles share the private `agent/mcp.json` through symlinks. On a new machine, initialize it without overwriting existing config:
+Work uses the private `base/mcp.json` through a symlink; personal has its own `personal/mcp.json`. On a new machine, initialize it without overwriting existing config:
 
 ```sh
-cp -n ~/.pi/agent/mcp.example.json ~/.pi/agent/mcp.json
+cp -n ~/.pi/base/mcp.example.json ~/.pi/base/mcp.json
 ```
 
 - Restart Pi or `/reload` after changes. Use `tool_search` instead of the old `mcp` gateway; `/mcp` manages connections and sign-in.

@@ -2,7 +2,18 @@
 
 Global Pi configuration and local extensions. TypeScript extensions are ESM-only. This directory is a live user home, not an npm workspace or Git checkout.
 
-## Structure
+## Active profiles (updated October 2026)
+
+`~/.pi/agent` has been retired and deleted. The legacy `agent/` paths below describe resource types, not current locations:
+
+- `personal/` and `work/` are the active Pi agent directories. Each owns settings, credentials, model stores, installed packages, trust, and sessions.
+- `base/` owns extensions, themes, keybindings, cloak rules, work skills, the work MCP config/example, and the legacy transcription config. Profiles link to these resources; preserve those links.
+- Personal has its own `skills/` and `mcp.json`; its Herdr skill links into `base/skills/herdr`.
+- Resolve profile-owned `agent/<file>` references below to `<profile>/<file>`, and shared resources to `base/<file>`. Never recreate `agent/`.
+- `PI_CODING_AGENT_DIR` selects the active profile. Interactive zsh defaults to `~/.pi/personal` while preserving an explicitly selected work profile.
+- Historical sessions from the retired default directory were merged into `personal/sessions/`.
+
+## Legacy resource structure
 
 ```text
 .pi/

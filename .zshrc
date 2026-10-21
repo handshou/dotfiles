@@ -148,6 +148,9 @@ function herdr-work () (
     herdr "$@"
 )
 
+# Default to personal outside explicitly selected profile environments.
+export PI_CODING_AGENT_DIR="${PI_CODING_AGENT_DIR:-$HOME/.pi/personal}"
+
 function pi () {
   case "$1" in
     install|remove|uninstall|update|list|config|auth|mcp|--help|-h|--version|-v)

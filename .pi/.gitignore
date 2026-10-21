@@ -8,3 +8,4 @@
 */models-store.json
 *.bak
 /agent/mcp.json
+/base/mcp.json
