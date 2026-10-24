@@ -127,7 +127,12 @@ alias pi='command pi "${PI_MACHINE_FLAGS[@]}" --session-dir "$PI_CODING_AGENT_DI
 
 unset GH_TOKEN GITHUB_TOKEN
 case "${HERDR_SESSION:-}" in
-  personal|work) export GH_CONFIG_DIR="$HOME/.config/gh-$HERDR_SESSION" ;;
+  work)
+    export GH_CONFIG_DIR="$HOME/.config/gh-work"
+    export CLAUDE_CONFIG_DIR="$HOME/.claude-work"
+    export PI_CLAUDE_CODE_CONFIG_DIR="$CLAUDE_CONFIG_DIR"
+    ;;
+  personal) export GH_CONFIG_DIR="$HOME/.config/gh-personal" ;;
   *) export GH_CONFIG_DIR="${GH_CONFIG_DIR:-$HOME/.config/gh-personal}" ;;
 esac
 
