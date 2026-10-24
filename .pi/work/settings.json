@@ -4,8 +4,7 @@
   "defaultModel": "Qwen3.5-9B-MLX-lm-nvfp4",
   "enabledModels": [
     "openai-codex/gpt-6.1-sol",
-    "openai-codex/gpt-6-astra",
-    "openai-codex/gpt-6-luna"
+    "claude-code/default"
   ],
   "defaultThinkingLevel": "medium",
   "compaction": {
