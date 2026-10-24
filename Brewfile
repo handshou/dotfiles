@@ -11,7 +11,6 @@ cask_args appdir: "/Applications", require_sha: true
 tap "jackielii/tap"
 tap "1password/tap"
 tap "asmvik/formulae"
-tap "jundot/omlx", "https://github.com/jundot/omlx"
 
 # -----------------------------------------------------------------------------
 # CLI: Development
@@ -45,7 +44,6 @@ brew "imagemagick"
 brew "gh"
 brew "mas"
 brew "yt-dlp"
-brew "omlx"
 
 # -----------------------------------------------------------------------------
 # CLI: Terminal multiplexer
