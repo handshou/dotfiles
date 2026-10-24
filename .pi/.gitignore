@@ -9,3 +9,4 @@
 *.bak
 /agent/mcp.json
 /base/mcp.json
+/agent/multimodal-proxy/
