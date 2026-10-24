@@ -34,8 +34,7 @@
   },
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
-    "plannotator@plannotator": true,
-    "caveman@caveman": true
+    "plannotator@plannotator": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -54,12 +53,6 @@
       "source": {
         "source": "github",
         "repo": "nguyenvanduocit/claude-annotator-plugin"
-      }
-    },
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
       }
     }
   },
