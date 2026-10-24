@@ -23,6 +23,20 @@
   ],
   "theme": "catppuccin-macchiato",
   "enableSkillCommands": true,
+  "defaultProjectTrust": "never",
+  "extensions": [
+    "!**",
+    "../base/extensions/continue-after-compaction.ts", "+../base/extensions/continue-after-compaction.ts",
+    "../base/extensions/git-interceptor.ts", "+../base/extensions/git-interceptor.ts",
+    "../base/extensions/whimsical.ts", "+../base/extensions/whimsical.ts",
+    "../base/extensions/handoff/index.ts", "+../base/extensions/handoff/index.ts",
+    "../base/extensions/pi-cloak/index.ts", "+../base/extensions/pi-cloak/index.ts",
+    "../base/extensions/mcp-read-only/index.ts", "+../base/extensions/mcp-read-only/index.ts",
+    "../base/extensions/save-md/index.ts", "+../base/extensions/save-md/index.ts",
+    "../base/extensions/pi-worktrees/src/index.ts", "+../base/extensions/pi-worktrees/src/index.ts",
+    "../base/extensions/pi-skill-toggle/src/index.ts", "+../base/extensions/pi-skill-toggle/src/index.ts"
+  ],
+  "quietStartup": false,
   "steeringMode": "all",
   "followUpMode": "all",
   "treeFilterMode": "no-tools"

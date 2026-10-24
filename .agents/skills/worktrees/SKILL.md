@@ -1,5 +1,6 @@
 ---
 name: worktrees
+disable-model-invocation: true
 description: Manage Git worktrees in a canonical `.bare` repository root. Use when creating, reusing, listing, removing, or repairing worktrees, or when setting up a repository to keep all branch checkouts under one root.
 ---
 

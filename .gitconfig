@@ -14,6 +14,17 @@
 	gpgsign = true
 [alias]
 	clone-for-worktrees = "!sh $HOME/scripts/git-clone-bare-for-worktrees.sh"
-	setup-work = "!sh $HOME/scripts/git-setup-work.sh"
 [gpg "ssh"]
 	allowedSignersFile = /Users/h/.ssh/allowed_signers
+[core]
+	sshCommand = ssh -F ~/.config/git/ssh-personal
+[credential "https://github.com"]
+	username = handshou
+	helper =
+	helper = !env -u GH_TOKEN -u GITHUB_TOKEN GH_CONFIG_DIR=/Users/h/.config/gh-personal /opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	username = handshou
+	helper =
+	helper = !env -u GH_TOKEN -u GITHUB_TOKEN GH_CONFIG_DIR=/Users/h/.config/gh-personal /opt/homebrew/bin/gh auth git-credential
+[includeIf "gitdir:~/Code/work/"]
+	path = ~/.config/git/work

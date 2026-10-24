@@ -1,0 +1,16 @@
+[user]
+	name = hanselse
+	email = 190053598+hanselse@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519_work.pub
+[github]
+	user = hanselse
+[core]
+	sshCommand = ssh -F ~/.config/git/ssh-work
+[credential "https://github.com"]
+	username = hanselse
+	helper =
+	helper = !env -u GH_TOKEN -u GITHUB_TOKEN GH_CONFIG_DIR=/Users/h/.config/gh-work /opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	username = hanselse
+	helper =
+	helper = !env -u GH_TOKEN -u GITHUB_TOKEN GH_CONFIG_DIR=/Users/h/.config/gh-work /opt/homebrew/bin/gh auth git-credential

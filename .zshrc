@@ -117,56 +117,22 @@ function ruff-mine () {
   echo "$files" | tr '\n' ' ' | xargs ruff check --fix
 }
 
-# Launch isolated personal and work AI-agent environments in named Herdr sessions.
-# Pi /login credentials remain available in each profile's auth.json; only ambient
-# API-key variables are removed to prevent accidental cross-profile fallback.
-function herdr-personal () {
-  # Future isolation: CLAUDE_CONFIG_DIR, GIT_CONFIG_GLOBAL, and GH_CONFIG_DIR.
-  env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
-    HERDR_SESSION=personal \
-    HERDR_CONFIG_PATH="$HOME/.config/herdr/personal.toml" \
-    PI_CODING_AGENT_DIR="$HOME/.pi/personal" \
-    CODEX_HOME="$HOME/.codex/personal" \
-    herdr "$@"
-}
+unfunction pi pi-manual gh herdr-personal herdr-work 2>/dev/null || true
+unalias pi pi-personal pi-work pi-update gh gh-personal gh-work herdr-personal herdr-work 2>/dev/null || true
 
-function herdr-work () (
-  if [[ -z "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
-    supabase-auth || return 1
-  fi
-  if [[ -z "${SLACK_MCP_CLIENT_SECRET:-}" ]]; then
-    slack-auth || return 1
-  fi
-
-  env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY \
-    -u PI_CLAUDE_CODE_CONFIG_DIR \
-    HERDR_SESSION=work \
-    HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" \
-    PI_CODING_AGENT_DIR="$HOME/.pi/work" \
-    PI_CLAUDE_CODE_COMMAND=claude \
-    CODEX_HOME="$HOME/.codex/work" \
-    herdr "$@"
-)
-
-# Default to personal outside explicitly selected profile environments.
 export PI_CODING_AGENT_DIR="${PI_CODING_AGENT_DIR:-$HOME/.pi/personal}"
+typeset -ga PI_MACHINE_FLAGS=(-nc -na -ns --skill "$HOME/.agents/skills")
 
-function pi () {
-  case "$1" in
-    install|remove|uninstall|update|list|config|auth|mcp|--help|-h|--version|-v)
-      command pi "$@"
-      ;;
-    *)
-      command pi update --all >&2 ||
-        printf 'Pi update failed; starting installed version.\n' >&2
-      command pi "$@"
-      ;;
-  esac
-}
+alias pi='command pi "${PI_MACHINE_FLAGS[@]}" --skill "$PI_CODING_AGENT_DIR/skills" --session-dir "$PI_CODING_AGENT_DIR/sessions/--${${${PWD:A}#/}//[\\\/:]/-}--"'
 
-function pi-manual () {
-  pi -nc "$@"
-}
+unset GH_TOKEN GITHUB_TOKEN
+case "${HERDR_SESSION:-}" in
+  personal|work) export GH_CONFIG_DIR="$HOME/.config/gh-$HERDR_SESSION" ;;
+  *) export GH_CONFIG_DIR="${GH_CONFIG_DIR:-$HOME/.config/gh-personal}" ;;
+esac
+
+alias herdr-personal='env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u CLAUDE_CONFIG_DIR -u PI_CLAUDE_CODE_CONFIG_DIR -u SUPABASE_ACCESS_TOKEN -u SLACK_MCP_CLIENT_SECRET AGENT_PROFILE=personal GH_CONFIG_DIR="$HOME/.config/gh-personal" HERDR_SESSION=personal HERDR_CONFIG_PATH="$HOME/.config/herdr/personal.toml" PI_CODING_AGENT_DIR="$HOME/.pi/personal" CODEX_HOME="$HOME/.codex/personal" herdr --session personal'
+alias herdr-work='env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u SUPABASE_ACCESS_TOKEN -u SLACK_MCP_CLIENT_SECRET AGENT_PROFILE=work GH_CONFIG_DIR="$HOME/.config/gh-work" HERDR_SESSION=work HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" PI_CODING_AGENT_DIR="$HOME/.pi/work" CODEX_HOME="$HOME/.codex/work" CLAUDE_CONFIG_DIR="$HOME/.claude-work" PI_CLAUDE_CODE_CONFIG_DIR="$HOME/.claude-work" herdr --session work'
 
 export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"
 

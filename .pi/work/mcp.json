@@ -1,1 +1,28 @@
-../base/mcp.json
+{
+  "mcpServers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "exposure": "deferred",
+      "description": "Find, create, and update Linear issues, projects, and comments"
+    },
+    "computer": {
+      "command": "/opt/homebrew/bin/cua-driver",
+      "args": ["mcp"],
+      "exposure": "deferred",
+      "timeout": 60,
+      "description": "Cua Driver desktop and browser automation. Shared OS desktop; ask before foreground takeover."
+    },
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp?read_only=true",
+      "exposure": "deferred",
+      "timeout": 30,
+      "description": "Read-only Supabase access using this work profile's separately authorized account."
+    },
+    "vercel": {
+      "url": "https://mcp.vercel.com",
+      "exposure": "deferred",
+      "timeout": 30,
+      "description": "Vercel access using this work profile's separately authorized account."
+    }
+  }
+}
