@@ -140,6 +140,7 @@ alias herdr-personal='env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHR
 alias herdr-work='env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u SUPABASE_ACCESS_TOKEN -u SLACK_MCP_CLIENT_SECRET AGENT_PROFILE=work GH_CONFIG_DIR="$HOME/.config/gh-work" HERDR_SESSION=work HERDR_CONFIG_PATH="$HOME/.config/herdr/work.toml" PI_CODING_AGENT_DIR="$HOME/.pi/work" CODEX_HOME="$HOME/.codex/work" CLAUDE_CONFIG_DIR="$HOME/.claude-work" PI_CLAUDE_CODE_CONFIG_DIR="$HOME/.claude-work" herdr --session work'
 
 export PI_WEB_TOOLS_EXA_ENDPOINT="https://mcp.exa.ai/mcp"
+export PI_CACHE_RETENTION="long"
 
 function supabase-auth () {
   local token
