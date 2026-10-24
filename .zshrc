@@ -125,6 +125,16 @@ typeset -ga PI_MACHINE_FLAGS=(--no-approve --no-context-files --append-system-pr
 
 alias pi='command pi "${PI_MACHINE_FLAGS[@]}" --session-dir "$PI_CODING_AGENT_DIR/sessions/--${${${PWD:A}#/}//[\\\/:]/-}--"'
 
+case "${HERDR_SESSION:-}" in
+  work)
+    export CLAUDE_CONFIG_DIR="$HOME/.claude-work"
+    export PI_CLAUDE_CODE_CONFIG_DIR="$CLAUDE_CONFIG_DIR"
+    ;;
+  personal)
+    unset CLAUDE_CONFIG_DIR PI_CLAUDE_CODE_CONFIG_DIR
+    ;;
+esac
+
 unset GH_TOKEN GITHUB_TOKEN
 case "${HERDR_SESSION:-}" in
   personal|work) export GH_CONFIG_DIR="$HOME/.config/gh-$HERDR_SESSION" ;;
