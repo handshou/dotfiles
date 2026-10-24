@@ -121,9 +121,9 @@ unfunction pi pi-manual gh herdr-personal herdr-work 2>/dev/null || true
 unalias pi pi-personal pi-work pi-update gh gh-personal gh-work herdr-personal herdr-work 2>/dev/null || true
 
 export PI_CODING_AGENT_DIR="${PI_CODING_AGENT_DIR:-$HOME/.pi/personal}"
-typeset -ga PI_MACHINE_FLAGS=(-nc -na -ns --skill "$HOME/.agents/skills")
+typeset -ga PI_MACHINE_FLAGS=(--no-approve --no-context-files --append-system-prompt "$HOME/AGENTS.md")
 
-alias pi='command pi "${PI_MACHINE_FLAGS[@]}" --skill "$PI_CODING_AGENT_DIR/skills" --session-dir "$PI_CODING_AGENT_DIR/sessions/--${${${PWD:A}#/}//[\\\/:]/-}--"'
+alias pi='command pi "${PI_MACHINE_FLAGS[@]}" --session-dir "$PI_CODING_AGENT_DIR/sessions/--${${${PWD:A}#/}//[\\\/:]/-}--"'
 
 unset GH_TOKEN GITHUB_TOKEN
 case "${HERDR_SESSION:-}" in
