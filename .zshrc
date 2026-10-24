@@ -163,3 +163,9 @@ function slack-auth () {
   fi
   export SLACK_MCP_CLIENT_SECRET="$secret"
 }
+# oMLX: CLI shim path begin
+case ":$PATH:" in
+  *":$HOME/.omlx/bin:"*) ;;
+  *) export PATH="$HOME/.omlx/bin:$PATH" ;;
+esac
+# oMLX: CLI shim path end
