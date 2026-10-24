@@ -58,6 +58,9 @@ config status
 # Pull latest changes
 config pull
 
+# Machines bootstrapped before origin tracking: enable origin/main once
+config config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && config fetch
+
 # Add and commit changes
 config add <file>
 config commit -m "message"

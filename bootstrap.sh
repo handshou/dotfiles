@@ -679,6 +679,13 @@ if [ ! -d "$HOME/.cfg" ]; then
   config submodule update --init --recursive
 fi
 
+DOTFILES_ORIGIN_FETCH_REFSPEC='+refs/heads/*:refs/remotes/origin/*'
+if [ -d "$HOME/.cfg" ] && ! /usr/bin/git --git-dir="$HOME/.cfg/" config --get-all remote.origin.fetch | grep -qxF "$DOTFILES_ORIGIN_FETCH_REFSPEC"; then
+  log "Tracking origin branches in ~/.cfg"
+  /usr/bin/git --git-dir="$HOME/.cfg/" config remote.origin.fetch "$DOTFILES_ORIGIN_FETCH_REFSPEC"
+  /usr/bin/git --git-dir="$HOME/.cfg/" fetch $Q origin || log "Dotfiles fetch failed (run 'config fetch' later)"
+fi
+
 # configure_git already called after SSH setup above
 
 # Set custom Alacritty icon (macOS only; requires fileicon from Brewfile)
