@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "1.4.0",
   "defaultProvider": "omlx",
-  "defaultModel": "Qwen3.5-9B-MLX-lm-nvfp4",
+  "defaultModel": "Qwen3.8-27B-8bit",
   "enabledModels": [
     "openai-codex/gpt-6.1-sol",
     "claude-code/default"

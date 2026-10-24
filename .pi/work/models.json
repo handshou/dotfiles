@@ -1,0 +1,48 @@
+{
+  "providers": {
+       "local-qwen": {
+         "baseUrl": "http://127.0.0.1:8080/v1",
+         "api": "openai-completions",
+         "apiKey": "local",
+         "models": [
+           {
+             "id": "qwen-flash-next",
+             "name": "Local Qwen Flash Next",
+             "input": ["text"],
+             "contextWindow": 32768,
+             "maxTokens": 4096,
+             "samplingParams": {
+               "chat_template_kwargs": {
+                 "enable_thinking": false
+               }
+             }
+           }
+         ]
+       },
+    "omlx": {
+      "baseUrl": "http://127.0.0.1:8000/v1",
+      "api": "openai-completions",
+      "apiKey": "!jq -r .auth.api_key \"$HOME/.omlx/settings.json\"",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "Qwen3.8-27B-8bit",
+          "name": "Qwen3.8-27B-8bit",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 65536,
+          "maxTokens": 32768
+        }
+      ]
+    }
+  }
+}
