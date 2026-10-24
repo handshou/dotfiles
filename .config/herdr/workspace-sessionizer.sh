@@ -2,7 +2,7 @@
 set -euo pipefail
 
 select_workspace_directory() {
-  find "$HOME/g" "$HOME/.config" "$HOME/Developer" \
+  find "$HOME/g" "$HOME/.config" "$HOME/Developer" "$HOME/Code/work" "$HOME/Code/personal" \
     -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
     | sort -u \
     | fzf --prompt='Herdr workspace> '
