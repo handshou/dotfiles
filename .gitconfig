@@ -28,3 +28,8 @@
 	helper = !env -u GH_TOKEN -u GITHUB_TOKEN GH_CONFIG_DIR=/Users/h/.config/gh-personal /opt/homebrew/bin/gh auth git-credential
 [includeIf "gitdir:~/Code/work/"]
 	path = ~/.config/git/work
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
